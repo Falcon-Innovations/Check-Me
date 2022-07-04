@@ -13,6 +13,26 @@
       src="https://res.cloudinary.com/dav5lnlxj/image/upload/v1655338246/check-me_xgsm7b.png"
     />
   </a>
+  
+  <div>
+  <h3>
+  Problem statement and summary
+  </h3>
+  <p>
+  Women need attention along the breast care pathway depending on their personal risk profile. Every female seven to ten days after menstruation is supposed to conduct a breast
+self-examination to look for abnormal nodules, redness, fluid coming from the nipples, and orange skin appearance on the breast to ensure she is not at risk or has developed breast cancer.
+Breast cancer can be treated if noticed at an early stage. Most often, these symptoms are
+neglected by the victims and are left to escalate leading to more damage. Breast Cancer is
+the most diagnosed cancer in women, and has led to the death of many women. According to the latest WHO data published in 2018 Breast Cancer Deaths in Cameroon reached 1,400 or 0.67% of total deaths. The age-adjusted Death Rate is 20.15 per 100,000 population which ranks Cameroon number 45 in the world.
+  </p>
+  
+  <h3>Innovative Solution</h3>
+  <p>What the women need is software that can continuously sensitize them to the symptoms,
+causes, and treatment of breast cancer and alert them to go to a hospital when need be. This initiative I want to build would not only serve as a canary for everything that concerns breast cancer but will also act as a nudge for every woman and young girl to do a breast
+self-examination frequently. The Breast cancer app will be designed to allow individuals to
+self-monitor for early signs of breast cancer. The application will help identify if further medical screening is required by providing monthly inputs on breast irregularities. My goal is to make this app very accessible to all its users regardless of their age, the language of communication, and geographical location. I intend to create a network with doctors in my community that screen and treat breast cancer. This way, users will find it easy to get to them if need be.
+</p>
+  </div>
 </div>
 
 <hr />
