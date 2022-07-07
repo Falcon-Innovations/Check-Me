@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Onboard, Dashboard } from "../screens";
+import { Onboard, Dashboard, Register } from "../screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +19,8 @@ const ScreenNavigator = () => {
             {(props) => <Onboard {...props} handleDone={handleOnboardFinish} />}
           </Stack.Screen>
         )}
-        <Stack.Screen name="Dashboard" component={Dashboard} />
+        {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
+        <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
     </>
   );
