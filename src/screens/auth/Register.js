@@ -85,67 +85,58 @@ const Register = () => {
       colors={["#FB7EA4", "#FEA2BF", "#FF77B9"]}
       style={styles.container}
     >
+      <View style={styles.imageContainer}>
+        <Image source={images.woman} style={{ width: 300, height: 300 }} />
+      </View>
       <KeyboardAwareScrollView
-        extraHeight={120}
+        extraHeight={Platform.OS === "ios" ? 500 : 120}
         showsVerticalScrollIndicator={false}
-        enableOnAndroid={false}
+        enableOnAndroid={true}
+        contentContainerStyle={[
+          styles.form,
+          {
+            marginTop:
+              Platform.OS === "ios"
+                ? SIZES.screenHeight * 0.3
+                : SIZES.screenHeight * 0.29,
+            paddingBottom: Platform.OS === "ios" ? 30 : 10,
+          },
+        ]}
       >
+        <Text style={styles.text}>Sign Up</Text>
+
+        <Input
+          maxLength={35}
+          placeholder="Enter your username"
+          error={errors.fullname}
+          onFocus={() => handleErrors(null, "fullname")}
+          onChangeText={(text) => handleOnChange(text, "fullname")}
+        />
+        <Input
+          keyboardType="email-address"
+          maxLength={35}
+          placeholder="Enter your email"
+          error={errors.email}
+          onFocus={() => handleErrors(null, "email")}
+          onChangeText={(text) => handleOnChange(text, "email")}
+        />
+
+        <Input password placeholder="Password" />
+
+        <Text
+          style={{
+            marginTop: 5,
+            marginBottom: 20,
+            fontFamily: "Lato_Regular",
+            color: "#fff",
+          }}
+        >
+          By clicking Agree and Continue below, I agree to Terms of service and
+          privacy policy
+        </Text>
+
         <View>
-          <View style={styles.imageContainer}>
-            <Image source={images.woman} style={{ width: 300, height: 300 }} />
-          </View>
-          <View style={styles.title}>
-            <Text style={styles.text}>Sign Up</Text>
-          </View>
-          <View style={{ marginHorizontal: 10 }}>
-            <View
-              style={[
-                styles.formContainer,
-                {
-                  height:
-                    Platform.OS === "ios"
-                      ? SIZES.screenHeight * 0.48
-                      : SIZES.screenHeight * 0.6,
-                },
-              ]}
-            ></View>
-          </View>
-          <View style={styles.form}>
-            <Input
-              maxLength={35}
-              placeholder="Enter your username"
-              error={errors.fullname}
-              onFocus={() => handleErrors(null, "fullname")}
-              onChangeText={(text) => handleOnChange(text, "fullname")}
-            />
-
-            <Input
-              keyboardType="email-address"
-              maxLength={35}
-              placeholder="Enter your email"
-              error={errors.email}
-              onFocus={() => handleErrors(null, "email")}
-              onChangeText={(text) => handleOnChange(text, "email")}
-            />
-
-            <Input password placeholder="Password" />
-
-            <Text
-              style={{
-                marginTop: 5,
-                marginBottom: 20,
-                fontFamily: "Lato_Regular",
-                color: "#fff",
-              }}
-            >
-              By clicking Agree and Continue below, I agree to Terms of service
-              and privacy policy
-            </Text>
-
-            <View>
-              <AppButton color={COLORS.primary} text="Agree and Register" />
-            </View>
-          </View>
+          <AppButton color={COLORS.primary} text="Agree and Register" />
         </View>
       </KeyboardAwareScrollView>
     </LinearGradient>
@@ -158,35 +149,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
-  formContainer: {
-    width: "100%",
-    position: "absolute",
-    top: SIZES.screenHeight * 0.3,
-    borderRadius: SIZES.borderRadius,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-    backgroundColor: "#FECECE",
-    opacity: 0.3,
-  },
   form: {
     width: "100%",
-    position: "absolute",
-    top: SIZES.screenHeight * 0.29,
+
     borderRadius: SIZES.borderRadius,
-    padding: 30,
+    padding: 20,
   },
-  title: {
-    position: "absolute",
-    top: SIZES.screenHeight * 0.26,
-    marginHorizontal: 15,
+  text: {
+    marginBottom: 15,
+    fontFamily: "Lato_Black",
   },
   imageContainer: {
     position: "absolute",
     top: SIZES.screenHeight * 0.08,
     right: 0,
   },
-  text: {
-    fontFamily: "Lato_Black",
-  },
+  // text: {
+  //   fontFamily: "Lato_Black",
+  // },
 });
