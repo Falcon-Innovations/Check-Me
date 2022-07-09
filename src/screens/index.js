@@ -3,5 +3,6 @@ import Dashboard from "./dashboard/Dashboard";
 
 //auth
 import Register from "./auth/Register";
+import Login from "./auth/Login";
 
-export { Onboard, Dashboard, Register };
+export { Onboard, Dashboard, Register, Login };

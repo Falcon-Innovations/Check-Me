@@ -17,73 +17,42 @@ import { COLORS, images, SIZES } from "../../utility";
 
 import { Input, AppButton } from "../../components";
 
-const Register = () => {
+const Login = () => {
   const navigation = useNavigation();
 
-  const [inputs, setInputs] = useState({
-    email: "",
-    fullname: "",
-    password: "",
-  });
+  const [inputs, setInputs] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const validate = () => {
+  const validate = async () => {
     Keyboard.dismiss();
     let isValid = true;
-
     if (!inputs.email) {
-      handleErrors("Email is required", "email");
-      isValid = false;
-    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleErrors("Please input a valid email", "email");
+      handleError("Please input email", "email");
       isValid = false;
     }
-
-    if (!inputs.fullname) {
-      handleErrors("Please input fullname", "fullname");
-      isValid = false;
-    }
-
-    if (!inputs.phone) {
-      handleErrors("Please input phone number", "phone");
-      isValid = false;
-    } else if (inputs.phone.length < 9) {
-      handleErrors("Enter valid phone number", "phone");
-      isValid = false;
-    }
-
     if (!inputs.password) {
-      handleErrors("Please input password", "password");
-      isValid = false;
-    } else if (inputs.password.length < 7) {
-      handleErrors("Minimum password length of 7", "password");
+      handleError("Please input password", "password");
       isValid = false;
     }
-
     if (isValid) {
-      register();
+      login();
     }
   };
 
-  const register = async () => {
+  const login = async () => {
     setLoading(true);
-    await signUp({
-      email: inputs.email,
-      name: inputs.fullname,
-      password: inputs.password,
-    });
+    await signIn(inputs);
     setLoading(false);
   };
 
-  const handleOnChange = (text, input) => {
+  const handleOnchange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
 
-  const handleErrors = (errorMessage, input) => {
-    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
+  const handleError = (error, input) => {
+    setErrors((prevState) => ({ ...prevState, [input]: error }));
   };
-
   return (
     <LinearGradient
       colors={["#FB7EA4", "#FEA2BF", "#FF77B9"]}
@@ -111,49 +80,33 @@ const Register = () => {
 
         <Input
           maxLength={35}
-          placeholder="Enter your username"
+          placeholder="username or email"
           error={errors.fullname}
-          onFocus={() => handleErrors(null, "fullname")}
-          onChangeText={(text) => handleOnChange(text, "fullname")}
+          onFocus={() => handleError(null, "fullname")}
+          onChangeText={(text) => handleOnchange(text, "fullname")}
         />
         <Input
-          keyboardType="email-address"
-          maxLength={35}
-          placeholder="Enter your email"
-          error={errors.email}
-          onFocus={() => handleErrors(null, "email")}
-          onChangeText={(text) => handleOnChange(text, "email")}
+          onFocus={() => handleError(null, "password")}
+          placeholder="Enter your password"
+          error={errors.password}
+          password
         />
-
-        <Input password placeholder="Password" />
-
-        <Text
-          style={{
-            marginTop: 5,
-            marginBottom: 20,
-            fontFamily: "Lato_Regular",
-            color: "#fff",
-          }}
-        >
-          By clicking Agree and Continue below, I agree to Terms of service and
-          privacy policy
-        </Text>
 
         <View>
           <AppButton color={COLORS.primary} text="Agree and Register" />
         </View>
         <View style={styles.loginView}>
-          <Text style={styles.haveAnAccount}>Have an account?</Text>
+          <Text style={styles.haveAnAccount}>Don't have an account?</Text>
           <TouchableOpacity>
             <Button
               mode={"text"}
               labelStyle={styles.resendBtn}
               contentStyle={{}}
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("Register")}
               uppercase={false}
               theme={{ colors: { primary: "#fff" } }}
             >
-              Login
+              Register
             </Button>
           </TouchableOpacity>
         </View>
@@ -162,7 +115,7 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
