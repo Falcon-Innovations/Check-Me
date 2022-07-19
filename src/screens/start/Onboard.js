@@ -8,17 +8,17 @@ import { COLORS, images, SIZES } from "../../utility";
 const data = [
   {
     title: "Hospitals",
-    text: "Get information on hospitals in your area that treats breast cancer",
+    text: "Get information on hospitals in your area that treat breast cancer",
     image: images.hospital,
   },
   {
     title: "Connect and receive expert guidance",
     text: "Experts, care takers, consultants and doctors always there to help",
-    image: images.doctor,
+    image: images.doctors,
   },
   {
     title: "Reminders",
-    text: "Periodic reminders tto make sure you are up to date with your self care",
+    text: "Periodic reminders to make sure you are up to date with your self care",
     image: images.calender,
   },
 ];
@@ -28,7 +28,7 @@ const Onboard = (props) => {
   const renderItem = ({ item }) => {
     return (
       <LinearGradient
-        colors={["#FF709C", "#FF89AD", "#FAA492"]}
+        colors={["#EA80B0", "#FF89AD", "#FAA492"]}
         style={styles.slide}
       >
         <Image source={item.image} style={styles.image} resizeMode="contain" />

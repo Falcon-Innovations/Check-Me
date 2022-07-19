@@ -19,9 +19,10 @@ const ScreenNavigator = () => {
             {(props) => <Onboard {...props} handleDone={handleOnboardFinish} />}
           </Stack.Screen>
         )}
-        {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
+
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
       </Stack.Navigator>
     </>
   );

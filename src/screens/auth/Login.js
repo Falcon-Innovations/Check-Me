@@ -93,7 +93,11 @@ const Login = () => {
         />
 
         <View>
-          <AppButton color={COLORS.primary} text="Agree and Register" />
+          <AppButton
+            color={COLORS.primary}
+            text="Agree and Login"
+            onPress={() => navigation.navigate("Dashboard")}
+          />
         </View>
         <View style={styles.loginView}>
           <Text style={styles.haveAnAccount}>Don't have an account?</Text>
