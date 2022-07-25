@@ -5,6 +5,7 @@ const doctors = require("../../assets/images/doctors.png");
 
 //auth
 const woman = require("../../assets/images/woman.png");
+const authImage = require("../../assets/images/authImage.png");
 
 //app
 
@@ -17,4 +18,5 @@ export default {
   woman,
   doctors,
   nurse,
+  authImage,
 };

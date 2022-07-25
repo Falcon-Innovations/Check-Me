@@ -117,14 +117,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#fff",
     textAlign: "center",
-    fontFamily: "Lato_Black",
+    fontFamily: "Poppins_Medium",
     marginHorizontal: 60,
   },
   text: {
     fontSize: 16,
     color: "#fff",
     textAlign: "center",
-    fontFamily: "Lato_Regular",
+    fontFamily: "Poppins_Regular",
     marginHorizontal: 60,
     marginTop: 20,
   },
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   rightText: {
     color: "#fff",
-    fontFamily: "Lato_Black",
+    fontFamily: "Poppins_Medium",
     fontSize: 14,
   },
   leftTextWrapper: {
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
   leftText: {
     color: "#fff",
-    fontFamily: "Lato_Black",
+    fontFamily: "Poppins_Medium",
     fontSize: 14,
   },
   doneButtonWrapper: {
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   doneButtonText: {
     fontSize: 14,
-    fontFamily: "Lato_Black",
+    fontFamily: "Poppins_Medium",
     textAlign: "center",
     color: "#fff",
   },

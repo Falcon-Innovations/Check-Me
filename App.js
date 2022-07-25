@@ -5,10 +5,10 @@ import ScreenNavigator from "./src/navigation/ScreenNavigator";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    Lato_Black: require("./assets/fonts/Lato-Black.ttf"),
-    Lato_Bold: require("./assets/fonts/Lato-Bold.ttf"),
-    Lato_Regular: require("./assets/fonts/Lato-Regular.ttf"),
-    Lato_Light: require("./assets/fonts/Lato-Light.ttf"),
+    Poppins_SemiBold: require("./assets/fonts/Poppins-SemiBold.ttf"),
+    Poppins_Medium: require("./assets/fonts/Poppins-Medium.ttf"),
+    Poppins_Bold: require("./assets/fonts/Poppins-Bold.ttf"),
+    Poppins_Regular: require("./assets/fonts/Poppins-Regular.ttf"),
   });
 
   if (!fontsLoaded) {

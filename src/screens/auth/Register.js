@@ -6,24 +6,23 @@ import {
   View,
   Platform,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Button } from "react-native-paper";
 
 import { COLORS, images, SIZES } from "../../utility";
-
-import { Input, AppButton } from "../../components";
+import { Input, AppButton, SocialButton } from "../../components";
 
 const Register = () => {
   const navigation = useNavigation();
 
   const [inputs, setInputs] = useState({
-    email: "",
     fullname: "",
-    password: "",
+    phone: "",
+    pin: "",
+    kfirmPin: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -31,15 +30,6 @@ const Register = () => {
   const validate = () => {
     Keyboard.dismiss();
     let isValid = true;
-
-    if (!inputs.email) {
-      handleErrors("Email is required", "email");
-      isValid = false;
-    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleErrors("Please input a valid email", "email");
-      isValid = false;
-    }
-
     if (!inputs.fullname) {
       handleErrors("Please input fullname", "fullname");
       isValid = false;
@@ -53,12 +43,19 @@ const Register = () => {
       isValid = false;
     }
 
-    if (!inputs.password) {
-      handleErrors("Please input password", "password");
+    if (!inputs.pin) {
+      handleErrors("Please input a valid pin", "pin");
       isValid = false;
-    } else if (inputs.password.length < 7) {
-      handleErrors("Minimum password length of 7", "password");
+    } else if (inputs.pin.length < 5) {
+      handleErrors("Pin is 5 digits", "password");
       isValid = false;
+    }
+
+    if (!inputs.kfirmPin) {
+      handleErrors("Please input a valid confirm pin", "kfirmpin");
+      isValid = false;
+    } else if (inputs.kfirmPin != inputs.pin) {
+      handleErrors("Invalid Pin is not valid pin", "kfirmpin pin");
     }
 
     if (isValid) {
@@ -69,9 +66,9 @@ const Register = () => {
   const register = async () => {
     setLoading(true);
     await signUp({
-      email: inputs.email,
+      phone: inputs.phone,
       name: inputs.fullname,
-      password: inputs.password,
+      pin: inputs.pin,
     });
     setLoading(false);
   };
@@ -85,80 +82,131 @@ const Register = () => {
   };
 
   return (
-    <LinearGradient
-      colors={["#FB7EA4", "#FEA2BF", "#FF77B9"]}
-      style={styles.container}
-    >
-      <View style={styles.imageContainer}>
-        <Image source={images.woman} style={{ width: 300, height: 300 }} />
-      </View>
-      <KeyboardAwareScrollView
-        extraHeight={Platform.OS === "ios" ? 500 : 120}
-        showsVerticalScrollIndicator={false}
-        enableOnAndroid={true}
-        contentContainerStyle={[
-          styles.form,
-          {
-            marginTop:
-              Platform.OS === "ios"
-                ? SIZES.screenHeight * 0.3
-                : SIZES.screenHeight * 0.25,
-            paddingBottom: Platform.OS === "ios" ? 30 : 10,
-          },
-        ]}
-      >
-        <Text style={styles.text}>Sign Up</Text>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAwareScrollView style={styles.viewContainer}>
+        <View style={{ paddingTop: 10, paddingBottom: 8 }}>
+          <Image
+            resizeMode="contain"
+            source={images.authImage}
+            style={styles.img}
+          />
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text
+            style={[
+              styles.welcomeText,
+              { color: COLORS.primary, fontFamily: "Poppins_Bold" },
+            ]}
+          >
+            Welcome back!
+          </Text>
+          <Text style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}>
+            Kindly fill this to sign in.
+          </Text>
+        </View>
+        <View style={styles.formContainer}>
+          <Input
+            // maxLength={35}
+            placeholder="Enter your name"
+            keyboardType="default"
+            error={errors.fullname}
+            onFocus={() => handleErrors(null, "fullname")}
+            onChangeText={(text) => handleOnChange(text, "fullname")}
+          />
+          <Input
+            maxLength={9}
+            placeholder="Enter your number"
+            keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
+            error={errors.phone}
+            onFocus={() => handleErrors(null, "phone")}
+            onChangeText={(text) => handleOnChange(text, "phone")}
+          />
+          <Input
+            maxLength={5}
+            placeholder="Enter a 5 digit pin"
+            keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
+            error={errors.pin}
+            pin
+            onFocus={() => handleErrors(null, "pin")}
+            onChangeText={(text) => handleOnChange(text, "pin")}
+          />
+          <Input
+            maxLength={5}
+            placeholder="Re-enter Pin"
+            keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
+            error={errors.kfirmPin}
+            pin
+            onFocus={() => handleErrors(null, "kfirmpin")}
+            onChangeText={(text) => handleOnChange(text, "kfirmpin")}
+          />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <Text>By clicking on Sign up, you agree to </Text>
+          <Text
+            style={{
+              textDecorationLine: "underline",
+              textDecorationStyle: "solid",
+              textDecorationColor: "#000",
+              color: COLORS.primary,
+              fontFamily: "Poppins_Medium",
+              fontSize: 12,
+              marginTop: 5,
+            }}
+          >
+            Terms & Privacy Policy
+          </Text>
+        </View>
 
-        <Input
-          maxLength={35}
-          placeholder="Enter your username"
-          error={errors.fullname}
-          onFocus={() => handleErrors(null, "fullname")}
-          onChangeText={(text) => handleOnChange(text, "fullname")}
-        />
-        <Input
-          keyboardType="email-address"
-          maxLength={35}
-          placeholder="Enter your email"
-          error={errors.email}
-          onFocus={() => handleErrors(null, "email")}
-          onChangeText={(text) => handleOnChange(text, "email")}
-        />
-
-        <Input password placeholder="Password" />
-
-        <Text
+        <View style={{ marginTop: 20 }}>
+          <AppButton
+            text="Register"
+            color={COLORS.primary}
+            onPress={validate}
+          />
+        </View>
+        <View
           style={{
-            marginTop: 5,
-            marginBottom: 20,
-            fontFamily: "Lato_Regular",
-            color: "#fff",
+            alignItems: "center",
+            marginVertical: 15,
+            fontFamily: "Poppins_Regular",
           }}
         >
-          By clicking Agree and Continue below, I agree to Terms of service and
-          privacy policy
-        </Text>
-
-        <View>
-          <AppButton color={COLORS.primary} text="Agree and Register" />
+          <Text>Or you can sign up with</Text>
         </View>
-        <View style={styles.loginView}>
-          <Text style={styles.haveAnAccount}>Have an account?</Text>
-          <TouchableOpacity>
-            <Button
-              mode={"text"}
-              labelStyle={styles.resendBtn}
-              contentStyle={{}}
-              onPress={() => navigation.navigate("Login")}
-              uppercase={false}
-              theme={{ colors: { primary: "#fff" } }}
+
+        <SocialButton
+          icon="google"
+          title="Login with Google"
+          backgroundColor="#3b5998"
+        />
+
+        <View
+          style={{
+            alignItems: "center",
+            paddingVertical: 10,
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Text>{`Not new here?`}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                textDecorationStyle: "solid",
+                textDecorationColor: "#000",
+                color: COLORS.primary,
+                fontFamily: "Poppins_Medium",
+                fontSize: 15,
+                marginLeft: 10,
+              }}
             >
-              Login
-            </Button>
+              Sign In
+            </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
-    </LinearGradient>
+    </SafeAreaView>
   );
 };
 
@@ -167,25 +215,28 @@ export default Register;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
   },
-  form: {
-    width: "100%",
 
-    borderRadius: SIZES.borderRadius,
-    padding: 20,
+  img: {
+    width: SIZES.screenWidth * 0.35,
+    height: SIZES.screenWidth * 0.35,
+    alignSelf: "flex-start",
   },
-  text: {
-    marginBottom: 15,
-    fontFamily: "Lato_Black",
+  viewContainer: {
+    paddingHorizontal: 15,
   },
-  imageContainer: {
-    position: "absolute",
-    top: SIZES.screenHeight * 0.08,
-    right: 0,
+
+  imageContainer: {},
+
+  welcomeText: {
+    marginRight: 6,
+    fontSize: 14,
   },
-  // text: {
-  //   fontFamily: "Lato_Black",
-  // },
+
+  formContainer: {
+    marginTop: 20,
+  },
   resendBtn: {
     color: "#EB4864",
     fontSize: 18,
@@ -200,6 +251,6 @@ const styles = StyleSheet.create({
   haveAnAccount: {
     fontSize: 15,
     color: "#fff",
-    fontFamily: "Lato_Regular",
+    fontFamily: "Poppins_Regular",
   },
 });

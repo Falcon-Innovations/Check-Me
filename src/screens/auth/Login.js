@@ -6,116 +6,167 @@ import {
   View,
   Platform,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Button } from "react-native-paper";
 
 import { COLORS, images, SIZES } from "../../utility";
-
-import { Input, AppButton } from "../../components";
+import { Input, AppButton, SocialButton } from "../../components";
 
 const Login = () => {
   const navigation = useNavigation();
 
-  const [inputs, setInputs] = useState({ email: "", password: "" });
+  const [inputs, setInputs] = useState({
+    phone: "",
+    pin: "",
+  });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const validate = async () => {
+  const validate = () => {
     Keyboard.dismiss();
     let isValid = true;
-    if (!inputs.email) {
-      handleError("Please input email", "email");
+    if (!inputs.phone) {
+      handleErrors("Please input phone number", "phone");
+      isValid = false;
+    } else if (inputs.phone.length < 9) {
+      handleErrors("Enter valid phone number", "phone");
       isValid = false;
     }
-    if (!inputs.password) {
-      handleError("Please input password", "password");
+
+    if (!inputs.pin) {
+      handleErrors("Please input a valid pin", "pin");
+      isValid = false;
+    } else if (inputs.pin.length < 5) {
+      handleErrors("Pin is 5 digits", "password");
       isValid = false;
     }
+
     if (isValid) {
-      login();
+      register();
     }
   };
 
-  const login = async () => {
+  const register = async () => {
     setLoading(true);
-    await signIn(inputs);
+    await signUp({
+      phone: inputs.phone,
+      pin: inputs.pin,
+    });
     setLoading(false);
   };
 
-  const handleOnchange = (text, input) => {
+  const handleOnChange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
 
-  const handleError = (error, input) => {
-    setErrors((prevState) => ({ ...prevState, [input]: error }));
+  const handleErrors = (errorMessage, input) => {
+    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
+
   return (
-    <LinearGradient
-      colors={["#FB7EA4", "#FEA2BF", "#FF77B9"]}
-      style={styles.container}
-    >
-      <View style={styles.imageContainer}>
-        <Image source={images.woman} style={{ width: 300, height: 300 }} />
-      </View>
-      <KeyboardAwareScrollView
-        extraHeight={Platform.OS === "ios" ? 500 : 120}
-        showsVerticalScrollIndicator={false}
-        enableOnAndroid={true}
-        contentContainerStyle={[
-          styles.form,
-          {
-            marginTop:
-              Platform.OS === "ios"
-                ? SIZES.screenHeight * 0.3
-                : SIZES.screenHeight * 0.25,
-            paddingBottom: Platform.OS === "ios" ? 30 : 10,
-          },
-        ]}
-      >
-        <Text style={styles.text}>Sign Up</Text>
-
-        <Input
-          maxLength={35}
-          placeholder="username or email"
-          error={errors.fullname}
-          onFocus={() => handleError(null, "fullname")}
-          onChangeText={(text) => handleOnchange(text, "fullname")}
-        />
-        <Input
-          onFocus={() => handleError(null, "password")}
-          placeholder="Enter your password"
-          error={errors.password}
-          password
-        />
-
-        <View>
-          <AppButton
-            color={COLORS.primary}
-            text="Agree and Login"
-            onPress={() => navigation.navigate("Dashboard")}
+    <SafeAreaView style={styles.container}>
+      <KeyboardAwareScrollView style={styles.viewContainer}>
+        <View style={{ paddingTop: 10, paddingBottom: 8 }}>
+          <Image
+            resizeMode="contain"
+            source={images.authImage}
+            style={styles.img}
           />
         </View>
-        <View style={styles.loginView}>
-          <Text style={styles.haveAnAccount}>Don't have an account?</Text>
-          <TouchableOpacity>
-            <Button
-              mode={"text"}
-              labelStyle={styles.resendBtn}
-              contentStyle={{}}
-              onPress={() => navigation.navigate("Register")}
-              uppercase={false}
-              theme={{ colors: { primary: "#fff" } }}
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text
+            style={[
+              styles.welcomeText,
+              { color: COLORS.primary, fontFamily: "Poppins_Bold" },
+            ]}
+          >
+            Welcome back!
+          </Text>
+          <Text style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}>
+            Kindly fill this to sign in.
+          </Text>
+        </View>
+        <View style={styles.formContainer}>
+          <Input
+            maxLength={9}
+            placeholder="Enter your number"
+            keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
+            error={errors.phone}
+            onFocus={() => handleErrors(null, "phone")}
+            onChangeText={(text) => handleOnChange(text, "phone")}
+          />
+          <Input
+            maxLength={5}
+            placeholder="Enter a 5 digit pin"
+            keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
+            error={errors.pin}
+            pin
+            onFocus={() => handleErrors(null, "pin")}
+            onChangeText={(text) => handleOnChange(text, "pin")}
+          />
+        </View>
+        <View>
+          <Text
+            style={{
+              color: COLORS.primary,
+              fontFamily: "Poppins_Medium",
+              fontSize: 12,
+              marginLeft: 10,
+            }}
+          >
+            Forgot Password?
+          </Text>
+        </View>
+
+        <View style={{ marginTop: 20 }}>
+          <AppButton text="Login" color={COLORS.primary} onPress={validate} />
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            marginVertical: 15,
+            fontFamily: "Poppins_Regular",
+          }}
+        >
+          <Text>Or you can sign in with</Text>
+        </View>
+
+        <SocialButton
+          icon="google"
+          title="Login with Google"
+          backgroundColor="#3b5998"
+        />
+
+        <View
+          style={{
+            alignItems: "center",
+            paddingVertical: 10,
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Text>{`Don't have an account yet?`}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                textDecorationStyle: "solid",
+                textDecorationColor: "#000",
+                color: COLORS.primary,
+                fontFamily: "Poppins_Medium",
+                fontSize: 15,
+                marginLeft: 10,
+              }}
             >
-              Register
-            </Button>
+              Sign Up
+            </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
-    </LinearGradient>
+    </SafeAreaView>
   );
 };
 
@@ -124,25 +175,28 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
   },
-  form: {
-    width: "100%",
 
-    borderRadius: SIZES.borderRadius,
-    padding: 20,
+  img: {
+    width: SIZES.screenWidth * 0.35,
+    height: SIZES.screenWidth * 0.35,
+    alignSelf: "flex-start",
   },
-  text: {
-    marginBottom: 15,
-    fontFamily: "Lato_Black",
+  viewContainer: {
+    paddingHorizontal: 15,
   },
-  imageContainer: {
-    position: "absolute",
-    top: SIZES.screenHeight * 0.08,
-    right: 0,
+
+  imageContainer: {},
+
+  welcomeText: {
+    marginRight: 6,
+    fontSize: 14,
   },
-  // text: {
-  //   fontFamily: "Lato_Black",
-  // },
+
+  formContainer: {
+    marginTop: 20,
+  },
   resendBtn: {
     color: "#EB4864",
     fontSize: 18,
@@ -157,6 +211,6 @@ const styles = StyleSheet.create({
   haveAnAccount: {
     fontSize: 15,
     color: "#fff",
-    fontFamily: "Lato_Regular",
+    fontFamily: "Poppins_Regular",
   },
 });

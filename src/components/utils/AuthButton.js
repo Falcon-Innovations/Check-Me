@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
   btnText: {
     color: "#FFF",
     fontSize: 18,
-    fontFamily: "Lato_Bold",
+    fontFamily: "Poppins_Bold",
   },
 });

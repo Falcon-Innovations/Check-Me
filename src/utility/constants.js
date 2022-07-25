@@ -1,9 +1,11 @@
 import { Dimensions } from "react-native";
 
 const COLORS = {
-  primary: "#EA80B0",
+  primary: "#F7007D",
   secondary: "",
   danger: "#FF0037",
+  borderColor: "#DBD9D9",
+  borderColorFocused: "#7C7C7C",
 };
 
 const SIZES = {

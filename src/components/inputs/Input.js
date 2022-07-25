@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -8,12 +8,12 @@ const Input = ({
   label,
   iconName,
   error,
-  password,
+  pin,
   onFocus = () => {},
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [hidePassword, setHidePassword] = useState(password);
+  const [hidePassword, setHidePassword] = useState(pin);
   return (
     <View style={styles.container}>
       <View
@@ -23,8 +23,8 @@ const Input = ({
             borderColor: error
               ? COLORS.primary
               : isFocused
-              ? COLORS.primary
-              : "#DBD9D9",
+              ? COLORS.borderColorFocused
+              : COLORS.borderColor,
           },
         ]}
       >
@@ -48,7 +48,7 @@ const Input = ({
             {...props}
           />
         </View>
-        {password && (
+        {pin && (
           <Icon
             onPress={() => setHidePassword(!hidePassword)}
             name={hidePassword ? "ios-eye-outline" : "ios-eye-off-outline"}
@@ -65,39 +65,54 @@ const Input = ({
 };
 
 export default Input;
-
+const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: 15,
   },
+
   inputContainer: {
-    height: 56,
-    backgroundColor: "#fff",
+    height: 50,
+    backgroundColor: "#FFFFFF",
+    fontSize: 18,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#DBD9D9",
-    alignItems: "center",
-    paddingHorizontal: 15,
-    borderRadius: SIZES.borderRadius,
-    flexDirection: "row",
     justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: SIZES.borderRadius,
   },
+
+  // inputContainer: {
+  //   height: 56,
+  //   backgroundColor: "#fff",
+  //   borderWidth: 1,
+  //   borderColor: "#DBD9D9",
+  //   alignItems: "center",
+  //   paddingHorizontal: 15,
+  //   borderRadius: SIZES.borderRadius,
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  // },
   icon: {
     marginRight: 10,
   },
   textInput: {
     flex: 1,
     color: COLORS.primary,
-    fontFamily: "Lato_Regular",
+    fontFamily: "Poppins_Regular",
     fontSize: 18,
   },
   placeholder: {
-    fontFamily: "Lato_Regular",
+    fontFamily: "Poppins_Regular",
     fontSize: 18,
   },
 
   errorMessage: {
     color: COLORS.primary,
-    fontFamily: "Lato_Regular",
+    fontFamily: "Poppins_Regular",
     fontSize: 12,
     marginTop: 10,
   },

@@ -10,7 +10,7 @@ const AppButton = ({ text, color, onPress }) => {
       uppercase={false}
       labelStyle={{
         color: "#fff",
-        fontFamily: "Lato_Black",
+        fontFamily: "Poppins_Medium",
         justifyContent: "center",
       }}
       mode="contained"
