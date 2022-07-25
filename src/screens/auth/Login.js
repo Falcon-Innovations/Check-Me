@@ -7,6 +7,7 @@ import {
   Platform,
   TouchableOpacity,
   Keyboard,
+  StatusBar,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -67,106 +68,115 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView style={styles.viewContainer}>
-        <View style={{ paddingTop: 10, paddingBottom: 8 }}>
-          <Image
-            resizeMode="contain"
-            source={images.authImage}
-            style={styles.img}
-          />
-        </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text
-            style={[
-              styles.welcomeText,
-              { color: COLORS.primary, fontFamily: "Poppins_Bold" },
-            ]}
-          >
-            Welcome back!
-          </Text>
-          <Text style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}>
-            Kindly fill this to sign in.
-          </Text>
-        </View>
-        <View style={styles.formContainer}>
-          <Input
-            maxLength={9}
-            placeholder="Enter your number"
-            keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
-            error={errors.phone}
-            onFocus={() => handleErrors(null, "phone")}
-            onChangeText={(text) => handleOnChange(text, "phone")}
-          />
-          <Input
-            maxLength={5}
-            placeholder="Enter a 5 digit pin"
-            keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
-            error={errors.pin}
-            pin
-            onFocus={() => handleErrors(null, "pin")}
-            onChangeText={(text) => handleOnChange(text, "pin")}
-          />
-        </View>
-        <View>
-          <Text
-            style={{
-              color: COLORS.primary,
-              fontFamily: "Poppins_Medium",
-              fontSize: 12,
-              marginLeft: 10,
-            }}
-          >
-            Forgot Password?
-          </Text>
-        </View>
-
-        <View style={{ marginTop: 20 }}>
-          <AppButton text="Login" color={COLORS.primary} onPress={validate} />
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            marginVertical: 15,
-            fontFamily: "Poppins_Regular",
-          }}
-        >
-          <Text>Or you can sign in with</Text>
-        </View>
-
-        <SocialButton
-          icon="google"
-          title="Login with Google"
-          backgroundColor="#3b5998"
-        />
-
-        <View
-          style={{
-            alignItems: "center",
-            paddingVertical: 10,
-            justifyContent: "center",
-            flexDirection: "row",
-          }}
-        >
-          <Text>{`Don't have an account yet?`}</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+    <>
+      <StatusBar hidden={false} backgroundColor={COLORS.primary} />
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView style={styles.viewContainer}>
+          <View style={{ paddingTop: 10, paddingBottom: 8 }}>
+            <Image
+              resizeMode="contain"
+              source={images.authImage}
+              style={styles.img}
+            />
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text
+              style={[
+                styles.welcomeText,
+                { color: COLORS.primary, fontFamily: "Poppins_Bold" },
+              ]}
+            >
+              Welcome back!
+            </Text>
+            <Text
+              style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}
+            >
+              Kindly fill this to sign in.
+            </Text>
+          </View>
+          <View style={styles.formContainer}>
+            <Input
+              maxLength={9}
+              placeholder="Enter your number"
+              keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
+              error={errors.phone}
+              onFocus={() => handleErrors(null, "phone")}
+              onChangeText={(text) => handleOnChange(text, "phone")}
+            />
+            <Input
+              maxLength={5}
+              placeholder="Enter a 5 digit pin"
+              keyboardType={Platform.OS == "android" ? "numeric" : "number-pad"}
+              error={errors.pin}
+              pin
+              onFocus={() => handleErrors(null, "pin")}
+              onChangeText={(text) => handleOnChange(text, "pin")}
+            />
+          </View>
+          <View>
             <Text
               style={{
-                textDecorationLine: "underline",
-                textDecorationStyle: "solid",
-                textDecorationColor: "#000",
                 color: COLORS.primary,
                 fontFamily: "Poppins_Medium",
-                fontSize: 15,
+                fontSize: 12,
                 marginLeft: 10,
               }}
             >
-              Sign Up
+              Forgot Password?
             </Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAwareScrollView>
-    </SafeAreaView>
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <AppButton
+              text="Login"
+              color={COLORS.primary}
+              onPress={() => navigation.navigate("Dashboard")}
+            />
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              marginVertical: 15,
+              fontFamily: "Poppins_Regular",
+            }}
+          >
+            <Text>Or you can sign in with</Text>
+          </View>
+
+          <SocialButton
+            icon="google"
+            title="Login with Google"
+            backgroundColor="#3b5998"
+          />
+
+          <View
+            style={{
+              alignItems: "center",
+              paddingVertical: 10,
+              justifyContent: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Text>{`Don't have an account yet?`}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+              <Text
+                style={{
+                  textDecorationLine: "underline",
+                  textDecorationStyle: "solid",
+                  textDecorationColor: "#000",
+                  color: COLORS.primary,
+                  fontFamily: "Poppins_Medium",
+                  fontSize: 15,
+                  marginLeft: 10,
+                }}
+              >
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
+    </>
   );
 };
 
