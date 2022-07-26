@@ -27,10 +27,7 @@ const Onboard = (props) => {
   const navigation = useNavigation();
   const renderItem = ({ item }) => {
     return (
-      <LinearGradient
-        colors={["#EA80B0", "#FF89AD", "#FAA492"]}
-        style={styles.slide}
-      >
+      <LinearGradient colors={["#F7007D", "#CF6283"]} style={styles.slide}>
         <Image source={item.image} style={styles.image} resizeMode="contain" />
         <View style={{ marginTop: 20 }}>
           <Text style={styles.title}>{item.title}</Text>
