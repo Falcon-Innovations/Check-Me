@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   greeting: {
     color: "#fff",
     fontSize: 20,
-    fontFamily: "Lato_Bold",
+    fontFamily: "Poppins_SemiBold",
   },
   testBtn: {
     color: COLORS.primary,

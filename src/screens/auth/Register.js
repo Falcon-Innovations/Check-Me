@@ -161,7 +161,7 @@ const Register = () => {
           <AppButton
             text="Register"
             color={COLORS.primary}
-            onPress={validate}
+            onPress={() => navigation.navigate("OTPVerification")}
           />
         </View>
         <View
