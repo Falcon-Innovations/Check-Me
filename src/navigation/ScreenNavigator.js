@@ -1,28 +1,51 @@
-import React, { useState } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { useState } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   Onboard,
   Dashboard,
   Register,
   Login,
   OTPVerification,
-} from "../screens";
-
+} from '../screens';
+import useGetOnboardingStatus from '../utility/checkIfFirstLaunch';
+import { navigationRef } from './customNavigator';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 const Stack = createNativeStackNavigator();
 
-const ScreenNavigator = () => {
-  const [showOnboarding, setShowOnboarding] = useState(true);
+const Navigation = ({ colorScheme }) => {
+  return (
+    <NavigationContainer
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      ref={navigationRef}
+    >
+      <RootNavigator />
+    </NavigationContainer>
+  );
+};
 
-  const handleOnboardFinish = () => {
-    setShowOnboarding(false);
+const RootNavigator = () => {
+  const { isFirstLaunch, isLoading } = useGetOnboardingStatus();
+
+  if (isLoading) {
+    return null;
+  }
+
+  const handleOnboardingDone = () => {
+    navigationRef?.navigate('Signup');
   };
 
   return (
     <>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {showOnboarding && (
+        {isFirstLaunch && (
           <Stack.Screen name="Onboard">
-            {(props) => <Onboard {...props} handleDone={handleOnboardFinish} />}
+            {(props) => (
+              <Onboard {...props} handleDone={handleOnboardingDone} />
+            )}
           </Stack.Screen>
         )}
 
@@ -35,4 +58,4 @@ const ScreenNavigator = () => {
   );
 };
 
-export default ScreenNavigator;
+export default Navigation;
