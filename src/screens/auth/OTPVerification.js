@@ -12,7 +12,10 @@ import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 
+import AuthButton from "../../components/utils/AuthButton";
+
 import { COLORS, images, SIZES } from "../../utility";
+import { AppButton } from "../../components";
 
 const OTPVerification = () => {
   const navigation = useNavigation();
@@ -21,7 +24,7 @@ const OTPVerification = () => {
     <SafeAreaView style={styles.container}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{ marginHorizontal: 15 }}
+        style={{ marginHorizontal: 15, paddingTop: 10 }}
       >
         <Icon name="arrow-left" size={30} />
       </TouchableOpacity>
@@ -53,7 +56,7 @@ const OTPVerification = () => {
             style={{
               fontFamily: "Poppins_Regular",
               fontSize: 18,
-              textAlign: "center",
+              textAlign: "left",
             }}
           >
             Please enter the verification code sent to
@@ -91,6 +94,13 @@ const OTPVerification = () => {
             }}
           />
         </View>
+      </View>
+      <View style={{ marginTop: 20, marginHorizontal: 15 }}>
+        <AppButton
+          text="Verify"
+          color={COLORS.primary}
+          onPress={() => navigation.navigate("Dashboard")}
+        />
       </View>
     </SafeAreaView>
   );

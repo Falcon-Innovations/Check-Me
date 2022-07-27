@@ -10,7 +10,15 @@ import React from "react";
 import { Button } from "react-native-paper";
 
 import { COLORS, images, SIZES } from "../../utility";
-import { AppButton } from "../../components";
+import { AppButton, DashboardCard } from "../../components";
+
+const cardData = [
+  {
+    title: "",
+  },
+];
+
+const tips = [{}];
 
 const Dashboard = () => {
   return (
@@ -78,6 +86,21 @@ const Dashboard = () => {
                 </Button>
               </View>
             </View>
+          </View>
+        </View>
+        <View style={{ paddingHorizontal: 10, paddingTop: 15 }}>
+          <View>
+            <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 14 }}>
+              Healthy Life Style
+            </Text>
+            <View>
+              <View>
+                <Image />
+              </View>
+            </View>
+          </View>
+          <View>
+            <DashboardCard />
           </View>
         </View>
       </SafeAreaView>
