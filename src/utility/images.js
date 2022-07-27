@@ -7,6 +7,16 @@ const doctors = require("../../assets/images/doctors.png");
 const woman = require("../../assets/images/woman.png");
 const authImage = require("../../assets/images/authImage.png");
 
+//dashboard
+
+const tip1 = require("../../assets/images/tip1.png");
+const tip2 = require("../../assets/images/tip2.png");
+const tip3 = require("../../assets/images/tip3.png");
+
+const risk = require("../../assets/images/risk.png");
+const doc = require("../../assets/images/doc.png");
+const healthy = require("../../assets/images/healthy.png");
+
 //app
 
 const nurse = require("../../assets/images/nurse.png");
@@ -19,4 +29,10 @@ export default {
   doctors,
   nurse,
   authImage,
+  tip1,
+  tip2,
+  tip3,
+  risk,
+  doc,
+  healthy,
 };

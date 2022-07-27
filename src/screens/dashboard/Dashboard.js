@@ -18,6 +18,8 @@ const cardData = [
   },
 ];
 
+const tips = [{}];
+
 const Dashboard = () => {
   return (
     <>
@@ -86,8 +88,20 @@ const Dashboard = () => {
             </View>
           </View>
         </View>
-        <View>
-          <DashboardCard />
+        <View style={{ paddingHorizontal: 10, paddingTop: 15 }}>
+          <View>
+            <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 14 }}>
+              Healthy Life Style
+            </Text>
+            <View>
+              <View>
+                <Image />
+              </View>
+            </View>
+          </View>
+          <View>
+            <DashboardCard />
+          </View>
         </View>
       </SafeAreaView>
     </>
