@@ -10,7 +10,13 @@ import React from "react";
 import { Button } from "react-native-paper";
 
 import { COLORS, images, SIZES } from "../../utility";
-import { AppButton } from "../../components";
+import { AppButton, DashboardCard } from "../../components";
+
+const cardData = [
+  {
+    title: "",
+  },
+];
 
 const Dashboard = () => {
   return (
@@ -79,6 +85,9 @@ const Dashboard = () => {
               </View>
             </View>
           </View>
+        </View>
+        <View>
+          <DashboardCard />
         </View>
       </SafeAreaView>
     </>
