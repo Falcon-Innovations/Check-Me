@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { Button } from "react-native-paper";
@@ -18,91 +19,138 @@ const cardData = [
   },
 ];
 
-const tips = [{}];
+const tips = [
+  {
+    id: 1,
+    img: images.tip1,
+    title: "Balanced Diet",
+  },
+  {
+    id: 2,
+    img: images.tip2,
+    title: "Constant Exercise",
+  },
+  {
+    id: 3,
+    img: images.tip3,
+    title: "Regular Checkup",
+  },
+];
 
 const Dashboard = () => {
   return (
     <>
       <StatusBar hidden={false} backgroundColor={COLORS.primary} />
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.greeting}>Welcome!!</Text>
-            <View style={styles.nameContainer}>
-              <Text style={styles.name}>fr</Text>
-            </View>
-          </View>
-          <View style={styles.infoContainer}>
-            <View style={styles.imageContainer}>
-              <Image
-                style={{
-                  height: SIZES.screenHeight * 0.2,
-                  width: SIZES.screenWidth * 0.423,
-                }}
-                source={images.nurse}
-                resizeMode="contain"
-              />
-            </View>
-            <View>
-              <View style={{ marginBottom: 10 }}>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#fff",
-                    fontFamily: "Poppins_Medium",
-                    marginBottom: 5,
-                  }}
-                >
-                  Do your own test
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: "#fff",
-                    fontFamily: "Poppins_Regular",
-                  }}
-                >
-                  How do you feel today?
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: "#fff",
-                    fontFamily: "Poppins_Regular",
-                  }}
-                >
-                  Take today's test
-                </Text>
-              </View>
-              <View style={{ alignSelf: "flex-start", marginTop: 10 }}>
-                <Button
-                  mode="contained"
-                  labelStyle={styles.testBtn}
-                  // onPress={() => navigation.navigate("Login")}
-                  uppercase={false}
-                  theme={{ colors: { primary: "#fff" } }}
-                >
-                  Test now
-                </Button>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <Text style={styles.greeting}>Welcome!!</Text>
+              <View style={styles.nameContainer}>
+                <Text style={styles.name}>fr</Text>
               </View>
             </View>
-          </View>
-        </View>
-        <View style={{ paddingHorizontal: 10, paddingTop: 15 }}>
-          <View>
-            <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 14 }}>
-              Healthy Life Style
-            </Text>
-            <View>
+            <View style={styles.infoContainer}>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={{
+                    height: SIZES.screenHeight * 0.2,
+                    width: SIZES.screenWidth * 0.423,
+                  }}
+                  source={images.nurse}
+                  resizeMode="contain"
+                />
+              </View>
               <View>
-                <Image />
+                <View style={{ marginBottom: 10 }}>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: "#fff",
+                      fontFamily: "Poppins_Medium",
+                      marginBottom: 5,
+                    }}
+                  >
+                    Do your own test
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#fff",
+                      fontFamily: "Poppins_Regular",
+                    }}
+                  >
+                    How do you feel today?
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#fff",
+                      fontFamily: "Poppins_Regular",
+                    }}
+                  >
+                    Take today's test
+                  </Text>
+                </View>
+                <View style={{ alignSelf: "flex-start", marginTop: 10 }}>
+                  <Button
+                    mode="contained"
+                    labelStyle={styles.testBtn}
+                    // onPress={() => navigation.navigate("Login")}
+                    uppercase={false}
+                    theme={{ colors: { primary: "#fff" } }}
+                  >
+                    Test now
+                  </Button>
+                </View>
               </View>
             </View>
           </View>
-          <View>
-            <DashboardCard />
+          <View style={{ paddingHorizontal: 10, paddingTop: 15 }}>
+            <View>
+              <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 14 }}>
+                Healthy Life Style
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                {tips.map((tip) => (
+                  <View
+                    key={tip.id}
+                    style={{ alignItems: "center", marginVertical: 10 }}
+                  >
+                    <View style={styles.tips}>
+                      <Image
+                        source={tip.img}
+                        style={{
+                          width: SIZES.screenWidth * 0.22,
+                          height: SIZES.screenWidth * 0.22,
+                        }}
+                        resizeMode="contain"
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 9.5,
+                        fontFamily: "Poppins_Medium",
+                        marginTop: 5,
+                      }}
+                    >
+                      {tip.title}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+            <View>
+              <DashboardCard />
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </>
   );
@@ -156,5 +204,11 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: "Poppins_Medium",
     justifyContent: "center",
+  },
+  tips: {
+    padding: 10,
+    backgroundColor: "#FFE1E1",
+    alignItems: "center",
+    borderRadius: SIZES.screenWidth,
   },
 });

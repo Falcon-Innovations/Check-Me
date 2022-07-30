@@ -5,6 +5,7 @@ const COLORS = {
   secondary: "",
   danger: "#FF0037",
   borderColor: "#DBD9D9",
+  borderCardColor: "#F39FCA",
   borderColorFocused: "#7C7C7C",
 };
 
