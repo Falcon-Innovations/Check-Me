@@ -6,18 +6,14 @@ import {
   Text,
   View,
   ScrollView,
+  Alert,
 } from "react-native";
 import React from "react";
 import { Button } from "react-native-paper";
 
 import { COLORS, images, SIZES } from "../../utility";
 import { AppButton, DashboardCard } from "../../components";
-
-const cardData = [
-  {
-    title: "",
-  },
-];
+import { Context as AuthContext } from "../../contexts/authContext";
 
 const tips = [
   {
@@ -38,6 +34,26 @@ const tips = [
 ];
 
 const Dashboard = () => {
+  const { state, logout } = React.useContext(AuthContext);
+
+  const handleLogout = () => {
+    Alert.alert(
+      "Are you sure you want to logout?",
+      "This action will sign you out of this device",
+      [
+        {
+          text: "Confirm",
+          onPress: () => logout(),
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+  };
+
   return (
     <>
       <StatusBar hidden={false} backgroundColor={COLORS.primary} />
@@ -47,7 +63,10 @@ const Dashboard = () => {
             <View style={styles.header}>
               <Text style={styles.greeting}>Welcome!!</Text>
               <View style={styles.nameContainer}>
-                <Text style={styles.name}>fr</Text>
+                <Text style={styles.name}>
+                  {state?.user?.name.split(" ").shift().charAt(0) +
+                    state?.user?.name.split(" ").pop().charAt(0)}
+                </Text>
               </View>
             </View>
             <View style={styles.infoContainer}>
@@ -97,6 +116,7 @@ const Dashboard = () => {
                     mode="contained"
                     labelStyle={styles.testBtn}
                     // onPress={() => navigation.navigate("Login")}
+                    onPress={handleLogout}
                     uppercase={false}
                     theme={{ colors: { primary: "#fff" } }}
                   >
@@ -194,6 +214,8 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     textTransform: "uppercase",
     fontWeight: "bold",
+    fontFamily: "Poppins_Bold",
+    fontSize: 16,
   },
   greeting: {
     color: "#fff",

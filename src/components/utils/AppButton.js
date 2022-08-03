@@ -1,29 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-paper";
-import React from "react";
-import { COLORS } from "../../utility";
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
+import React from 'react';
+import { COLORS } from '../../utility';
 
-const AppButton = ({ text, color, onPress }) => {
+const AppButton = ({ text, color, onPress, ...rest }) => {
   return (
-    <Button
-      onPress={onPress}
-      uppercase={false}
-      labelStyle={{
-        color: "#fff",
-        fontFamily: "Poppins_Medium",
-        justifyContent: "center",
-      }}
-      mode="contained"
-      style={{
-        height: 45,
-        width: "100%",
-        alignItems: "center",
-        paddingTop: 2,
-      }}
-      theme={{ colors: { primary: color } }}
-    >
-      {text}
-    </Button>
+    <TouchableOpacity>
+      <Button
+        onPress={onPress}
+        uppercase={false}
+        labelStyle={{
+          color: '#fff',
+          fontFamily: 'Poppins_Medium',
+          justifyContent: 'center',
+        }}
+        mode="contained"
+        style={{
+          height: 45,
+          width: '100%',
+          alignItems: 'center',
+          paddingTop: 2,
+        }}
+        theme={{ colors: { primary: color } }}
+        {...rest}
+      >
+        {text}
+      </Button>
+    </TouchableOpacity>
   );
 };
 
