@@ -10,6 +10,7 @@ const PhoneInputField = ({ phoneNumber, phoneInput, onChange }) => {
         defaultCode="CM"
         layout="first"
         placeholder="Phone number"
+        autoFocus={false}
         // withShadow
         containerStyle={styles.phoneContainer}
         textContainerStyle={styles.textInput}
