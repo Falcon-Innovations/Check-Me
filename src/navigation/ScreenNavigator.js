@@ -7,6 +7,7 @@ import {
   Login,
   OTPVerification,
   Specialists,
+  SpecialistDetails,
 } from "../screens";
 
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ const ScreenNavigator = () => {
         <Stack.Screen name="OTPVerification" component={OTPVerification} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Specialists" component={Specialists} />
+        <Stack.Screen name="SpecialistDetails" component={SpecialistDetails} />
       </Stack.Navigator>
     </>
   );

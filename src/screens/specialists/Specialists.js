@@ -1,11 +1,123 @@
-import { StatusBar, StyleSheet, Text, View, SafeAreaView } from "react-native";
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  ImageBackground,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import { Searchbar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
-import { COLORS } from "../../utility";
+import { COLORS, images, SIZES } from "../../utility";
 import { CustomStatusBar } from "../../components";
 
+const dummyData = [
+  {
+    id: 1,
+    name: "James Bond",
+    phone: "+237 673993113",
+    email: "yuyunfrancis95@gmail.com",
+    location: "Douala, Cameroon",
+    image: images.doc1,
+    description: "The James Bond is the best way to search for a novel.",
+    education: "Universtity OF Buea",
+    work: "Hopital General",
+    experience: "2",
+    patients: "10",
+    speciality: ["Breast Cancer", "Malaria"],
+    availability: ["Mondays", "Wednesdays", "Fridays"],
+    radting: "5.0",
+  },
+  {
+    id: 2,
+    name: "James Bond",
+    phone: "+237 673993113",
+    email: "yuyunfrancis95@gmail.com",
+    location: "Douala, Cameroon",
+    image: images.doc2,
+    description: "The James Bond is the best way to search for a novel.",
+    education: "Universtity OF Buea",
+    work: "Hopital General",
+    experience: "2",
+    patients: "10",
+    speciality: ["Breast Cancer", "Malaria"],
+    availability: ["Mondays", "Wednesdays", "Fridays"],
+    radting: "5.0",
+  },
+  {
+    id: 3,
+    name: "James Bond",
+    phone: "+237 673993113",
+    email: "yuyunfrancis95@gmail.com",
+    location: "Douala, Cameroon",
+    image: images.doc3,
+    description: "The James Bond is the best way to search for a novel.",
+    education: "Universtity OF Buea",
+    work: "Hopital General",
+    experience: "2",
+    patients: "10",
+    speciality: ["Breast Cancer", "Malaria"],
+    availability: ["Mondays", "Wednesdays", "Fridays"],
+    radting: "5.0",
+  },
+  {
+    id: 4,
+    name: "James Bond",
+    phone: "+237 673993113",
+    email: "yuyunfrancis95@gmail.com",
+    location: "Douala, Cameroon",
+    image: images.doc4,
+    description: "The James Bond is the best way to search for a novel.",
+    education: "Universtity OF Buea",
+    work: "Hopital General",
+    experience: "2",
+    patients: "10",
+    speciality: ["Breast Cancer", "Malaria"],
+    availability: ["Mondays", "Wednesdays", "Fridays"],
+    radting: "5.0",
+  },
+  {
+    id: 5,
+    name: "James Bond",
+    phone: "+237 673993113",
+    email: "yuyunfrancis95@gmail.com",
+    location: "Douala, Cameroon",
+    image: images.doc5,
+    description: "The James Bond is the best way to search for a novel.",
+    education: "Universtity OF Buea",
+    work: "Hopital General",
+    experience: "2",
+    patients: "10",
+    speciality: ["Breast Cancer", "Malaria"],
+    availability: ["Mondays", "Wednesdays", "Fridays"],
+    radting: "5.0",
+  },
+  {
+    id: 6,
+    name: "James Bond",
+    phone: "+237 673993113",
+    email: "yuyunfrancis95@gmail.com",
+    location: "Douala, Cameroon",
+    image: images.doc6,
+    description: "The James Bond is the best way to search for a novel.",
+    education: "Universtity OF Buea",
+    work: "Hopital General",
+    experience: "2",
+    patients: "10",
+    speciality: ["Breast Cancer", "Malaria"],
+    availability: ["Mondays", "Wednesdays", "Fridays"],
+    radting: "5.0",
+  },
+];
+
 const Specialists = () => {
+  const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   return (
@@ -14,29 +126,142 @@ const Specialists = () => {
       <SafeAreaView style={styles.container}>
         <View style={{ marginHorizontal: 10, paddingVertical: 10 }}>
           <CustomStatusBar />
-          <View style={{ marginVertical: 20, marginHorizontal: 10 }}>
-            <Searchbar
-              placeholder="Search Specialists"
-              placeholderTextColor="#D2D1D1"
-              onChangeText={onChangeSearch}
-              value={searchQuery}
-              style={{
-                elevation: 0,
-                borderWidth: 0.5,
-                borderColor: COLORS.borderCardColor,
-              }}
-              inputStyle={{
-                fontSize: 14,
-                fontFamily: "Poppins_Regular",
-              }}
-              iconColor="#D2D1D1"
-            />
-          </View>
-          <View>
-            <Text style={{ fontFamily: "Poppins_Medium", color: "#333333" }}>
-              Get connected with the best specialists
-            </Text>
-          </View>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={{ marginVertical: 20, marginHorizontal: 10 }}>
+              <Searchbar
+                placeholder="Search Specialists"
+                placeholderTextColor="#D2D1D1"
+                onChangeText={onChangeSearch}
+                value={searchQuery}
+                style={{
+                  elevation: 0,
+                  borderWidth: 0.5,
+                  borderColor: COLORS.borderCardColor,
+                }}
+                inputStyle={{
+                  fontSize: 14,
+                  fontFamily: "Poppins_Regular",
+                }}
+                iconColor="#D2D1D1"
+              />
+            </View>
+            <View>
+              <Text style={{ fontFamily: "Poppins_Medium", color: "#333333" }}>
+                Get connected with the best specialists
+              </Text>
+              <View style={styles.card}>
+                {dummyData.map((item) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={styles.cardContent}
+                    onPress={() =>
+                      navigation.navigate("SpecialistDetails", item)
+                    }
+                  >
+                    <View style={{ paddingHorizontal: 4 }}>
+                      <View>
+                        <Image
+                          source={item.image}
+                          style={styles.imge}
+                          resizeMode="cover"
+                        />
+                      </View>
+                      <View style={{ marginTop: 8 }}>
+                        <Text
+                          style={{
+                            fontFamily: "Poppins_SemiBold",
+                            fontSize: 14,
+                            color: COLORS.primary,
+                            marginBottom: 2,
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+                        <Text
+                          style={{
+                            width: SIZES.screenWidth * 0.3,
+                            fontFamily: "Poppins_Regular",
+                            fontSize: 12,
+                            color: "#AEADAD",
+                          }}
+                          numberOfLines={1}
+                        >
+                          {item.speciality.join(",")}
+                        </Text>
+                        <Text
+                          style={{
+                            width: SIZES.screenWidth * 0.3,
+                            fontFamily: "Poppins_Regular",
+                            fontSize: 13,
+                          }}
+                          numberOfLines={1}
+                        >
+                          {item.location}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              {/* <FlatList
+                columnWrapperStyle={{ marginHorizontal: 5 }}
+                contentContainerStyle={{
+                  alignItems: "center",
+                  paddingBottom: SIZES.screenHeight * 0.076,
+                }}
+                data={dummyData}
+                scrollEnabled={true}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item) => item.id}
+                numColumns={2}
+                renderItem={({ item }) => (
+                  <View
+                    style={{
+                      marginHorizontal: 10,
+                      backgroundColor: "#FAFAFA",
+                      padding: 10,
+                      borderRadius: 8,
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.2,
+                      marginBottom: 10,
+                      elevation: 2,
+                    }}
+                  >
+                    <View style={{ paddingHorizontal: 4 }}>
+                      <View>
+                        <Image
+                          source={item.image}
+                          style={{
+                            width: SIZES.screenWidth * 0.35,
+                            height: SIZES.screenWidth * 0.34,
+                            borderRadius: 8,
+                          }}
+                          resizeMode="contain"
+                        />
+                      </View>
+                      <View style={{ marginHorizontal: 5 }}>
+                        <Text>{item.name}</Text>
+                        <Text
+                          style={{ width: SIZES.screenWidth * 0.3 }}
+                          numberOfLines={1}
+                        >
+                          {item.speciality.join(",")}
+                        </Text>
+                        <Text
+                          style={{ width: SIZES.screenWidth * 0.3 }}
+                          numberOfLines={1}
+                        >
+                          {item.location}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                )}
+              /> */}
+            </View>
+          </ScrollView>
         </View>
       </SafeAreaView>
     </>
@@ -49,5 +274,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  card: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    paddingBottom: SIZES.screenHeight * 0.08,
+    justifyContent: "center",
+  },
+  cardContent: {
+    marginHorizontal: 7,
+    paddingTop: 10,
+    paddingBottom: 12,
+    backgroundColor: "#FAFAFA",
+    width: SIZES.screenWidth * 0.43,
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    marginBottom: 10,
+    elevation: 2,
+    alignItems: "center",
+  },
+  imge: {
+    width: SIZES.screenWidth * 0.38,
+    height: SIZES.screenWidth * 0.38,
+    borderRadius: 12,
+    overflow: "hidden",
   },
 });

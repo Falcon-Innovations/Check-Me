@@ -18,6 +18,15 @@ const doc = require("../../assets/images/doc.png");
 const healthy = require("../../assets/images/healthy.png");
 const lifeStyle = require("../../assets/images/lifestyle.png");
 
+//specialists
+
+const doc1 = require("../../assets/images/doc1.jpg");
+const doc2 = require("../../assets/images/doc2.jpg");
+const doc3 = require("../../assets/images/doc3.jpg");
+const doc4 = require("../../assets/images/doc4.jpg");
+const doc5 = require("../../assets/images/doc5.jpg");
+const doc6 = require("../../assets/images/doc6.jpg");
+
 //app
 
 const nurse = require("../../assets/images/nurse.png");
@@ -37,4 +46,10 @@ export default {
   doc,
   healthy,
   lifeStyle,
+  doc1,
+  doc2,
+  doc3,
+  doc4,
+  doc5,
+  doc6,
 };

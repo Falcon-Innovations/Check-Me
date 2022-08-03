@@ -8,5 +8,14 @@ import OTPVerification from "./auth/OTPVerification";
 
 //specialists
 import Specialists from "./specialists/Specialists";
+import SpecialistDetails from "./specialists/SpecialistDetails";
 
-export { Onboard, Dashboard, Register, Login, OTPVerification, Specialists };
+export {
+  Onboard,
+  Dashboard,
+  Register,
+  Login,
+  OTPVerification,
+  Specialists,
+  SpecialistDetails,
+};
