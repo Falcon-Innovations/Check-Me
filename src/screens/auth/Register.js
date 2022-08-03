@@ -119,7 +119,7 @@ const Register = () => {
             Welcome back!
           </Text>
           <Text style={[styles.welcomeText, { fontFamily: 'Poppins_Medium' }]}>
-            Kindly fill this to sign in.
+            Kindly fill this to sign up.
           </Text>
         </View>
         <View style={styles.formContainer}>

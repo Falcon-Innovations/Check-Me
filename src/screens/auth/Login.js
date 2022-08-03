@@ -16,6 +16,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { COLORS, images, SIZES } from '../../utility';
 import { Input, AppButton, SocialButton } from '../../components';
 import { Context as AuthContext } from '../../contexts/authContext';
+import Loader from '../../components/utils/Loader';
 
 const Login = () => {
   const navigation = useNavigation();
@@ -68,8 +69,8 @@ const Login = () => {
     <>
       <StatusBar hidden={false} backgroundColor={COLORS.primary} />
       {loading ? (
-        <View>
-          <Text>Loading...</Text>
+        <View style={styles.viewContainer}>
+          <Loader visible={true} />
         </View>
       ) : (
         <SafeAreaView style={styles.container}>
@@ -98,7 +99,6 @@ const Login = () => {
             </View>
             <View style={styles.formContainer}>
               <Input
-                maxLength={9}
                 placeholder="Enter your email"
                 error={errors.email}
                 onFocus={() => handleErrors(null, 'email')}
@@ -129,7 +129,9 @@ const Login = () => {
               <AppButton
                 text="Login"
                 color={COLORS.primary}
-                onPress={() => navigation.navigate('Dashboard')}
+                // onPress={() => navigation.navigate('Dashboard')}
+                onPress={handleSignIn}
+                disabled={loading}
               />
             </View>
             <View

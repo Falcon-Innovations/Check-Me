@@ -16,6 +16,7 @@ const tip3 = require("../../assets/images/tip3.png");
 const risk = require("../../assets/images/risk.png");
 const doc = require("../../assets/images/doc.png");
 const healthy = require("../../assets/images/healthy.png");
+const lifeStyle = require("../../assets/images/lifestyle.png");
 
 //app
 
@@ -35,4 +36,5 @@ export default {
   risk,
   doc,
   healthy,
+  lifeStyle,
 };
