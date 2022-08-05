@@ -11,9 +11,11 @@ import {
 } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
+import Icons from "react-native-vector-icons/SimpleLineIcons";
+import Ribbon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Divider } from "react-native-elements";
 
-import { AppStatusBar, CustomStatusBar } from "../../components";
+import { AppButton, AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, SIZES } from "../../utility";
 
 // const icons = ["message1", "phone", "mail"];
@@ -36,6 +38,24 @@ const icons = [
 const SpecialistDetails = ({ route }) => {
   const item = route.params;
 
+  const aboutData = [
+    {
+      id: 1,
+      info: item.education,
+      icon: <Icons name="graduation" size={18} color={"#323131"} />,
+    },
+    {
+      id: 2,
+      info: item.work,
+      icon: <Icons name="briefcase" size={18} color={"#323131"} />,
+    },
+    {
+      id: 3,
+      info: item.speciality,
+      icon: <Ribbon name="ribbon" size={18} color={"#323131"} />,
+    },
+  ];
+
   console.log("Data", item);
   return (
     <>
@@ -50,7 +70,7 @@ const SpecialistDetails = ({ route }) => {
             <View>
               <View style={{ alignSelf: "flex-start" }}>
                 <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.speciality}>{item.speciality[0]}</Text>
+                <Text style={styles.speciality}>{item.speciality}</Text>
                 <Text style={styles.location}>{item.location}</Text>
               </View>
 
@@ -158,6 +178,113 @@ const SpecialistDetails = ({ route }) => {
             >
               {item.description}
             </Text>
+          </View>
+          <View style={{ paddingTop: 20, paddingBottom: 15 }}>
+            {aboutData.map((about) => (
+              <View
+                key={about.id}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginHorizontal: 10,
+                }}
+              >
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    paddingHorizontal: 12,
+                    paddingVertical: 10,
+                    borderRadius: 6,
+                    backgroundColor: "#F0F0F0",
+                    marginRight: 15,
+                    marginVertical: 10,
+                  }}
+                >
+                  {about.icon}
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontFamily: "Poppins_Medium",
+                      color: COLORS.textColor,
+                    }}
+                  >
+                    {about.info}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+
+          <View>
+            <Text
+              style={{
+                marginLeft: 6,
+                marginBottom: 10,
+                color: "#5A5A5A",
+                fontFamily: "Poppins_Medium",
+              }}
+            >
+              Specialist Availability
+            </Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                // alignItems: "center",
+                paddingBottom: SIZES.screenHeight * 0.03,
+                justifyContent: "center",
+                alignSelf: "flex-start",
+              }}
+            >
+              {item.availability.map((available) => (
+                <View
+                  key={available.id}
+                  style={{
+                    paddingHorizontal: 8,
+                    paddingVertical: 8,
+                    backgroundColor: "#FFE2DC",
+                    marginHorizontal: 3,
+                    borderRadius: 6,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      fontFamily: "Poppins_Medium",
+                      color: COLORS.primary,
+                    }}
+                  >
+                    {available.day}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontFamily: "Poppins_Regular",
+                      color: COLORS.textColor,
+                    }}
+                  >
+                    {available.time}
+                  </Text>
+                </View>
+              ))}
+            </View>
+
+            {/* <View>
+              <Text></Text>
+            </View> */}
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <AppButton
+              text="Contact Specialist"
+              color={COLORS.primary}
+              // disabled={loading}
+              // onPress={register}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>

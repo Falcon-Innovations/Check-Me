@@ -31,8 +31,24 @@ const dummyData = [
     work: "Hopital General",
     experience: "2",
     patients: "10",
-    speciality: ["Breast Cancer", "Malaria"],
-    availability: ["Mondays", "Wednesdays", "Fridays"],
+    speciality: "Breast Cancer",
+    availability: [
+      {
+        id: 1,
+        day: "Monday",
+        time: "10:00AM - 2:00PM",
+      },
+      {
+        id: 2,
+        day: "Wednesday",
+        time: "12:00PM - 2:00PM",
+      },
+      {
+        id: 3,
+        day: "Friday",
+        time: "12:00PM - 2:00PM",
+      },
+    ],
     rating: "5.0",
   },
   {
@@ -48,8 +64,24 @@ const dummyData = [
     work: "Hopital General",
     experience: "2",
     patients: "10",
-    speciality: ["Breast Cancer", "Malaria"],
-    availability: ["Mondays", "Wednesdays", "Fridays"],
+    speciality: "Breast Cancer",
+    availability: [
+      {
+        id: 1,
+        day: "Monday",
+        time: "10:00AM - 2:00PM",
+      },
+      {
+        id: 2,
+        day: "Wednesday",
+        time: "12:00PM - 2:00PM",
+      },
+      {
+        id: 3,
+        day: "Friday",
+        time: "12:00PM - 2:00PM",
+      },
+    ],
     rating: "5.0",
   },
   {
@@ -65,8 +97,24 @@ const dummyData = [
     work: "Hopital General",
     experience: "2",
     patients: "10",
-    speciality: ["Breast Cancer", "Malaria"],
-    availability: ["Mondays", "Wednesdays", "Fridays"],
+    speciality: "Breast Cancer",
+    availability: [
+      {
+        id: 1,
+        day: "Monday",
+        time: "10:00AM - 2:00PM",
+      },
+      {
+        id: 2,
+        day: "Wednesday",
+        time: "12:00PM - 2:00PM",
+      },
+      {
+        id: 3,
+        day: "Friday",
+        time: "12:00PM - 2:00PM",
+      },
+    ],
     rating: "5.0",
   },
   {
@@ -81,8 +129,24 @@ const dummyData = [
     work: "Hopital General",
     experience: "2",
     patients: "10",
-    speciality: ["Breast Cancer", "Malaria"],
-    availability: ["Mondays", "Wednesdays", "Fridays"],
+    speciality: "Breast Cancer",
+    availability: [
+      {
+        id: 1,
+        day: "Monday",
+        time: "10:00AM - 2:00PM",
+      },
+      {
+        id: 2,
+        day: "Wednesday",
+        time: "12:00PM - 2:00PM",
+      },
+      {
+        id: 3,
+        day: "Friday",
+        time: "12:00PM - 2:00PM",
+      },
+    ],
     rating: "5.0",
   },
   {
@@ -95,10 +159,27 @@ const dummyData = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
     work: "Hopital General",
+    education: "Phd in Public Health",
     experience: "2",
     patients: "10",
-    speciality: ["Breast Cancer", "Malaria"],
-    availability: ["Mondays", "Wednesdays", "Fridays"],
+    speciality: "Breast Cancer",
+    availability: [
+      {
+        id: 1,
+        day: "Monday",
+        time: "10:00AM - 2:00PM",
+      },
+      {
+        id: 2,
+        day: "Wednesday",
+        time: "12:00PM - 2:00PM",
+      },
+      {
+        id: 3,
+        day: "Friday",
+        time: "12:00PM - 2:00PM",
+      },
+    ],
     rating: "5.0",
   },
   {
@@ -110,12 +191,28 @@ const dummyData = [
     image: images.doc6,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
-    education: "Universtity OF Buea",
+    education: "Phd in Public Health",
     work: "Hopital General",
     experience: "2",
     patients: "10",
-    speciality: ["Breast Cancer", "Malaria"],
-    availability: ["Mondays", "Wednesdays", "Fridays"],
+    speciality: "Breast Cancer",
+    availability: [
+      {
+        id: 1,
+        day: "Monday",
+        time: "10:00AM - 2:00PM",
+      },
+      {
+        id: 2,
+        day: "Wednesday",
+        time: "12:00PM - 2:00PM",
+      },
+      {
+        id: 3,
+        day: "Friday",
+        time: "12:00PM - 2:00PM",
+      },
+    ],
     rating: "5.0",
   },
 ];
@@ -190,7 +287,7 @@ const Specialists = () => {
                           }}
                           numberOfLines={1}
                         >
-                          {item.speciality.join(",")}
+                          {item.speciality}
                         </Text>
                         <Text
                           style={{
