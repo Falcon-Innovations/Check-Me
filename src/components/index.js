@@ -4,6 +4,7 @@ import SocialButton from "./utils/SocialButton";
 import DashboardCard from "./DashboardCard";
 import CustomStatusBar from "./CustomStatusBar";
 import PhoneInputField from "./inputs/PhoneInputField";
+import AppStatusBar from "./utils/AppStatusBar";
 
 export {
   Input,
@@ -12,4 +13,5 @@ export {
   DashboardCard,
   CustomStatusBar,
   PhoneInputField,
+  AppStatusBar,
 };

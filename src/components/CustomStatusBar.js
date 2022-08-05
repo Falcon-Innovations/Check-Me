@@ -32,9 +32,9 @@ export default CustomStatusBar;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingBottom: 10,
     backgroundColor: "#fff",
-    paddingTop: Platform.OS == "ios" ? 40 : 15,
+    paddingTop: 10,
+    justifyContent: "center",
   },
 
   statusBar: {

@@ -13,7 +13,7 @@ import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Divider } from "react-native-elements";
 
-import { CustomStatusBar } from "../../components";
+import { AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, SIZES } from "../../utility";
 
 // const icons = ["message1", "phone", "mail"];
@@ -39,9 +39,7 @@ const SpecialistDetails = ({ route }) => {
   console.log("Data", item);
   return (
     <>
-      {Platform.OS == "android" && (
-        <StatusBar hidden={false} backgroundColor={COLORS.primary} />
-      )}
+      <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <CustomStatusBar />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ScrollView

@@ -15,7 +15,7 @@ import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 import { COLORS, images, SIZES } from "../../utility";
-import { CustomStatusBar } from "../../components";
+import { AppStatusBar, CustomStatusBar } from "../../components";
 
 const dummyData = [
   {
@@ -126,9 +126,7 @@ const Specialists = () => {
   const onChangeSearch = (query) => setSearchQuery(query);
   return (
     <>
-      {Platform.OS == "android" && (
-        <StatusBar hidden={false} backgroundColor={COLORS.primary} />
-      )}
+      <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <CustomStatusBar />
       <SafeAreaView style={styles.container}>
         <View style={{ marginHorizontal: 10, paddingVertical: 10 }}>

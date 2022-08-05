@@ -13,7 +13,7 @@ import React from "react";
 import { Button } from "react-native-paper";
 
 import { COLORS, images, SIZES } from "../../utility";
-import { AppButton, DashboardCard } from "../../components";
+import { AppButton, AppStatusBar, DashboardCard } from "../../components";
 import { Context as AuthContext } from "../../contexts/authContext";
 
 const tips = [
@@ -57,9 +57,7 @@ const Dashboard = () => {
 
   return (
     <>
-      {Platform.OS == "android" && (
-        <StatusBar hidden={false} backgroundColor={COLORS.primary} />
-      )}
+      <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.container}>
