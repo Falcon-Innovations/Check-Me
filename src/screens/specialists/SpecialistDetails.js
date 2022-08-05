@@ -278,7 +278,7 @@ const SpecialistDetails = ({ route }) => {
             </View> */}
           </View>
 
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: 10 }}>
             <AppButton
               text="Contact Specialist"
               color={COLORS.primary}
