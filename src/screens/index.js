@@ -10,6 +10,10 @@ import OTPVerification from "./auth/OTPVerification";
 import Specialists from "./specialists/Specialists";
 import SpecialistDetails from "./specialists/SpecialistDetails";
 
+//profile
+import ProfileOverview from "./profile/ProfileOverview";
+import PersonalDashboard from "./profile/PersonalDashboard";
+
 export {
   Onboard,
   Dashboard,
@@ -18,4 +22,6 @@ export {
   OTPVerification,
   Specialists,
   SpecialistDetails,
+  ProfileOverview,
+  PersonalDashboard,
 };

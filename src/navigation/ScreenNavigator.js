@@ -9,6 +9,8 @@ import {
   OTPVerification,
   Specialists,
   SpecialistDetails,
+  ProfileOverview,
+  PersonalDashboard,
 } from "../screens";
 import useGetOnboardingStatus from "../utility/checkIfFirstLaunch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -63,6 +65,8 @@ const RootNavigator = () => {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Specialists" component={Specialists} />
         <Stack.Screen name="SpecialistDetails" component={SpecialistDetails} />
+        <Stack.Screen name="ProfileOverview" component={ProfileOverview} />
+        <Stack.Screen name="PersonalDashboard" component={PersonalDashboard} />
         <Stack.Screen name="Root" component={BottomTabNavigator} />
       </Stack.Navigator>
     </>
@@ -116,7 +120,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Yo"
-        component={Dashboard}
+        component={ProfileOverview}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (

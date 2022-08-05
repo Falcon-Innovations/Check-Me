@@ -8,9 +8,11 @@ import {
   ScrollView,
   Alert,
   Platform,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 import { COLORS, images, SIZES } from "../../utility";
 import { AppButton, AppStatusBar, DashboardCard } from "../../components";
@@ -36,6 +38,7 @@ const tips = [
 
 const Dashboard = () => {
   const { state, logout } = React.useContext(AuthContext);
+  const navigation = useNavigation();
 
   const handleLogout = () => {
     Alert.alert(
@@ -63,12 +66,15 @@ const Dashboard = () => {
           <View style={styles.container}>
             <View style={styles.header}>
               <Text style={styles.greeting}>Welcome!!</Text>
-              <View style={styles.nameContainer}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ProfileOverview")}
+                style={styles.nameContainer}
+              >
                 <Text style={styles.name}>
                   {state?.user?.name.split(" ").shift().charAt(0) +
                     state?.user?.name.split(" ").pop().charAt(0)}
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={styles.infoContainer}>
               <View style={styles.imageContainer}>
@@ -117,7 +123,7 @@ const Dashboard = () => {
                     mode="contained"
                     labelStyle={styles.testBtn}
                     // onPress={() => navigation.navigate("Login")}
-                    onPress={handleLogout}
+                    // onPress={handleLogout}
                     uppercase={false}
                     theme={{ colors: { primary: "#fff" } }}
                   >

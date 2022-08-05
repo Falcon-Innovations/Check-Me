@@ -9,9 +9,9 @@ import React from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icons from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import { SIZES } from "../utility";
+import { COLORS, SIZES } from "../utility";
 
-const CustomStatusBar = () => {
+const CustomStatusBar = ({ text }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -19,6 +19,15 @@ const CustomStatusBar = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="ios-arrow-back-sharp" color="#8A8A8A" size={28} />
         </TouchableOpacity>
+        <Text
+          style={{
+            fontFamily: "Poppins_Medium",
+            fontSize: 16,
+            color: COLORS.textColor,
+          }}
+        >
+          {text}
+        </Text>
         <TouchableOpacity>
           <Icons name="more-vertical" color="#8A8A8A" size={24} />
         </TouchableOpacity>
@@ -34,6 +43,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#fff",
     paddingTop: 10,
+    paddingBottom: 10,
     justifyContent: "center",
   },
 
