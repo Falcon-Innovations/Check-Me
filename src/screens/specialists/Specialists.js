@@ -25,14 +25,15 @@ const dummyData = [
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc1,
-    description: "The James Bond is the best way to search for a novel.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
     education: "Universtity OF Buea",
     work: "Hopital General",
     experience: "2",
     patients: "10",
     speciality: ["Breast Cancer", "Malaria"],
     availability: ["Mondays", "Wednesdays", "Fridays"],
-    radting: "5.0",
+    rating: "5.0",
   },
   {
     id: 2,
@@ -41,14 +42,15 @@ const dummyData = [
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc2,
-    description: "The James Bond is the best way to search for a novel.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
     education: "Universtity OF Buea",
     work: "Hopital General",
     experience: "2",
     patients: "10",
     speciality: ["Breast Cancer", "Malaria"],
     availability: ["Mondays", "Wednesdays", "Fridays"],
-    radting: "5.0",
+    rating: "5.0",
   },
   {
     id: 3,
@@ -57,14 +59,15 @@ const dummyData = [
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc3,
-    description: "The James Bond is the best way to search for a novel.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
     education: "Universtity OF Buea",
     work: "Hopital General",
     experience: "2",
     patients: "10",
     speciality: ["Breast Cancer", "Malaria"],
     availability: ["Mondays", "Wednesdays", "Fridays"],
-    radting: "5.0",
+    rating: "5.0",
   },
   {
     id: 4,
@@ -73,14 +76,14 @@ const dummyData = [
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc4,
-    description: "The James Bond is the best way to search for a novel.",
-    education: "Universtity OF Buea",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
     work: "Hopital General",
     experience: "2",
     patients: "10",
     speciality: ["Breast Cancer", "Malaria"],
     availability: ["Mondays", "Wednesdays", "Fridays"],
-    radting: "5.0",
+    rating: "5.0",
   },
   {
     id: 5,
@@ -89,14 +92,14 @@ const dummyData = [
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc5,
-    description: "The James Bond is the best way to search for a novel.",
-    education: "Universtity OF Buea",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
     work: "Hopital General",
     experience: "2",
     patients: "10",
     speciality: ["Breast Cancer", "Malaria"],
     availability: ["Mondays", "Wednesdays", "Fridays"],
-    radting: "5.0",
+    rating: "5.0",
   },
   {
     id: 6,
@@ -105,14 +108,15 @@ const dummyData = [
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc6,
-    description: "The James Bond is the best way to search for a novel.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
     education: "Universtity OF Buea",
     work: "Hopital General",
     experience: "2",
     patients: "10",
     speciality: ["Breast Cancer", "Malaria"],
     availability: ["Mondays", "Wednesdays", "Fridays"],
-    radting: "5.0",
+    rating: "5.0",
   },
 ];
 
@@ -122,10 +126,12 @@ const Specialists = () => {
   const onChangeSearch = (query) => setSearchQuery(query);
   return (
     <>
-      <StatusBar hidden={false} backgroundColor={COLORS.primary} />
+      {Platform.OS == "android" && (
+        <StatusBar hidden={false} backgroundColor={COLORS.primary} />
+      )}
+      <CustomStatusBar />
       <SafeAreaView style={styles.container}>
         <View style={{ marginHorizontal: 10, paddingVertical: 10 }}>
-          <CustomStatusBar />
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ marginVertical: 20, marginHorizontal: 10 }}>
               <Searchbar
@@ -280,7 +286,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
-    paddingBottom: SIZES.screenHeight * 0.08,
+    paddingBottom: SIZES.screenHeight * 0.03,
     justifyContent: "center",
   },
   cardContent: {

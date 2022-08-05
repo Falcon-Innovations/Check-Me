@@ -81,7 +81,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Feed"
-      activeColor={COLORS.black}
+      activeColor={COLORS.primary}
       barStyle={{ backgroundColor: COLORS.white }}
     >
       <Tab.Screen

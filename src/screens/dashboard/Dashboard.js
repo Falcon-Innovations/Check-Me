@@ -7,6 +7,7 @@ import {
   View,
   ScrollView,
   Alert,
+  Platform,
 } from "react-native";
 import React from "react";
 import { Button } from "react-native-paper";
@@ -56,7 +57,9 @@ const Dashboard = () => {
 
   return (
     <>
-      <StatusBar hidden={false} backgroundColor={COLORS.primary} />
+      {Platform.OS == "android" && (
+        <StatusBar hidden={false} backgroundColor={COLORS.primary} />
+      )}
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.container}>
