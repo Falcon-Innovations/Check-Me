@@ -8,35 +8,104 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Linking,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import Icons from "react-native-vector-icons/SimpleLineIcons";
 import Ribbon from "react-native-vector-icons/MaterialCommunityIcons";
+import SendSMS from "react-native-sms";
 import { Divider } from "react-native-elements";
+import { Context as AuthContext } from "../../contexts/authContext";
 
 import { AppButton, AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, SIZES } from "../../utility";
 
-// const icons = ["message1", "phone", "mail"];
-
-const icons = [
-  {
-    id: 1,
-    name: "message1",
-  },
-  {
-    id: 2,
-    name: "phone",
-  },
-  {
-    id: 3,
-    name: "mail",
-  },
-];
-
 const SpecialistDetails = ({ route }) => {
   const item = route.params;
+
+  const { state } = React.useContext(AuthContext);
+  const [mobileNumber, setMobileNumber] = useState(item.phone);
+  const [bodySMS, setBodySMS] = useState(
+    `Hello, My name is ${state?.user?.name} I will love to consult`
+  );
+  const [whatsAppMsg, setWhatsAppMsg] = useState("Please follow Check Me");
+
+  const initiateSMS = async () => {
+    // Check for perfect 10 digit length
+    // if (mobileNumber.length < 9) {
+    //   alert("Please insert correct contact number");
+    //   return;
+    // }
+
+    SendSMS.send(
+      {
+        // Message body
+        body: bodySMS,
+        // Recipients Number
+        recipients: [mobileNumber],
+        // An array of types
+        // "completed" response when using android
+        successTypes: ["sent", "queued"],
+      },
+      (completed, cancelled, error) => {
+        if (completed) {
+          console.log("SMS Sent Completed");
+        } else if (cancelled) {
+          console.log("SMS Sent Cancelled");
+        } else if (error) {
+          console.log("Some error occured");
+        }
+      }
+    );
+  };
+
+  const initiateWhatsAppSMS = () => {
+    // Check for perfect 10 digit length
+    if (mobileNumber.length < 9) {
+      alert("Please insert correct contact number");
+      return;
+    }
+    // Using 91 for India
+    // You can change 91 with your country code
+    let url =
+      "whatsapp://send?text=" + whatsAppMsg + "&phone=237" + mobileNumber;
+    Linking.openURL(url)
+      .then((data) => {
+        console.log("WhatsApp Opened");
+      })
+      .catch(() => {
+        alert("Make sure Whatsapp installed on your device");
+      });
+  };
+
+  const openDialScreen = () => {
+    let number = "";
+    if (Platform.OS === "ios") {
+      number = `telprompt:${item.phone}`;
+    } else {
+      number = `tel:${item.phone}`;
+    }
+    Linking.openURL(number);
+  };
+
+  const icons = [
+    {
+      id: 1,
+      name: "message1",
+      onpress: initiateWhatsAppSMS,
+    },
+    {
+      id: 2,
+      name: "phone",
+      onpress: openDialScreen,
+    },
+    {
+      id: 3,
+      name: "mail",
+      onpress: initiateSMS,
+    },
+  ];
 
   const aboutData = [
     {
@@ -76,7 +145,11 @@ const SpecialistDetails = ({ route }) => {
 
               <View style={styles.iconView}>
                 {icons.map((icon) => (
-                  <TouchableOpacity key={icon.id} style={styles.iconContainer}>
+                  <TouchableOpacity
+                    key={icon.id}
+                    style={styles.iconContainer}
+                    onPress={icon.onpress}
+                  >
                     <Icon name={icon.name} size={18} color="#333333" />
                   </TouchableOpacity>
                 ))}

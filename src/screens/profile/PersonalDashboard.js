@@ -46,6 +46,19 @@ const PersonalDashboard = () => {
     },
   ];
 
+  const cycle = [
+    {
+      days: "5 Days",
+      icon: <Icons name="ios-water" color="#fff" size={20} />,
+      desc: "Average Period",
+    },
+    {
+      days: "28 Days",
+      icon: <Icons name="ios-sync" color="#fff" size={20} />,
+      desc: "Average Cycle",
+    },
+  ];
+
   const { state, logout } = React.useContext(AuthContext);
 
   const navigation = useNavigation();
@@ -174,7 +187,94 @@ const PersonalDashboard = () => {
               ))}
             </View>
           </View>
-          <View></View>
+          <View style={{ paddingHorizontal: 5, marginTop: 20 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Icons
+                name="md-flower-outline"
+                size={28}
+                color={COLORS.primary}
+                style={{ marginRight: 10 }}
+              />
+              <Text
+                style={{
+                  fontFamily: "Poppins_Medium",
+                  fontSize: 17,
+                  color: COLORS.textColor,
+                }}
+              >
+                My cycle
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+                alignSelf: "center",
+                paddingTop: 12,
+                paddingBottom: SIZES.screenHeight * 0.03,
+                justifyContent: "center",
+                alignSelf: "flex-start",
+              }}
+            >
+              {cycle.map((cy) => (
+                <View
+                  key={cy.days}
+                  style={{
+                    paddingHorizontal: 8,
+                    paddingVertical: 8,
+                    backgroundColor: "#FFE2DC",
+                    marginHorizontal: SIZES.screenWidth * 0.03,
+                    borderRadius: 6,
+                    width: "43%",
+
+                    marginBottom: 20,
+                  }}
+                >
+                  <View
+                    style={{
+                      height: 40,
+                      width: 40,
+                      borderRadius: 40,
+
+                      backgroundColor: COLORS.primary,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    {cy.icon}
+                  </View>
+                  <View style={{ paddingLeft: 6, paddingBottom: 4 }}>
+                    <Text
+                      style={{
+                        fontFamily: "Poppins_Medium",
+                        fontSize: 16,
+                        color: COLORS.textColor,
+                      }}
+                    >
+                      {cy.days}
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: "Poppins_Regular",
+                        fontSize: 11,
+                        color: COLORS.textColor,
+                      }}
+                    >
+                      {cy.desc}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>

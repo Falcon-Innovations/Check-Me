@@ -20,8 +20,8 @@ import { AppStatusBar, CustomStatusBar } from "../../components";
 const dummyData = [
   {
     id: 1,
-    name: "James Bond",
-    phone: "+237 673993113",
+    name: "Kabi Faith Neol",
+    phone: "+237671189571",
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc1,
@@ -54,7 +54,7 @@ const dummyData = [
   {
     id: 2,
     name: "James Bond",
-    phone: "+237 673993113",
+    phone: "+237673993113",
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc2,
@@ -87,7 +87,7 @@ const dummyData = [
   {
     id: 3,
     name: "James Bond",
-    phone: "+237 673993113",
+    phone: "+237673993113",
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc3,
@@ -120,7 +120,7 @@ const dummyData = [
   {
     id: 4,
     name: "James Bond",
-    phone: "+237 673993113",
+    phone: "+237673993113",
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc4,
@@ -152,7 +152,7 @@ const dummyData = [
   {
     id: 5,
     name: "James Bond",
-    phone: "+237 673993113",
+    phone: "+237673993113",
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc5,
@@ -185,7 +185,7 @@ const dummyData = [
   {
     id: 6,
     name: "James Bond",
-    phone: "+237 673993113",
+    phone: "+237673993113",
     email: "yuyunfrancis95@gmail.com",
     location: "Douala, Cameroon",
     image: images.doc6,
