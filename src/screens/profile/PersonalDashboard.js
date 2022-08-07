@@ -148,17 +148,20 @@ const PersonalDashboard = () => {
               }}
             >
               {data.map((item) => (
-                <View
+                <TouchableOpacity
+                  activeOpacity={0.5}
                   key={item.title}
                   style={{
                     paddingHorizontal: 8,
-                    paddingVertical: 8,
+                    paddingVertical: SIZES.screenHeight * 0.04,
                     backgroundColor: "transparent",
-                    marginHorizontal: SIZES.screenWidth * 0.01,
+                    marginHorizontal: SIZES.screenWidth * 0.02,
                     borderRadius: 6,
                     width: "45%",
                     alignItems: "center",
                     marginBottom: 20,
+                    borderWidth: 1,
+                    borderColor: "#F39FCA",
                   }}
                 >
                   <View
@@ -183,7 +186,7 @@ const PersonalDashboard = () => {
                   >
                     {item.title}
                   </Text>
-                </View>
+                </TouchableOpacity>
               ))}
             </View>
           </View>
@@ -229,7 +232,7 @@ const PersonalDashboard = () => {
                   style={{
                     paddingHorizontal: 8,
                     paddingVertical: 8,
-                    backgroundColor: "#FFE2DC",
+                    backgroundColor: "#FFECE9",
                     marginHorizontal: SIZES.screenWidth * 0.03,
                     borderRadius: 6,
                     width: "43%",

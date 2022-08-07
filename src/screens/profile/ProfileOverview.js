@@ -125,7 +125,7 @@ const ProfileOverview = () => {
                   paddingVertical: 15,
                   borderRadius: 8,
                   borderWidth: 1,
-                  borderColor: "#dedede",
+                  borderColor: "#F1B9D6",
                   marginBottom: 15,
                 }}
               >
@@ -155,7 +155,7 @@ const ProfileOverview = () => {
                 paddingVertical: 15,
                 borderRadius: 8,
                 borderWidth: 1,
-                borderColor: "#dedede",
+                borderColor: "#F1B9D6",
                 marginBottom: 15,
               }}
             >
@@ -183,7 +183,7 @@ const ProfileOverview = () => {
                 paddingVertical: 15,
                 borderRadius: 8,
                 borderWidth: 1,
-                borderColor: "#dedede",
+                borderColor: "#F1B9D6",
                 marginBottom: 15,
               }}
             >
