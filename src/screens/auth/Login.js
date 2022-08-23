@@ -9,12 +9,17 @@ import {
   Keyboard,
   StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { COLORS, images, SIZES } from "../../utility";
-import { Input, AppButton, SocialButton } from "../../components";
+import {
+  Input,
+  AppButton,
+  SocialButton,
+  PhoneInputField,
+} from "../../components";
 import { Context as AuthContext } from "../../contexts/authContext";
 import Loader from "../../components/utils/Loader";
 
@@ -22,9 +27,9 @@ const Login = () => {
   const navigation = useNavigation();
   const { signIn } = React.useContext(AuthContext);
   const [inputs, setInputs] = useState({
-    email: "",
-    pin: "",
+    phone: "",
   });
+  const phoneInput = useRef(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -74,7 +79,10 @@ const Login = () => {
         </View>
       ) : (
         <SafeAreaView style={styles.container}>
-          <KeyboardAwareScrollView style={styles.viewContainer}>
+          <KeyboardAwareScrollView
+            style={styles.viewContainer}
+            contentContainerStyle={{ justifyContent: "center" }}
+          >
             <View style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Image
                 resizeMode="contain"
@@ -98,7 +106,7 @@ const Login = () => {
               </Text>
             </View>
             <View style={styles.formContainer}>
-              <Input
+              {/* <Input
                 placeholder="Enter your email"
                 keyboardType="email-address"
                 error={errors.email}
@@ -111,9 +119,17 @@ const Login = () => {
                 pin
                 onFocus={() => handleErrors(null, "pin")}
                 onChangeText={(text) => handleOnChange(text, "pin")}
+              /> */}
+
+              <PhoneInputField
+                phoneInput={phoneInput}
+                phoneNumber={inputs.phone}
+                onChange={(text) => {
+                  handleOnChange(text, "phone");
+                }}
               />
             </View>
-            <View>
+            {/* <View>
               <Text
                 style={{
                   color: COLORS.primary,
@@ -124,18 +140,20 @@ const Login = () => {
               >
                 Forgot Password?
               </Text>
-            </View>
+            </View> */}
 
             <View style={{ marginTop: 20 }}>
               <AppButton
                 text="Login"
                 color={COLORS.primary}
                 // onPress={() => navigation.navigate('Dashboard')}
-                onPress={handleSignIn}
+                onPress={() =>
+                  navigation.navigate("OTPVerification", phoneInput)
+                }
                 disabled={loading}
               />
             </View>
-            <View
+            {/* <View
               style={{
                 alignItems: "center",
                 marginVertical: 15,
@@ -143,13 +161,13 @@ const Login = () => {
               }}
             >
               <Text>Or you can sign in with</Text>
-            </View>
+            </View> */}
 
-            <SocialButton
+            {/* <SocialButton
               icon="google"
               title="Login with Google"
               backgroundColor="#3b5998"
-            />
+            /> */}
 
             <View
               style={{
@@ -157,6 +175,7 @@ const Login = () => {
                 paddingVertical: 10,
                 justifyContent: "center",
                 flexDirection: "row",
+                marginTop: SIZES.screenHeight * 0.02,
               }}
             >
               <Text>{`Don't have an account yet?`}</Text>

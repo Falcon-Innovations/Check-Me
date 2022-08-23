@@ -31,6 +31,8 @@ const doc6 = require("../../assets/images/doc6.jpg");
 
 const nurse = require("../../assets/images/nurse.png");
 
+const verifyotp = require("../../assets/images/verifyotp.png");
+
 export default {
   calender,
   doctor,
@@ -52,4 +54,5 @@ export default {
   doc4,
   doc5,
   doc6,
+  verifyotp,
 };

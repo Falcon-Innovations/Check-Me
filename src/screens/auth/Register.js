@@ -157,7 +157,7 @@ const Register = () => {
                 }}
               />
 
-              <Input
+              {/* <Input
                 placeholder="Enter a password"
                 error={errors.pin}
                 pin
@@ -170,7 +170,7 @@ const Register = () => {
                 pin
                 onFocus={() => handleErrors(null, "kfirmpin")}
                 onChangeText={(text) => handleOnChange(text, "kfirmpin")}
-              />
+              /> */}
             </View>
             <View style={{ alignItems: "center" }}>
               <Text>By clicking on Sign up, you agree to </Text>
@@ -194,10 +194,13 @@ const Register = () => {
                 text="Register"
                 color={COLORS.primary}
                 disabled={loading}
-                onPress={register}
+                onPress={() =>
+                  navigation.navigate("OTPVerification", inputs.phone)
+                }
+                // onPress={register}
               />
             </View>
-            <View
+            {/* <View
               style={{
                 alignItems: "center",
                 marginVertical: 15,
@@ -211,7 +214,7 @@ const Register = () => {
               icon="google"
               title="Login with Google"
               backgroundColor="#3b5998"
-            />
+            /> */}
 
             <View
               style={{
