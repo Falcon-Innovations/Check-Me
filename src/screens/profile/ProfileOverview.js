@@ -24,25 +24,30 @@ const profile = [
     screen: "PersonalDashboard",
   },
   {
-    title: "Subscriptions",
-    screen: "PersonalDashboard",
-  },
-  {
     title: "Personal Dashboard",
     screen: "PersonalDashboard",
   },
   {
-    title: "Settings",
-    screen: "PersonalDashboard",
+    title: "Edit profile",
+    screen: "EditProfile",
   },
   {
-    title: "Edit profile",
+    title: "Subscriptions",
     screen: "PersonalDashboard",
+  },
+
+  {
+    title: "Settings",
+    screen: "Settings",
   },
 ];
 
 const ProfileOverview = () => {
   const { state, logout } = React.useContext(AuthContext);
+
+  console.log("====================================");
+  console.log("user", state?.user);
+  console.log("====================================");
 
   const navigation = useNavigation();
 
@@ -118,7 +123,7 @@ const ProfileOverview = () => {
           <View>
             {profile.map((item) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate(item.screen)}
+                onPress={() => navigation.navigate(item.screen, state?.user)}
                 key={item.title}
                 style={{
                   paddingHorizontal: 12,
@@ -149,33 +154,6 @@ const ProfileOverview = () => {
             ))}
           </View>
           <View>
-            <View
-              style={{
-                paddingHorizontal: 12,
-                paddingVertical: 15,
-                borderRadius: 8,
-                borderWidth: 1,
-                borderColor: "#F1B9D6",
-                marginBottom: 15,
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={{ fontFamily: "Poppins_Regular", fontSize: 14 }}>
-                  Change Language
-                </Text>
-                <Icon
-                  name="md-chevron-forward-sharp"
-                  size={28}
-                  color={"#8A8A8A"}
-                />
-              </TouchableOpacity>
-            </View>
             <TouchableOpacity
               onPress={handleLogout}
               style={{

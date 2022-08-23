@@ -1,7 +1,7 @@
 import { View, StyleSheet, Dimensions } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
 
-const PhoneInputField = ({ phoneNumber, phoneInput, onChange }) => {
+const PhoneInputField = ({ phoneNumber, phoneInput, onChange, ...rest }) => {
   return (
     <View style={styles.container}>
       <PhoneInput
@@ -15,6 +15,7 @@ const PhoneInputField = ({ phoneNumber, phoneInput, onChange }) => {
         containerStyle={styles.phoneContainer}
         textContainerStyle={styles.textInput}
         onChangeFormattedText={onChange}
+        {...rest}
       />
     </View>
   );

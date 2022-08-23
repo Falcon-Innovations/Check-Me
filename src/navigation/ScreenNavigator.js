@@ -11,6 +11,11 @@ import {
   SpecialistDetails,
   ProfileOverview,
   PersonalDashboard,
+  EditProfile,
+  AllBlogs,
+  ResetPassword,
+  Settings,
+  BlogDetails,
 } from "../screens";
 import useGetOnboardingStatus from "../utility/checkIfFirstLaunch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -67,6 +72,11 @@ const RootNavigator = () => {
         <Stack.Screen name="SpecialistDetails" component={SpecialistDetails} />
         <Stack.Screen name="ProfileOverview" component={ProfileOverview} />
         <Stack.Screen name="PersonalDashboard" component={PersonalDashboard} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="ResetPassword" component={ResetPassword} />
+        <Stack.Screen name="Blogs" component={AllBlogs} />
+        <Stack.Screen name="BlogDetails" component={BlogDetails} />
         <Stack.Screen name="Root" component={BottomTabNavigator} />
       </Stack.Navigator>
     </>
@@ -100,7 +110,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Learn"
-        component={Dashboard}
+        component={AllBlogs}
         options={{
           tabBarLabel: "Feed",
           tabBarIcon: ({ color }) => (

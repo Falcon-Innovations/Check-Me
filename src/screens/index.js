@@ -13,6 +13,13 @@ import SpecialistDetails from "./specialists/SpecialistDetails";
 //profile
 import ProfileOverview from "./profile/ProfileOverview";
 import PersonalDashboard from "./profile/PersonalDashboard";
+import EditProfile from "./profile/EditProfile";
+import ResetPassword from "./profile/ResetPassword";
+import Settings from "./profile/Settings";
+
+//blos
+import AllBlogs from "./blog/AllBlogs";
+import BlogDetails from "./blog/BlogDetails";
 
 export {
   Onboard,
@@ -24,4 +31,9 @@ export {
   SpecialistDetails,
   ProfileOverview,
   PersonalDashboard,
+  EditProfile,
+  AllBlogs,
+  ResetPassword,
+  Settings,
+  BlogDetails,
 };
