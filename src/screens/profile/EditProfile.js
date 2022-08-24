@@ -1,38 +1,38 @@
 import {
-  Image,
   ImageBackground,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   Button,
   Dimensions,
+  Platform,
 } from 'react-native';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CalendarPicker from 'react-native-calendar-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icons from 'react-native-vector-icons/Feather';
 import Modal from 'react-native-modal';
-
-import { Context as AuthContext } from '../../contexts/userContext';
+import moment from 'moment';
+import { Context as UserContext } from '../../contexts/userContext';
 import {
   AppButton,
   AppStatusBar,
   CustomStatusBar,
   Input,
-  PhoneInputField,
 } from '../../components';
-import { COLORS, images, SIZES } from '../../utility';
+import { COLORS } from '../../utility';
 import TextAreaInput from '../../components/inputs/TextAreaInput';
 import Loader from '../../components/utils/Loader';
 
 const EditProfile = () => {
-  const { state, updateProfile } = React.useContext(AuthContext);
+  const { state, updateProfile, updateMyAvatar } =
+    React.useContext(UserContext);
+
   const [loading, setLoading] = React.useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -48,34 +48,58 @@ const EditProfile = () => {
   });
 
   const handleOnChange = (text, input) => {
-    console.log(text);
     setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
-
-  const onDateChange = (date) => {
-    setSelectedDate(date);
-  };
-  var startDate = selectedDate ? selectedDate.toString() : '';
-  startDate = new Date(startDate).toUTCString();
-  startDate = startDate.split(' ').slice(0, 4).join(' ');
-  const maxDate = new Date(2010, 11, 31);
 
   const handleUpdateProfile = async () => {
     setLoading(true);
     await updateProfile({
-      email: inputs?.email,
-      name: inputs?.fullname,
-      bio: inputs?.bio,
+      email: inputs.email ?? state?.user?.email,
+      name: inputs.fullname ?? state?.user?.name,
+      bio: inputs.bio ?? state?.user?.bio,
+      birthDate: inputs.birthDate ?? state?.user?.birthDate,
     });
     setLoading(false);
   };
 
+  const onDateChange = (val) => {
+    setInputs((prevState) => {
+      return {
+        ...prevState,
+        birthDate: val,
+      };
+    });
+  };
+
+  const formatDate = (date) => {
+    return date ? moment(date).format('ll') : null;
+  };
+
+  const maxDate = moment().subtract(7, 'years');
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      const uri =
+        Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
+      updateMyAvatar({ file: uri });
+    }
+  };
+
+  console.log(state?.user);
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <CustomStatusBar text={'Edit Profile'} />
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-        {loading && <Loader />}
+        {loading && <Loader visible={true} />}
         <KeyboardAwareScrollView
           extraHeight={100}
           showsVerticalScrollIndicator={false}
@@ -85,7 +109,9 @@ const EditProfile = () => {
           <View style={{ alignSelf: 'center' }}>
             <ImageBackground
               imageStyle={{ borderRadius: 60 }}
-              source={images.doc1}
+              source={{
+                uri: state?.user?.avatar,
+              }}
               style={{
                 width: 100,
                 height: 100,
@@ -93,6 +119,7 @@ const EditProfile = () => {
               resizeMode="cover"
             >
               <TouchableOpacity
+                onPress={pickImage}
                 activeOpacity={0.6}
                 style={styles.iconContainer}
               >
@@ -104,53 +131,35 @@ const EditProfile = () => {
             <View>
               <Text style={styles.title}>Full Name</Text>
               <Input
-                // maxLength={35}
                 placeholder="Enter your name"
                 keyboardType="default"
                 defaultValue={state?.user?.name}
-                // error={errors.fullname}
-                // onFocus={() => handleErrors(null, "fullname")}
                 onChangeText={(text) => handleOnChange(text, 'fullname')}
               />
             </View>
             <View>
               <Text style={styles.title}>Email Address</Text>
               <Input
-                // maxLength={35}
                 placeholder="Enter your email"
                 keyboardType="default"
                 defaultValue={state?.user?.email}
-                // error={errors.fullname}
-                // onFocus={() => handleErrors(null, "fullname")}
                 onChangeText={(text) => handleOnChange(text, 'email')}
               />
             </View>
-            {/* <View>
-              <Text style={styles.title}>Phone Number</Text>
-              <PhoneInputField
-                phoneInput={phoneInput}
-                phoneNumber={inputs.phone}
-                onChange={(text) => {
-                  handleOnChange(text, 'phone');
-                }}
-                defaultValue={state?.user?.telephone}
-                onChangeFormattedText={(text) => {
-                  console.log(text);
-                }}
-              />
-            </View> */}
 
             <View style={styles.container}>
               <Text style={styles.title}>Date of Birth</Text>
               <View style={styles.dateContainer}>
                 <View style={styles.dateView}>
-                  <Text>{startDate}</Text>
+                  <Text>
+                    {formatDate(inputs?.birthDate) ??
+                      formatDate(state?.user?.birthDate)}
+                  </Text>
                   <TouchableOpacity onPress={toggleModal}>
                     <Icons name="calendar" size={24} color={COLORS.primary} />
                   </TouchableOpacity>
                 </View>
               </View>
-
               <Modal isVisible={isModalVisible} animationType="slide">
                 <View style={{ backgroundColor: '#fff', borderRadius: 8 }}>
                   <View
@@ -171,7 +180,6 @@ const EditProfile = () => {
                       }}
                     />
                   </View>
-
                   <View style={{ paddingVertical: 10 }}>
                     <Button
                       color={COLORS.primary}
@@ -189,7 +197,6 @@ const EditProfile = () => {
                 onChangeText={(text) => handleOnChange(text, 'bio')}
               />
             </View>
-
             <View style={{ marginTop: 20 }}>
               <AppButton
                 text="Update Info"
