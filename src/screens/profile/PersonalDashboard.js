@@ -7,55 +7,55 @@ import {
   View,
   Image,
   TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { Divider } from "react-native-elements";
-import Icon from "react-native-vector-icons/Feather";
-import Icons from "react-native-vector-icons/Ionicons";
-import Run from "react-native-vector-icons/FontAwesome5";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+} from 'react-native';
+import React from 'react';
+import { Divider } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Feather';
+import Icons from 'react-native-vector-icons/Ionicons';
+import Run from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
 
-import { Context as AuthContext } from "../../contexts/authContext";
-import { AppStatusBar, CustomStatusBar } from "../../components";
-import { COLORS, images, SIZES } from "../../utility";
-import { Alert } from "react-native";
+import { Context as AuthContext } from '../../contexts/userContext';
+import { AppStatusBar, CustomStatusBar } from '../../components';
+import { COLORS, images, SIZES } from '../../utility';
+import { Alert } from 'react-native';
 
 const PersonalDashboard = () => {
   const data = [
     {
-      title: "Track my period",
-      screen: "SetCycle",
+      title: 'Track my period',
+      screen: 'SetCycle',
       icon: <Icons name="ios-water" color="#fff" size={22} />,
     },
     {
-      title: "Self-examine",
-      screen: "SetCycle",
+      title: 'Self-examine',
+      screen: 'SetCycle',
       icon: <Icons name="ios-flower" color="#fff" size={22} />,
     },
     {
-      title: "Find exercises",
-      screen: "SetCycle",
+      title: 'Find exercises',
+      screen: 'SetCycle',
       icon: <Run name="running" color="#fff" size={22} />,
     },
     {
-      title: "Talk to a doctor",
-      screen: "SetCycle",
+      title: 'Talk to a doctor',
+      screen: 'SetCycle',
       icon: <FontAwesome name="stethoscope" color="#fff" size={22} />,
     },
   ];
 
   const cycle = [
     {
-      days: "5 Days",
+      days: '5 Days',
       icon: <Icons name="ios-water" color="#fff" size={20} />,
-      desc: "Average Period",
+      desc: 'Average Period',
     },
     {
-      days: "28 Days",
+      days: '28 Days',
       icon: <Icons name="ios-sync" color="#fff" size={20} />,
-      desc: "Average Cycle",
+      desc: 'Average Cycle',
     },
   ];
 
@@ -65,15 +65,15 @@ const PersonalDashboard = () => {
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
-      <CustomStatusBar text={"Personal Dashboard"} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <CustomStatusBar text={'Personal Dashboard'} />
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <ScrollView
           contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 20 }}
         >
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
               paddingHorizontal: 10,
             }}
           >
@@ -82,7 +82,7 @@ const PersonalDashboard = () => {
                 style={{
                   height: 70,
                   width: 70,
-                  backgroundColor: "#ECECEC",
+                  backgroundColor: '#ECECEC',
                   borderRadius: 70,
                 }}
               >
@@ -95,14 +95,14 @@ const PersonalDashboard = () => {
               </View>
             </View>
             <View>
-              <Text style={{ fontFamily: "Poppins_Medium", fontSize: 16 }}>
+              <Text style={{ fontFamily: 'Poppins_Medium', fontSize: 16 }}>
                 {state?.user?.name}
               </Text>
               <Text
                 style={{
-                  fontFamily: "Poppins_Regular",
+                  fontFamily: 'Poppins_Regular',
                   fontSize: 12,
-                  color: "#AEADAD",
+                  color: '#AEADAD',
                   marginTop: 2,
                 }}
               >
@@ -114,8 +114,8 @@ const PersonalDashboard = () => {
           <View style={{ paddingHorizontal: 5, marginTop: 20 }}>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
               <Icon
@@ -126,7 +126,7 @@ const PersonalDashboard = () => {
               />
               <Text
                 style={{
-                  fontFamily: "Poppins_Medium",
+                  fontFamily: 'Poppins_Medium',
                   fontSize: 17,
                   color: COLORS.textColor,
                 }}
@@ -137,14 +137,14 @@ const PersonalDashboard = () => {
             <View
               style={{
                 flex: 1,
-                flexDirection: "row",
-                flexWrap: "wrap",
-                alignItems: "center",
-                alignSelf: "center",
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                alignSelf: 'center',
                 paddingTop: 12,
                 paddingBottom: SIZES.screenHeight * 0.03,
-                justifyContent: "center",
-                alignSelf: "flex-start",
+                justifyContent: 'center',
+                alignSelf: 'flex-start',
               }}
             >
               {data.map((item) => (
@@ -154,14 +154,14 @@ const PersonalDashboard = () => {
                   style={{
                     paddingHorizontal: 8,
                     paddingVertical: SIZES.screenHeight * 0.04,
-                    backgroundColor: "transparent",
+                    backgroundColor: 'transparent',
                     marginHorizontal: SIZES.screenWidth * 0.02,
                     borderRadius: 6,
-                    width: "45%",
-                    alignItems: "center",
+                    width: '45%',
+                    alignItems: 'center',
                     marginBottom: 20,
                     borderWidth: 1,
-                    borderColor: "#F39FCA",
+                    borderColor: '#F39FCA',
                   }}
                 >
                   <View
@@ -170,15 +170,15 @@ const PersonalDashboard = () => {
                       width: 45,
                       borderRadius: 45,
                       backgroundColor: COLORS.primary,
-                      alignItems: "center",
-                      justifyContent: "center",
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
                     {item.icon}
                   </View>
                   <Text
                     style={{
-                      fontFamily: "Poppins_Regular",
+                      fontFamily: 'Poppins_Regular',
                       fontSize: 14,
                       color: COLORS.textColor,
                       marginTop: 18,
@@ -193,8 +193,8 @@ const PersonalDashboard = () => {
           <View style={{ paddingHorizontal: 5, marginTop: 20 }}>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
             >
               <Icons
@@ -205,7 +205,7 @@ const PersonalDashboard = () => {
               />
               <Text
                 style={{
-                  fontFamily: "Poppins_Medium",
+                  fontFamily: 'Poppins_Medium',
                   fontSize: 17,
                   color: COLORS.textColor,
                 }}
@@ -216,14 +216,14 @@ const PersonalDashboard = () => {
             <View
               style={{
                 flex: 1,
-                flexDirection: "row",
-                flexWrap: "wrap",
-                alignItems: "center",
-                alignSelf: "center",
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                alignSelf: 'center',
                 paddingTop: 12,
                 paddingBottom: SIZES.screenHeight * 0.03,
-                justifyContent: "center",
-                alignSelf: "flex-start",
+                justifyContent: 'center',
+                alignSelf: 'flex-start',
               }}
             >
               {cycle.map((cy) => (
@@ -232,10 +232,10 @@ const PersonalDashboard = () => {
                   style={{
                     paddingHorizontal: 8,
                     paddingVertical: 8,
-                    backgroundColor: "#FFECE9",
+                    backgroundColor: '#FFECE9',
                     marginHorizontal: SIZES.screenWidth * 0.03,
                     borderRadius: 6,
-                    width: "43%",
+                    width: '43%',
 
                     marginBottom: 20,
                   }}
@@ -247,9 +247,9 @@ const PersonalDashboard = () => {
                       borderRadius: 40,
 
                       backgroundColor: COLORS.primary,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      alignSelf: "flex-end",
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      alignSelf: 'flex-end',
                     }}
                   >
                     {cy.icon}
@@ -257,7 +257,7 @@ const PersonalDashboard = () => {
                   <View style={{ paddingLeft: 6, paddingBottom: 4 }}>
                     <Text
                       style={{
-                        fontFamily: "Poppins_Medium",
+                        fontFamily: 'Poppins_Medium',
                         fontSize: 16,
                         color: COLORS.textColor,
                       }}
@@ -266,7 +266,7 @@ const PersonalDashboard = () => {
                     </Text>
                     <Text
                       style={{
-                        fontFamily: "Poppins_Regular",
+                        fontFamily: 'Poppins_Regular',
                         fontSize: 11,
                         color: COLORS.textColor,
                       }}
@@ -288,17 +288,17 @@ export default PersonalDashboard;
 
 const styles = StyleSheet.create({
   shadowProp: {
-    shadowColor: "#171717",
+    shadowColor: '#171717',
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
   image: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     height: 65,
     width: 65,
     borderRadius: 25,
-    position: "absolute",
+    position: 'absolute',
     bottom: 10,
     right: 8,
   },

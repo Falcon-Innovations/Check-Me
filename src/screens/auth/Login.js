@@ -8,22 +8,22 @@ import {
   TouchableOpacity,
   Keyboard,
   StatusBar,
-} from "react-native";
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+} from 'react-native';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { COLORS, images, SIZES } from "../../utility";
-import { Input, AppButton, SocialButton } from "../../components";
-import { Context as AuthContext } from "../../contexts/authContext";
-import Loader from "../../components/utils/Loader";
+import { COLORS, images, SIZES } from '../../utility';
+import { Input, AppButton, SocialButton } from '../../components';
+import { Context as AuthContext } from '../../contexts/userContext';
+import Loader from '../../components/utils/Loader';
 
 const Login = () => {
   const navigation = useNavigation();
   const { signIn } = React.useContext(AuthContext);
   const [inputs, setInputs] = useState({
-    email: "",
-    pin: "",
+    email: '',
+    pin: '',
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -32,18 +32,18 @@ const Login = () => {
     Keyboard.dismiss();
     let isValid = true;
     if (!inputs.email) {
-      handleErrors("Please input email number", "email");
+      handleErrors('Please input email number', 'email');
       isValid = false;
     } else if (inputs.email.length < 9) {
-      handleErrors("Enter valid phone number", "phone");
+      handleErrors('Enter valid phone number', 'phone');
       isValid = false;
     }
 
     if (!inputs.pin) {
-      handleErrors("Please input a valid pin", "pin");
+      handleErrors('Please input a valid pin', 'pin');
       isValid = false;
     } else if (inputs.pin.length < 5) {
-      handleErrors("Pin is 5 digits", "password");
+      handleErrors('Pin is 5 digits', 'password');
       isValid = false;
     }
 
@@ -82,17 +82,17 @@ const Login = () => {
                 style={styles.img}
               />
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text
                 style={[
                   styles.welcomeText,
-                  { color: COLORS.primary, fontFamily: "Poppins_Bold" },
+                  { color: COLORS.primary, fontFamily: 'Poppins_Bold' },
                 ]}
               >
                 Welcome back!
               </Text>
               <Text
-                style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}
+                style={[styles.welcomeText, { fontFamily: 'Poppins_Medium' }]}
               >
                 Kindly fill this to sign in.
               </Text>
@@ -102,22 +102,22 @@ const Login = () => {
                 placeholder="Enter your email"
                 keyboardType="email-address"
                 error={errors.email}
-                onFocus={() => handleErrors(null, "email")}
-                onChangeText={(text) => handleOnChange(text, "email")}
+                onFocus={() => handleErrors(null, 'email')}
+                onChangeText={(text) => handleOnChange(text, 'email')}
               />
               <Input
                 placeholder="Enter your password"
                 error={errors.pin}
                 pin
-                onFocus={() => handleErrors(null, "pin")}
-                onChangeText={(text) => handleOnChange(text, "pin")}
+                onFocus={() => handleErrors(null, 'pin')}
+                onChangeText={(text) => handleOnChange(text, 'pin')}
               />
             </View>
             <View>
               <Text
                 style={{
                   color: COLORS.primary,
-                  fontFamily: "Poppins_Medium",
+                  fontFamily: 'Poppins_Medium',
                   fontSize: 12,
                   marginLeft: 10,
                 }}
@@ -137,9 +137,9 @@ const Login = () => {
             </View>
             <View
               style={{
-                alignItems: "center",
+                alignItems: 'center',
                 marginVertical: 15,
-                fontFamily: "Poppins_Regular",
+                fontFamily: 'Poppins_Regular',
               }}
             >
               <Text>Or you can sign in with</Text>
@@ -153,21 +153,21 @@ const Login = () => {
 
             <View
               style={{
-                alignItems: "center",
+                alignItems: 'center',
                 paddingVertical: 10,
-                justifyContent: "center",
-                flexDirection: "row",
+                justifyContent: 'center',
+                flexDirection: 'row',
               }}
             >
               <Text>{`Don't have an account yet?`}</Text>
-              <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+              <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
                 <Text
                   style={{
-                    textDecorationLine: "underline",
-                    textDecorationStyle: "solid",
-                    textDecorationColor: "#000",
+                    textDecorationLine: 'underline',
+                    textDecorationStyle: 'solid',
+                    textDecorationColor: '#000',
                     color: COLORS.primary,
-                    fontFamily: "Poppins_Medium",
+                    fontFamily: 'Poppins_Medium',
                     fontSize: 15,
                     marginLeft: 10,
                   }}
@@ -188,13 +188,13 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
 
   img: {
     width: SIZES.screenWidth * 0.35,
     height: SIZES.screenWidth * 0.35,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   viewContainer: {
     paddingHorizontal: 15,
@@ -211,19 +211,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   resendBtn: {
-    color: "#EB4864",
+    color: '#EB4864',
     fontSize: 18,
     marginLeft: 20,
   },
   loginView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 15,
   },
   haveAnAccount: {
     fontSize: 15,
-    color: "#fff",
-    fontFamily: "Poppins_Regular",
+    color: '#fff',
+    fontFamily: 'Poppins_Regular',
   },
 });

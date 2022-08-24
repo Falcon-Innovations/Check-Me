@@ -20,6 +20,13 @@ const authReducer = (state, action) => {
         token: action.payload.token,
         user: action.payload.user,
       };
+    case 'PROFILE_UPDATE':
+      return {
+        ...state,
+        errorMessage: '',
+        message: 'Profile updated !',
+        user: action.payload.user,
+      };
     case 'REPORT_ERROR':
       return {
         ...state,
@@ -63,7 +70,7 @@ const signIn =
       Alert.alert('Success', `Logged in as ${email}`);
       customNav.navigate('Root');
     } catch (error) {
-      console.log(error.response);
+      console.log(error?.data);
       Alert.alert(
         'Error',
         error?.response?.data?.message
@@ -101,6 +108,91 @@ const signUp =
     }
   };
 
+const updateProfile =
+  (dispatch) =>
+  async ({ name, email, telephone, bio, birthDate }) => {
+    const token = await AsyncStorage.getItem('token');
+    try {
+      const response = await client.patch(
+        'api/v1/users/updateMe',
+        {
+          name,
+          email,
+          telephone,
+          bio,
+          birthDate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const { data: userData } = response?.data;
+        await AsyncStorage.setItem('user', JSON.stringify(userData?.user));
+        dispatch({
+          type: 'PROFILE_UPDATE',
+          payload: { user: userData?.user },
+        });
+
+        Alert.alert('Success', `Profile updated`);
+      }
+    } catch (err) {
+      Alert.alert(
+        'Error',
+        err.response.data.message
+          ? `${err.response.data.message}`
+          : 'Something went wrong, please try again later.'
+      );
+      console.log(err);
+      dispatch({ type: 'REPORT_ERROR', payload: err });
+    }
+  };
+
+const updateMyAvatar =
+  (dispatch) =>
+  async ({ name, email, bio, birthDate }) => {
+    const token = await AsyncStorage.getItem('token');
+    try {
+      const response = await client.patch(
+        'api/v1/users/updateMe',
+        {
+          name,
+          email,
+          bio,
+          birthDate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const { data: userData } = response?.data;
+        await AsyncStorage.setItem('user', JSON.stringify(userData?.user));
+        dispatch({
+          type: 'PROFILE_UPDATE',
+          payload: { user: userData?.user },
+        });
+
+        Alert.alert('Success', `Profile updated`);
+      }
+    } catch (err) {
+      Alert.alert(
+        'Error',
+        err.response.data.message
+          ? `${err.response.data.message}`
+          : 'Something went wrong, please try again later.'
+      );
+      console.log(err);
+      dispatch({ type: 'REPORT_ERROR', payload: err });
+    }
+  };
+
 const tryLocalSignIn = (dispatch) => async () => {
   const token = await AsyncStorage.getItem('token');
   const user = await AsyncStorage.getItem('user');
@@ -118,7 +210,7 @@ const tryLocalSignIn = (dispatch) => async () => {
 
 export const { Context, Provider } = createContext(
   authReducer,
-  { signUp, logout, signIn, tryLocalSignIn },
+  { signUp, logout, signIn, tryLocalSignIn, updateProfile, updateMyAvatar },
   {
     token: null,
     message: '',
