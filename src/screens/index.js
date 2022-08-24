@@ -21,6 +21,9 @@ import Settings from "./profile/Settings";
 import AllBlogs from "./blog/AllBlogs";
 import BlogDetails from "./blog/BlogDetails";
 
+//health
+import BookMammogram from "./health/BookMammogram";
+
 export {
   Onboard,
   Dashboard,
@@ -36,4 +39,5 @@ export {
   ResetPassword,
   Settings,
   BlogDetails,
+  BookMammogram,
 };

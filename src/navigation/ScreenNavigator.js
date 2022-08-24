@@ -16,6 +16,7 @@ import {
   ResetPassword,
   Settings,
   BlogDetails,
+  BookMammogram,
 } from "../screens";
 import useGetOnboardingStatus from "../utility/checkIfFirstLaunch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -77,6 +78,7 @@ const RootNavigator = () => {
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="Blogs" component={AllBlogs} />
         <Stack.Screen name="BlogDetails" component={BlogDetails} />
+        <Stack.Screen name="BookMammogram" component={BookMammogram} />
         <Stack.Screen name="Root" component={BottomTabNavigator} />
       </Stack.Navigator>
     </>

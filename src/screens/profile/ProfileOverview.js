@@ -35,6 +35,10 @@ const profile = [
     title: "Subscriptions",
     screen: "PersonalDashboard",
   },
+  {
+    title: "Book a Mammogram ",
+    screen: "BookMammogram",
+  },
 
   {
     title: "Settings",

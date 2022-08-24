@@ -30,6 +30,7 @@ const doc6 = require("../../assets/images/doc6.jpg");
 //app
 
 const nurse = require("../../assets/images/nurse.png");
+const calendar = require("../../assets/images/Calendar.png");
 
 const verifyotp = require("../../assets/images/verifyotp.png");
 
@@ -55,4 +56,5 @@ export default {
   doc5,
   doc6,
   verifyotp,
+  calendar,
 };
