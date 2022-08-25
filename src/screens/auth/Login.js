@@ -110,8 +110,8 @@ const Login = () => {
                 placeholder="Enter your email"
                 keyboardType="email-address"
                 error={errors.email}
-                onFocus={() => handleErrors(null, "email")}
-                onChangeText={(text) => handleOnChange(text, "email")}
+                onFocus={() => handleErrors(null, 'email')}
+                onChangeText={(text) => handleOnChange(text, 'email')}
               />
               <Input
                 placeholder="Enter your password"
@@ -133,7 +133,7 @@ const Login = () => {
               <Text
                 style={{
                   color: COLORS.primary,
-                  fontFamily: "Poppins_Medium",
+                  fontFamily: 'Poppins_Medium',
                   fontSize: 12,
                   marginLeft: 10,
                 }}
@@ -155,9 +155,9 @@ const Login = () => {
             </View>
             {/* <View
               style={{
-                alignItems: "center",
+                alignItems: 'center',
                 marginVertical: 15,
-                fontFamily: "Poppins_Regular",
+                fontFamily: 'Poppins_Regular',
               }}
             >
               <Text>Or you can sign in with</Text>

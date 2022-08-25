@@ -7,33 +7,33 @@ import {
   View,
   Image,
   TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { Divider } from "react-native-elements";
-import Icon from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+} from 'react-native';
+import React from 'react';
+import { Divider } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
-import { Context as AuthContext } from "../../contexts/authContext";
-import { AppStatusBar, CustomStatusBar } from "../../components";
-import { COLORS, images } from "../../utility";
-import { Alert } from "react-native";
+import { Context as AuthContext } from '../../contexts/userContext';
+import { AppStatusBar, CustomStatusBar } from '../../components';
+import { COLORS, images } from '../../utility';
+import { Alert } from 'react-native';
 
 const profile = [
   {
-    title: "Plan your health",
-    screen: "PersonalDashboard",
+    title: 'Plan your health',
+    screen: 'PersonalDashboard',
   },
   {
-    title: "Personal Dashboard",
-    screen: "PersonalDashboard",
+    title: 'Personal Dashboard',
+    screen: 'PersonalDashboard',
   },
   {
-    title: "Edit profile",
-    screen: "EditProfile",
+    title: 'Edit profile',
+    screen: 'EditProfile',
   },
   {
-    title: "Subscriptions",
-    screen: "PersonalDashboard",
+    title: 'Subscriptions',
+    screen: 'PersonalDashboard',
   },
   {
     title: "Book a Mammogram ",
@@ -41,33 +41,33 @@ const profile = [
   },
 
   {
-    title: "Settings",
-    screen: "Settings",
+    title: 'Settings',
+    screen: 'Settings',
   },
 ];
 
 const ProfileOverview = () => {
   const { state, logout } = React.useContext(AuthContext);
 
-  console.log("====================================");
-  console.log("user", state?.user);
-  console.log("====================================");
+  console.log('====================================');
+  console.log('user', state?.user);
+  console.log('====================================');
 
   const navigation = useNavigation();
 
   const handleLogout = () => {
     Alert.alert(
-      "Are you sure you want to logout?",
-      "This action will sign you out of this device",
+      'Are you sure you want to logout?',
+      'This action will sign you out of this device',
       [
         {
-          text: "Confirm",
+          text: 'Confirm',
           onPress: () => logout(),
         },
         {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
         },
       ]
     );
@@ -75,15 +75,15 @@ const ProfileOverview = () => {
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
-      <CustomStatusBar text={"Profile"} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <CustomStatusBar text={'Profile'} />
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <ScrollView
           contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 20 }}
         >
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
               paddingHorizontal: 10,
             }}
           >
@@ -92,7 +92,7 @@ const ProfileOverview = () => {
                 style={{
                   height: 70,
                   width: 70,
-                  backgroundColor: "#ECECEC",
+                  backgroundColor: '#ECECEC',
                   borderRadius: 70,
                 }}
               >
@@ -105,14 +105,14 @@ const ProfileOverview = () => {
               </View>
             </View>
             <View>
-              <Text style={{ fontFamily: "Poppins_Medium", fontSize: 16 }}>
+              <Text style={{ fontFamily: 'Poppins_Medium', fontSize: 16 }}>
                 {state?.user?.name}
               </Text>
               <Text
                 style={{
-                  fontFamily: "Poppins_Regular",
+                  fontFamily: 'Poppins_Regular',
                   fontSize: 12,
-                  color: "#AEADAD",
+                  color: '#AEADAD',
                   marginTop: 2,
                 }}
               >
@@ -134,24 +134,24 @@ const ProfileOverview = () => {
                   paddingVertical: 15,
                   borderRadius: 8,
                   borderWidth: 1,
-                  borderColor: "#F1B9D6",
+                  borderColor: '#F1B9D6',
                   marginBottom: 15,
                 }}
               >
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <Text style={{ fontFamily: "Poppins_Regular", fontSize: 14 }}>
+                  <Text style={{ fontFamily: 'Poppins_Regular', fontSize: 14 }}>
                     {item.title}
                   </Text>
                   <Icon
                     name="md-chevron-forward-sharp"
                     size={28}
-                    color={"#8A8A8A"}
+                    color={'#8A8A8A'}
                   />
                 </View>
               </TouchableOpacity>
@@ -165,24 +165,24 @@ const ProfileOverview = () => {
                 paddingVertical: 15,
                 borderRadius: 8,
                 borderWidth: 1,
-                borderColor: "#F1B9D6",
+                borderColor: '#F1B9D6',
                 marginBottom: 15,
               }}
             >
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
                 }}
               >
-                <Text style={{ fontFamily: "Poppins_Regular", fontSize: 14 }}>
+                <Text style={{ fontFamily: 'Poppins_Regular', fontSize: 14 }}>
                   Logout
                 </Text>
                 <Icon
                   name="md-chevron-forward-sharp"
                   size={28}
-                  color={"#8A8A8A"}
+                  color={'#8A8A8A'}
                 />
               </View>
             </TouchableOpacity>
@@ -197,17 +197,17 @@ export default ProfileOverview;
 
 const styles = StyleSheet.create({
   shadowProp: {
-    shadowColor: "#171717",
+    shadowColor: '#171717',
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
   image: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     height: 65,
     width: 65,
     borderRadius: 25,
-    position: "absolute",
+    position: 'absolute',
     bottom: 10,
     right: 8,
   },

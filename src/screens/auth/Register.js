@@ -20,7 +20,7 @@ import {
   SocialButton,
   PhoneInputField,
 } from "../../components";
-import { Context as AuthContext } from "../../contexts/authContext";
+import { Context as AuthContext } from "../../contexts/userContext";
 import Loader from "../../components/utils/Loader";
 
 const Register = () => {
@@ -161,8 +161,8 @@ const Register = () => {
                 placeholder="Enter a password"
                 error={errors.pin}
                 pin
-                onFocus={() => handleErrors(null, "pin")}
-                onChangeText={(text) => handleOnChange(text, "pin")}
+                onFocus={() => handleErrors(null, 'pin')}
+                onChangeText={(text) => handleOnChange(text, 'pin')}
               />
               <Input
                 placeholder="Confirm your password"
@@ -202,9 +202,9 @@ const Register = () => {
             </View>
             {/* <View
               style={{
-                alignItems: "center",
+                alignItems: 'center',
                 marginVertical: 15,
-                fontFamily: "Poppins_Regular",
+                fontFamily: 'Poppins_Regular',
               }}
             >
               <Text>Or you can sign up with</Text>

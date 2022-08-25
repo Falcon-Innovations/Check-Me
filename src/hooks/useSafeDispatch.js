@@ -11,11 +11,17 @@ function useSafeDispatch(dispatch) {
 
   React.useLayoutEffect(() => {
     mounted.current = true;
-    return () => (mounted.current = false);
+    return () => {
+      mounted.current = false;
+    };
   }, []);
 
   return React.useCallback(
-    (...args) => (mounted.current ? dispatch(...args) : void 0),
+    (...args) => {
+      if (mounted.current) {
+        dispatch(...args);
+      }
+    },
     [dispatch]
   );
 }
