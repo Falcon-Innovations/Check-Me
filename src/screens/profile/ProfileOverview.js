@@ -49,10 +49,6 @@ const profile = [
 const ProfileOverview = () => {
   const { state, logout } = React.useContext(AuthContext);
 
-  console.log('====================================');
-  console.log('user', state?.user);
-  console.log('====================================');
-
   const navigation = useNavigation();
 
   const handleLogout = () => {
@@ -98,7 +94,9 @@ const ProfileOverview = () => {
               >
                 <View style={[styles.image, styles.shadowProp]}>
                   <Image
-                    source={images.doc2}
+                    source={{
+                      uri: state?.user?.avatar,
+                    }}
                     style={{ height: 65, width: 65, borderRadius: 25 }}
                   />
                 </View>
