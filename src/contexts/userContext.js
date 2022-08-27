@@ -80,20 +80,71 @@ const signIn =
     }
   };
 
+const sendOTP =
+  (dispatch) =>
+  async ({ phoneNumber }) => {
+    try {
+      const { data } = await client.post('api/v1/users/sendOTP', {
+        phoneNumber,
+      });
+      if (data.message) {
+        Alert.alert('Success', `OTP sent to ${phoneNumber}`);
+        customNav.navigate('OTPVerification', { phoneNumber });
+      }
+    } catch (error) {
+      console.log(error?.data);
+      Alert.alert(
+        'Error',
+        error?.response?.data?.message
+          ? `${error?.response?.data?.message}`
+          : 'Something went wrong, please try again later.'
+      );
+    }
+  };
+
+const checkOTP =
+  (dispatch) =>
+  async ({ phoneNumber, smsCode }) => {
+    try {
+      const { data } = await client.post('api/v1/users/checkOTP', {
+        phoneNumber,
+        smsCode,
+      });
+
+      const { token, data: userData } = data;
+
+      await AsyncStorage.setItem('token', token);
+      await AsyncStorage.setItem('user', JSON.stringify(userData?.user));
+      dispatch({
+        type: 'SIGN_IN',
+        payload: { token, user: data?.data?.user },
+      });
+      Alert.alert('Success', `Logged in`);
+      customNav.navigate('Root');
+    } catch (error) {
+      console.log(error?.data);
+      Alert.alert(
+        'Error',
+        error?.response?.data?.message
+          ? `${error?.response?.data?.message}`
+          : 'Something went wrong, please try again later.'
+      );
+    }
+  };
+
 const signUp =
   (dispatch) =>
-  async ({ name, email, telephone, password }) => {
+  async ({ name, email, telephone }) => {
     try {
       const response = await client.post('api/v1/users/signup', {
         name,
         email,
         telephone,
-        password,
       });
 
       if (response.status === 201) {
-        Alert.alert('Success', `Account created for ${email}`);
-        customNav.navigate('Login', { email });
+        Alert.alert('Success', `OTP sent to ${telephone}`);
+        customNav.navigate('OTPVerification', { telephone });
         dispatch({ type: 'SIGN_UP' });
       }
     } catch (err) {
@@ -135,7 +186,6 @@ const updateProfile =
           type: 'PROFILE_UPDATE',
           payload: { user: userData?.user },
         });
-
         Alert.alert('Success', `Profile updated`);
       }
     } catch (err) {
@@ -201,6 +251,36 @@ const updateMyAvatar =
     }
   };
 
+const updatePassword =
+  (dispatch) =>
+  async ({ oldPassword, newPassword }) => {
+    try {
+      const { data } = await client.patch('api/v1/users/updatePassword', {
+        oldPassword,
+        newPassword,
+      });
+
+      const { token, data: userData } = data;
+
+      await AsyncStorage.setItem('token', token);
+      await AsyncStorage.setItem('user', JSON.stringify(userData?.user));
+      dispatch({
+        type: 'SIGN_IN',
+        payload: { token, user: data?.data?.user },
+      });
+      Alert.alert('Success', `Logged in as ${email}`);
+      customNav.navigate('Root');
+    } catch (error) {
+      console.log(error?.data);
+      Alert.alert(
+        'Error',
+        error?.response?.data?.message
+          ? `${error?.response?.data?.message}`
+          : 'Something went wrong, please try again later.'
+      );
+    }
+  };
+
 const tryLocalSignIn = (dispatch) => async () => {
   const token = await AsyncStorage.getItem('token');
   const user = await AsyncStorage.getItem('user');
@@ -218,7 +298,17 @@ const tryLocalSignIn = (dispatch) => async () => {
 
 export const { Context, Provider } = createContext(
   userReducer,
-  { signUp, logout, signIn, tryLocalSignIn, updateProfile, updateMyAvatar },
+  {
+    signUp,
+    signIn,
+    sendOTP,
+    checkOTP,
+    logout,
+    tryLocalSignIn,
+    updateProfile,
+    updateMyAvatar,
+    updatePassword,
+  },
   {
     token: null,
     message: '',

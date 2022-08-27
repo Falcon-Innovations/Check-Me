@@ -88,7 +88,9 @@ const PersonalDashboard = () => {
               >
                 <View style={[styles.image, styles.shadowProp]}>
                   <Image
-                    source={images.doc2}
+                    source={{
+                      uri: state?.user?.avatar,
+                    }}
                     style={{ height: 65, width: 65, borderRadius: 25 }}
                   />
                 </View>

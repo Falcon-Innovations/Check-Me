@@ -8,26 +8,26 @@ import {
   TouchableOpacity,
   Keyboard,
   StatusBar,
-} from "react-native";
-import React, { useRef, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { COLORS, images, SIZES } from "../../utility";
+import { COLORS, images, SIZES } from '../../utility';
 import {
   Input,
   AppButton,
   SocialButton,
   PhoneInputField,
-} from "../../components";
-import { Context as AuthContext } from "../../contexts/authContext";
-import Loader from "../../components/utils/Loader";
+} from '../../components';
+import { Context as UserContext } from '../../contexts/userContext';
+import Loader from '../../components/utils/Loader';
 
 const Login = () => {
   const navigation = useNavigation();
-  const { signIn } = React.useContext(AuthContext);
+  const { signIn, sendOTP } = React.useContext(UserContext);
   const [inputs, setInputs] = useState({
-    phone: "",
+    phone: '',
   });
   const phoneInput = useRef(null);
   const [errors, setErrors] = useState({});
@@ -36,28 +36,21 @@ const Login = () => {
   const handleSignIn = async () => {
     Keyboard.dismiss();
     let isValid = true;
-    if (!inputs.email) {
-      handleErrors("Please input email number", "email");
-      isValid = false;
-    } else if (inputs.email.length < 9) {
-      handleErrors("Enter valid phone number", "phone");
+    if (!inputs.phone) {
+      handleErrors('Please input your phonr number', 'phonr');
       isValid = false;
     }
-
-    if (!inputs.pin) {
-      handleErrors("Please input a valid pin", "pin");
-      isValid = false;
-    } else if (inputs.pin.length < 5) {
-      handleErrors("Pin is 5 digits", "password");
-      isValid = false;
-    }
+    // if (!inputs.pin) {
+    //   handleErrors('Please input a valid pin', 'pin');
+    //   isValid = false;
+    // } else if (inputs.pin.length < 5) {
+    //   handleErrors('Pin is 5 digits', 'password');
+    //   isValid = false;
+    // }
 
     if (isValid) {
       setLoading(true);
-      await signIn({
-        email: inputs.email,
-        password: inputs.pin,
-      });
+      await sendOTP({ phoneNumber: inputs.phone });
       setLoading(false);
     }
   };
@@ -81,7 +74,7 @@ const Login = () => {
         <SafeAreaView style={styles.container}>
           <KeyboardAwareScrollView
             style={styles.viewContainer}
-            contentContainerStyle={{ justifyContent: "center" }}
+            contentContainerStyle={{ justifyContent: 'center' }}
           >
             <View style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Image
@@ -90,17 +83,17 @@ const Login = () => {
                 style={styles.img}
               />
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text
                 style={[
                   styles.welcomeText,
-                  { color: COLORS.primary, fontFamily: "Poppins_Bold" },
+                  { color: COLORS.primary, fontFamily: 'Poppins_Bold' },
                 ]}
               >
                 Welcome back!
               </Text>
               <Text
-                style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}
+                style={[styles.welcomeText, { fontFamily: 'Poppins_Medium' }]}
               >
                 Kindly fill this to sign in.
               </Text>
@@ -125,7 +118,7 @@ const Login = () => {
                 phoneInput={phoneInput}
                 phoneNumber={inputs.phone}
                 onChange={(text) => {
-                  handleOnChange(text, "phone");
+                  handleOnChange(text, 'phone');
                 }}
               />
             </View>
@@ -147,10 +140,8 @@ const Login = () => {
                 text="Login"
                 color={COLORS.primary}
                 // onPress={() => navigation.navigate('Dashboard')}
-                onPress={() =>
-                  navigation.navigate("OTPVerification", phoneInput)
-                }
-                disabled={loading}
+                onPress={handleSignIn}
+                disabled={loading || !inputs.phone}
               />
             </View>
             {/* <View
@@ -171,22 +162,22 @@ const Login = () => {
 
             <View
               style={{
-                alignItems: "center",
+                alignItems: 'center',
                 paddingVertical: 10,
-                justifyContent: "center",
-                flexDirection: "row",
+                justifyContent: 'center',
+                flexDirection: 'row',
                 marginTop: SIZES.screenHeight * 0.02,
               }}
             >
               <Text>{`Don't have an account yet?`}</Text>
-              <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+              <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
                 <Text
                   style={{
-                    textDecorationLine: "underline",
-                    textDecorationStyle: "solid",
-                    textDecorationColor: "#000",
+                    textDecorationLine: 'underline',
+                    textDecorationStyle: 'solid',
+                    textDecorationColor: '#000',
                     color: COLORS.primary,
-                    fontFamily: "Poppins_Medium",
+                    fontFamily: 'Poppins_Medium',
                     fontSize: 15,
                     marginLeft: 10,
                   }}
@@ -207,13 +198,13 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
 
   img: {
     width: SIZES.screenWidth * 0.35,
     height: SIZES.screenWidth * 0.35,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   viewContainer: {
     paddingHorizontal: 15,
@@ -230,19 +221,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   resendBtn: {
-    color: "#EB4864",
+    color: '#EB4864',
     fontSize: 18,
     marginLeft: 20,
   },
   loginView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 15,
   },
   haveAnAccount: {
     fontSize: 15,
-    color: "#fff",
-    fontFamily: "Poppins_Regular",
+    color: '#fff',
+    fontFamily: 'Poppins_Regular',
   },
 });

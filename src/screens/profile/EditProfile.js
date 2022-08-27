@@ -40,11 +40,11 @@ const EditProfile = () => {
   };
 
   const [inputs, setInputs] = useState({
-    fullname: '',
-    phone: '',
-    email: '',
-    bio: '',
-    birthDate: '',
+    fullname: null,
+    phone: null,
+    email: null,
+    bio: null,
+    birthDate: null,
   });
 
   const handleOnChange = (text, input) => {
