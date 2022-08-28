@@ -20,12 +20,12 @@ import {
   SocialButton,
   PhoneInputField,
 } from "../../components";
-import { Context as AuthContext } from "../../contexts/userContext";
 import Loader from "../../components/utils/Loader";
+import { Context as UserContext } from "../../contexts/userContext";
 
 const Login = () => {
   const navigation = useNavigation();
-  const { signIn } = React.useContext(AuthContext);
+  const { signIn, sendOTP } = React.useContext(UserContext);
   const [inputs, setInputs] = useState({
     phone: "",
   });
@@ -36,28 +36,21 @@ const Login = () => {
   const handleSignIn = async () => {
     Keyboard.dismiss();
     let isValid = true;
-    if (!inputs.email) {
-      handleErrors("Please input email number", "email");
-      isValid = false;
-    } else if (inputs.email.length < 9) {
-      handleErrors("Enter valid phone number", "phone");
+    if (!inputs.phone) {
+      handleErrors("Please input your phonr number", "phonr");
       isValid = false;
     }
-
-    if (!inputs.pin) {
-      handleErrors("Please input a valid pin", "pin");
-      isValid = false;
-    } else if (inputs.pin.length < 5) {
-      handleErrors("Pin is 5 digits", "password");
-      isValid = false;
-    }
+    // if (!inputs.pin) {
+    //   handleErrors('Please input a valid pin', 'pin');
+    //   isValid = false;
+    // } else if (inputs.pin.length < 5) {
+    //   handleErrors('Pin is 5 digits', 'password');
+    //   isValid = false;
+    // }
 
     if (isValid) {
       setLoading(true);
-      await signIn({
-        email: inputs.email,
-        password: inputs.pin,
-      });
+      await sendOTP({ phoneNumber: inputs.phone });
       setLoading(false);
     }
   };
@@ -147,10 +140,8 @@ const Login = () => {
                 text="Login"
                 color={COLORS.primary}
                 // onPress={() => navigation.navigate('Dashboard')}
-                onPress={() =>
-                  navigation.navigate("OTPVerification", phoneInput)
-                }
-                disabled={loading}
+                onPress={handleSignIn}
+                disabled={loading || !inputs.phone}
               />
             </View>
             {/* <View
