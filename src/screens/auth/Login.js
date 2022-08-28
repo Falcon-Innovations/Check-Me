@@ -20,7 +20,7 @@ import {
   SocialButton,
   PhoneInputField,
 } from "../../components";
-import { Context as AuthContext } from "../../contexts/authContext";
+import { Context as AuthContext } from "../../contexts/userContext";
 import Loader from "../../components/utils/Loader";
 
 const Login = () => {

@@ -9,6 +9,7 @@ import OTPVerification from "./auth/OTPVerification";
 //specialists
 import Specialists from "./specialists/Specialists";
 import SpecialistDetails from "./specialists/SpecialistDetails";
+import BookSpecialist from "./specialists/BookSpecialist";
 
 //profile
 import ProfileOverview from "./profile/ProfileOverview";
@@ -23,6 +24,7 @@ import BlogDetails from "./blog/BlogDetails";
 
 //health
 import BookMammogram from "./health/BookMammogram";
+import MenstraulCycle from "./health/MenstraulCycle";
 
 export {
   Onboard,
