@@ -8,25 +8,25 @@ import {
   Button,
   Dimensions,
   Platform,
-} from 'react-native';
-import React, { useState } from 'react';
-import * as ImagePicker from 'expo-image-picker';
-import Icon from 'react-native-vector-icons/Ionicons';
-import CalendarPicker from 'react-native-calendar-picker';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icons from 'react-native-vector-icons/Feather';
-import Modal from 'react-native-modal';
-import moment from 'moment';
-import { Context as UserContext } from '../../contexts/userContext';
+} from "react-native";
+import React, { useState } from "react";
+import * as ImagePicker from "expo-image-picker";
+import Icon from "react-native-vector-icons/Ionicons";
+import CalendarPicker from "react-native-calendar-picker";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Icons from "react-native-vector-icons/Feather";
+import Modal from "react-native-modal";
+import moment from "moment";
+import { Context as UserContext } from "../../contexts/userContext";
 import {
   AppButton,
   AppStatusBar,
   CustomStatusBar,
   Input,
-} from '../../components';
-import { COLORS } from '../../utility';
-import TextAreaInput from '../../components/inputs/TextAreaInput';
-import Loader from '../../components/utils/Loader';
+} from "../../components";
+import { COLORS } from "../../utility";
+import TextAreaInput from "../../components/inputs/TextAreaInput";
+import Loader from "../../components/utils/Loader";
 
 const EditProfile = () => {
   const { state, updateProfile, updateMyAvatar } =
@@ -72,10 +72,10 @@ const EditProfile = () => {
   };
 
   const formatDate = (date) => {
-    return date ? moment(date).format('ll') : null;
+    return date ? moment(date).format("ll") : null;
   };
 
-  const maxDate = moment().subtract(7, 'years');
+  const maxDate = moment().subtract(7, "years");
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -88,8 +88,10 @@ const EditProfile = () => {
 
     if (!result.cancelled) {
       const uri =
-        Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
-      updateMyAvatar({ file: uri });
+        Platform.OS === "ios" ? result.uri.replace("file://", "") : result.uri;
+      setLoading(true);
+      await updateMyAvatar({ file: uri });
+      setLoading(false);
     }
   };
 
@@ -97,8 +99,8 @@ const EditProfile = () => {
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
-      <CustomStatusBar text={'Edit Profile'} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <CustomStatusBar text={"Edit Profile"} />
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         {loading && <Loader visible={true} />}
         <KeyboardAwareScrollView
           extraHeight={100}
@@ -106,7 +108,7 @@ const EditProfile = () => {
           enableOnAndroid={true}
           style={{ marginHorizontal: 15, paddingTop: 20, paddingBottom: 30 }}
         >
-          <View style={{ alignSelf: 'center' }}>
+          <View style={{ alignSelf: "center" }}>
             <ImageBackground
               imageStyle={{ borderRadius: 60 }}
               source={{
@@ -134,7 +136,7 @@ const EditProfile = () => {
                 placeholder="Enter your name"
                 keyboardType="default"
                 defaultValue={state?.user?.name}
-                onChangeText={(text) => handleOnChange(text, 'fullname')}
+                onChangeText={(text) => handleOnChange(text, "fullname")}
               />
             </View>
             <View>
@@ -143,7 +145,7 @@ const EditProfile = () => {
                 placeholder="Enter your email"
                 keyboardType="default"
                 defaultValue={state?.user?.email}
-                onChangeText={(text) => handleOnChange(text, 'email')}
+                onChangeText={(text) => handleOnChange(text, "email")}
               />
             </View>
 
@@ -161,7 +163,7 @@ const EditProfile = () => {
                 </View>
               </View>
               <Modal isVisible={isModalVisible} animationType="slide">
-                <View style={{ backgroundColor: '#fff', borderRadius: 8 }}>
+                <View style={{ backgroundColor: "#fff", borderRadius: 8 }}>
                   <View
                     style={{
                       paddingHorizontal: 20,
@@ -175,8 +177,8 @@ const EditProfile = () => {
                       selectedDayTextColor="#FFFFFF"
                       maxDate={maxDate}
                       textStyle={{
-                        fontFamily: 'Poppins_Regular',
-                        color: '#000000',
+                        fontFamily: "Poppins_Regular",
+                        color: "#000000",
                       }}
                     />
                   </View>
@@ -194,7 +196,7 @@ const EditProfile = () => {
               <Text style={styles.title}>Tell us about you</Text>
               <TextAreaInput
                 defaultValue={state?.user?.bio}
-                onChangeText={(text) => handleOnChange(text, 'bio')}
+                onChangeText={(text) => handleOnChange(text, "bio")}
               />
             </View>
             <View style={{ marginTop: 20 }}>
@@ -212,7 +214,7 @@ const EditProfile = () => {
   );
 };
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 export default EditProfile;
 
 const styles = StyleSheet.create({
@@ -221,31 +223,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 7,
     borderRadius: 40,
     backgroundColor: COLORS.primary,
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    alignItems: 'center',
+    alignSelf: "flex-end",
+    position: "absolute",
+    alignItems: "center",
     borderWidth: 1.5,
-    borderColor: '#fff',
+    borderColor: "#fff",
   },
   dateContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: 1,
     paddingVertical: 8,
     borderRadius: 8,
     paddingHorizontal: 8,
     marginBottom: 15,
 
-    borderColor: '#DBD9D9',
+    borderColor: "#DBD9D9",
   },
   dateView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 8,
     paddingVertical: 4,
   },
   title: {
-    fontFamily: 'Poppins_Regular',
+    fontFamily: "Poppins_Regular",
     marginBottom: 6,
     marginLeft: 4,
   },
