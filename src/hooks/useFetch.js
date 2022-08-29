@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from "react";
 
 // interface State<T> {
 //   data?: T
@@ -27,11 +27,11 @@ function useFetch(url, options) {
   // Keep state logic separated
   const fetchReducer = (state, action) => {
     switch (action.type) {
-      case 'loading':
+      case "loading":
         return { ...initialState };
-      case 'fetched':
+      case "fetched":
         return { ...initialState, data: action.payload };
-      case 'error':
+      case "error":
         return { ...initialState, error: action.payload };
       default:
         return state;
@@ -47,11 +47,11 @@ function useFetch(url, options) {
     cancelRequest.current = false;
 
     const fetchData = async () => {
-      dispatch({ type: 'loading' });
+      dispatch({ type: "loading" });
 
       // If a cache exists for this url, return it
       if (cache.current[url]) {
-        dispatch({ type: 'fetched', payload: cache.current[url] });
+        dispatch({ type: "fetched", payload: cache.current[url] });
         return;
       }
 
@@ -65,11 +65,11 @@ function useFetch(url, options) {
         cache.current[url] = data;
         if (cancelRequest.current) return;
 
-        dispatch({ type: 'fetched', payload: data });
+        dispatch({ type: "fetched", payload: data });
       } catch (error) {
         if (cancelRequest.current) return;
 
-        dispatch({ type: 'error', payload: error });
+        dispatch({ type: "error", payload: error });
       }
     };
 
@@ -83,7 +83,7 @@ function useFetch(url, options) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
-  return state;
+  return { ...state };
 }
 
 export default useFetch;

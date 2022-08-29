@@ -15,6 +15,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, images, SIZES } from "../../utility";
+import useFetch from "../../hooks/useFetch";
+import moment from "moment";
 
 const blogData = [
   {
@@ -52,7 +54,20 @@ const blogData = [
 const AllBlogs = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
+  const [like, setLike] = useState(false);
   const onChangeSearch = (query) => setSearchQuery(query);
+
+  const url = "https://check-me-backend.herokuapp.com/api/v1/articles";
+
+  const { data, error } = useFetch(url);
+
+  const onLike = () => {
+    setLike(!like);
+  };
+
+  console.log("====================================");
+  console.log(data?.data?.docs, "From all blogsroute");
+  console.log("====================================");
 
   const renderItem = ({ item }) => {
     return (
@@ -69,7 +84,7 @@ const AllBlogs = () => {
           <ImageBackground
             imageStyle={{ borderRadius: 8 }}
             resizeMode="cover"
-            source={item.image}
+            source={{ uri: item.photo }}
             style={{
               width: SIZES.screenWidth * 0.4,
               height: SIZES.screenWidth * 0.3,
@@ -86,12 +101,12 @@ const AllBlogs = () => {
               width: SIZES.screenWidth * 0.4,
             }}
           >
-            {item.date.toString("")}
+            {moment(item.createdAt).format("ll")}
           </Text>
           <Text
             numberOfLines={3}
             style={{
-              width: SIZES.screenWidth * 0.51,
+              width: SIZES.screenWidth * 0.49,
               paddingRight: 5,
               fontFamily: "Poppins_SemiBold",
               color: COLORS.textColor,
@@ -111,21 +126,27 @@ const AllBlogs = () => {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                marginRight: 15,
+                marginRight: 18,
               }}
             >
-              <TouchableOpacity>
-                <Icon name="ios-heart-outline" size={24} />
+              <TouchableOpacity onPress={onLike} style={{ marginRight: 2 }}>
+                <Icon
+                  name={like ? "ios-heart" : "heart-outline"}
+                  size={24}
+                  color={COLORS.primary}
+                />
               </TouchableOpacity>
               <Text
                 style={{
                   fontSize: 13,
                   fontFamily: "Poppins_Regular",
-                  marginLeft: 8,
+                  marginLeft: 5,
                   color: "gray",
                 }}
               >
-                {`${item.likes} ${item.likes > 0 ? "likes" : "like"}`}
+                {`${item.likes.length} ${
+                  item.likes.lenght > 1 ? "likes" : "like"
+                }`}
               </Text>
             </View>
             <Icon name="ios-share-outline" size={24} />
@@ -161,11 +182,18 @@ const AllBlogs = () => {
               iconColor="#D2D1D1"
             />
           </View>
-          <FlatList
-            data={blogData}
+          {data?.data?.docs && (
+            <FlatList
+              data={data?.data?.docs}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+            />
+          )}
+          {/* <FlatList
+            data={data?.data?.docs}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-          />
+          /> */}
         </ScrollView>
       </SafeAreaView>
     </>

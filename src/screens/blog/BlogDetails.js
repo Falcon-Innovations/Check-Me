@@ -1,5 +1,6 @@
 import {
   Image,
+  ImageBackground,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -13,6 +14,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, SIZES } from "../../utility";
+import moment from "moment";
 
 const BlogDetails = ({ route }) => {
   const [like, setLike] = useState(false);
@@ -34,21 +36,45 @@ const BlogDetails = ({ route }) => {
         <ScrollView
           style={{
             flex: 1,
-            paddingTop: 15,
+            paddingTop: 20,
             paddingBottom: 20,
             marginHorizontal: 15,
           }}
+          showsVerticalScrollIndicator={false}
         >
           <View style={{ alignItems: "center", marginBottom: 10 }}>
-            <Image
+            <ImageBackground
               resizeMode="cover"
-              source={item.image}
+              source={{ uri: item.photo }}
               style={{
                 width: SIZES.screenWidth * 0.9,
                 height: SIZES.screenHeight * 0.22,
-                borderRadius: 12,
               }}
-            />
+              imageStyle={{ borderRadius: 12 }}
+            >
+              <View
+                style={{
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  marginTop: 10,
+                  backgroundColor: "#fff",
+                  alignSelf: "flex-start",
+                  alignItems: "center",
+                  borderTopRightRadius: 12,
+                  borderBottomRightRadius: 12,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Poppins_Regular",
+                    fontSize: 10,
+                    color: COLORS.primary,
+                  }}
+                >
+                  {moment(item.createdAt).format("ll")}
+                </Text>
+              </View>
+            </ImageBackground>
           </View>
           <View
             style={{
@@ -61,7 +87,7 @@ const BlogDetails = ({ route }) => {
           >
             <Text style={{ fontFamily: "Poppins_Medium", fontSize: 15 }}>
               <Text style={{ color: "gray" }}>By</Text>
-              {` ${item.author}`}
+              {` ${item.author.name}`}
             </Text>
             <View
               style={{
@@ -84,8 +110,8 @@ const BlogDetails = ({ route }) => {
                     color={COLORS.primary}
                   />
                 </TouchableOpacity>
-                <Text>{`${item.likes} ${
-                  item.likes > 1 ? "likes" : "like"
+                <Text>{`${item.likes.length} ${
+                  item.likes.length > 1 ? "likes" : "like"
                 }`}</Text>
               </View>
               <TouchableOpacity>
@@ -99,17 +125,29 @@ const BlogDetails = ({ route }) => {
               paddingTop: SIZES.screenHeight * 0.03,
             }}
           >
+            <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 20 }}>
+              {item.title}
+            </Text>
+          </View>
+          <View
+            style={{
+              paddingHorizontal: 10,
+              paddingTop: SIZES.screenHeight * 0.03,
+            }}
+          >
             <Text
               style={{
                 lineHeight: 23,
                 color: "#5A5858",
                 fontFamily: "Poppins_Regular",
-                fontSize: 14,
+                fontSize: 15,
+                textAlign: "justify",
               }}
             >
-              {item.details}
+              {item.content}
             </Text>
           </View>
+          <View style={{ marginTop: 30 }} />
         </ScrollView>
       </SafeAreaView>
     </>

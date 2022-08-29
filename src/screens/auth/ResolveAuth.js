@@ -1,5 +1,7 @@
-import React from 'react';
-import { Context as UserContext } from '../../contexts/userContext';
+import React from "react";
+import { Text, View } from "react-native";
+
+import { Context as UserContext } from "../../contexts/userContext";
 
 const ResolveAuth = () => {
   const { tryLocalSignIn } = React.useContext(UserContext);
