@@ -8,13 +8,13 @@ const items = [
   {
     id: 1,
     title: "Self Examination",
-    screen: "Specialists",
+    screen: "SelfExamination",
     img: images.healthy,
   },
   {
     id: 2,
     title: "Plan Your Health",
-    screen: "Specialists",
+    screen: "MenstraulCycle",
     img: images.lifeStyle,
   },
   {
@@ -25,7 +25,7 @@ const items = [
   },
   {
     id: 4,
-    title: "Contact Specialist/Hospital",
+    title: "Talk to a Doctor",
     screen: "Specialists",
     img: images.doc,
   },

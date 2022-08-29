@@ -25,6 +25,7 @@ import BlogDetails from "./blog/BlogDetails";
 //health
 import BookMammogram from "./health/BookMammogram";
 import MenstraulCycle from "./health/MenstraulCycle";
+import SelfExamination from "./health/SelfExamination";
 
 export {
   Onboard,
@@ -42,4 +43,6 @@ export {
   Settings,
   BlogDetails,
   BookMammogram,
+  SelfExamination,
+  MenstraulCycle,
 };

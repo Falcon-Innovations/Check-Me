@@ -17,6 +17,7 @@ const risk = require("../../assets/images/risk.png");
 const doc = require("../../assets/images/doc.png");
 const healthy = require("../../assets/images/healthy.png");
 const lifeStyle = require("../../assets/images/lifestyle.png");
+const selfcheck = require("../../assets/images/selfcheck.png");
 
 //specialists
 
@@ -57,4 +58,5 @@ export default {
   doc6,
   verifyotp,
   calendar,
+  selfcheck,
 };
