@@ -1,24 +1,34 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Delete from "react-native-vector-icons/MaterialCommunityIcons";
 import Edit from "react-native-vector-icons/AntDesign";
+import { useNavigation } from "@react-navigation/native";
 import Icons from "react-native-vector-icons/Ionicons";
-import { AppStatusBar } from "../../components";
-import { COLORS, SIZES } from "../../utility";
+import { AppButton, AppStatusBar } from "../../components";
+import { COLORS, images, SIZES } from "../../utility";
 import { Colors } from "react-native-paper";
 
 const MenstraulCycle = () => {
+  const navigation = useNavigation();
   const cycle = [
-    {
-      days: "5.5 Days",
-      icon: <Icons name="ios-water" color="#fff" size={20} />,
-      desc: "Average Period",
-    },
-    {
-      days: "28 Days",
-      icon: <Icons name="ios-sync" color="#fff" size={20} />,
-      desc: "Average Cycle",
-    },
+    // {
+    //   days: "5.5 Days",
+    //   icon: <Icons name="ios-water" color="#fff" size={20} />,
+    //   desc: "Average Period",
+    // },
+    // {
+    //   days: "28 Days",
+    //   icon: <Icons name="ios-sync" color="#fff" size={20} />,
+    //   desc: "Average Cycle",
+    // },
   ];
   return (
     <>
@@ -33,7 +43,8 @@ const MenstraulCycle = () => {
           justifyContent: "center",
         }}
       >
-        <View
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -57,15 +68,47 @@ const MenstraulCycle = () => {
           >
             Your Cycles
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ScrollView
           contentContainerStyle={{ marginHorizontal: 14, paddingVertical: 18 }}
         >
           {cycle.length < 1 ? (
-            <View>
-              <Text>You have no cycles, Please Add one</Text>
+            <View
+              style={{
+                justifyContent: "center",
+                marginTop: SIZES.screenHeight * 0.1,
+              }}
+            >
+              <View style={{ alignItems: "center" }}>
+                <Image
+                  source={images.menstraulCycle}
+                  style={{
+                    width: SIZES.screenWidth * 0.4,
+                    height: SIZES.screenHeight * 0.15,
+                  }}
+                />
+              </View>
+              <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
+                <Text
+                  style={{
+                    fontFamily: "Poppins_Regular",
+                    fontSize: 14,
+                    textAlign: "center",
+                  }}
+                >
+                  You have no cycles, please add one. Keep track of your period
+                  and cycle today and lets help you live a healthy life
+                </Text>
+              </View>
+              <View style={{ marginTop: SIZES.screenHeight * 0.05 }}>
+                <AppButton
+                  text="Add Cycle"
+                  color={COLORS.primary}
+                  onPress={() => navigation.navigate("SetCycle")}
+                />
+              </View>
             </View>
           ) : (
             <View style={{ marginTop: 4 }}>

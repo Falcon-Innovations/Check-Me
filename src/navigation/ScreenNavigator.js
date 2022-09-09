@@ -19,6 +19,7 @@ import {
   BookMammogram,
   SelfExamination,
   MenstraulCycle,
+  SetCycle,
 } from "../screens";
 import useGetOnboardingStatus from "../utility/checkIfFirstLaunch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -85,6 +86,7 @@ const RootNavigator = () => {
         <Stack.Screen name="BookMammogram" component={BookMammogram} />
         <Stack.Screen name="SelfExamination" component={SelfExamination} />
         <Stack.Screen name="MenstraulCycle" component={MenstraulCycle} />
+        <Stack.Screen name="SetCycle" component={SetCycle} />
         <Stack.Screen name="Root" component={BottomTabNavigator} />
       </Stack.Navigator>
     </>

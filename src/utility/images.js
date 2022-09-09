@@ -18,6 +18,7 @@ const doc = require("../../assets/images/doc.png");
 const healthy = require("../../assets/images/healthy.png");
 const lifeStyle = require("../../assets/images/lifestyle.png");
 const selfcheck = require("../../assets/images/selfcheck.png");
+const menstraulCycle = require("../../assets/images/menstrualCycle.png");
 
 //specialists
 
@@ -59,4 +60,5 @@ export default {
   verifyotp,
   calendar,
   selfcheck,
+  menstraulCycle,
 };

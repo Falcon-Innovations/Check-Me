@@ -104,9 +104,10 @@ const EditProfile = () => {
         {loading && <Loader visible={true} />}
         <KeyboardAwareScrollView
           extraHeight={100}
+          contentContainerStyle={{ paddingBottom: 35 }}
           showsVerticalScrollIndicator={false}
           enableOnAndroid={true}
-          style={{ marginHorizontal: 15, paddingTop: 20, paddingBottom: 30 }}
+          style={{ marginHorizontal: 15, paddingTop: 20 }}
         >
           <View style={{ alignSelf: "center" }}>
             <ImageBackground
@@ -182,7 +183,7 @@ const EditProfile = () => {
                       }}
                     />
                   </View>
-                  <View style={{ paddingVertical: 10 }}>
+                  <View style={{ paddingVertical: 10, alignSelf: "center" }}>
                     <Button
                       color={COLORS.primary}
                       title="Set Date"

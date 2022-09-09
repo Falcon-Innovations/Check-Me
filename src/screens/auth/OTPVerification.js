@@ -11,20 +11,20 @@ import {
   Keyboard,
   Alert,
   SafeAreaView,
-} from 'react-native';
-import React, { useRef, useState } from 'react';
-import Icon from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
-import { COLORS, images, SIZES } from '../../utility';
-import { AppButton } from '../../components';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Context as UserContext } from '../../contexts/userContext';
-import Loader from '../../components/utils/Loader';
+} from "react-native";
+import React, { useRef, useState } from "react";
+import Icon from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
+import { COLORS, images, SIZES } from "../../utility";
+import { AppButton } from "../../components";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Context as UserContext } from "../../contexts/userContext";
+import Loader from "../../components/utils/Loader";
 
 function serializeOTP(otp) {
   const { one, two, three, four } = otp;
   let tempOtp = [one, two, three, four];
-  return tempOtp.join('');
+  return tempOtp.join("");
 }
 
 const OTPVerification = ({ route }) => {
@@ -44,7 +44,7 @@ const OTPVerification = ({ route }) => {
   const validate = () => {
     let otpLength = Object.values(otp).length;
     if (!otpLength || otpLength !== 4) {
-      Alert.alert('Error', 'Please check the length of your otp code');
+      Alert.alert("Error", "Please check the length of your otp code");
       return;
     }
     handleCheckOTP();
@@ -54,13 +54,13 @@ const OTPVerification = ({ route }) => {
   const secondInput = useRef();
   const thirdInput = useRef();
   const fourthInput = useRef();
-  const [otp, setOtp] = useState({ one: '', two: '', three: '', four: '' });
+  const [otp, setOtp] = useState({ one: "", two: "", three: "", four: "" });
   const [error, setError] = useState(null);
   const navigation = useNavigation();
 
   if (loading) return <Loader visible={true} />;
 
-  console.log(otp, 'From verificaiton screen');
+  console.log(otp, "From verificaiton screen");
 
   return (
     <SafeAreaView style={styles.container}>
@@ -80,17 +80,17 @@ const OTPVerification = ({ route }) => {
           style={{
             marginHorizontal: 15,
             paddingTop: SIZES.screenHeight * 0.1,
-            alignItems: 'center',
+            alignItems: "center",
             // alignSelf: "center",
-            justifyContent: 'center',
+            justifyContent: "center",
           }}
         >
           <View
             style={{
               paddingTop: 10,
               paddingBottom: 8,
-              alignItems: 'center',
-              justifyContent: 'center',
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Image
@@ -102,9 +102,9 @@ const OTPVerification = ({ route }) => {
           <View style={{ paddingVertical: 12, marginBottom: 12 }}>
             <Text
               style={{
-                fontFamily: 'Poppins_Regular',
+                fontFamily: "Poppins_Regular",
                 fontSize: 14,
-                textAlign: 'left',
+                textAlign: "left",
               }}
             >
               Please enter the verification code sent to
@@ -112,9 +112,9 @@ const OTPVerification = ({ route }) => {
             <Text
               style={{
                 fontSize: 14,
-                fontFamily: 'Poppins_SemiBold',
+                fontFamily: "Poppins_SemiBold",
                 color: COLORS.primary,
-                alignSelf: 'center',
+                alignSelf: "center",
                 marginTop: 4,
               }}
             >
@@ -188,7 +188,7 @@ const OTPVerification = ({ route }) => {
             marginBottom: 10,
           }}
         >
-          <Text style={{ fontFamily: 'Poppins_Medium', color: COLORS.primary }}>
+          <Text style={{ fontFamily: "Poppins_Medium", color: COLORS.primary }}>
             Resend code
           </Text>
         </TouchableOpacity>
@@ -206,7 +206,7 @@ const OTPVerification = ({ route }) => {
   );
 };
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 
 const setHeight = (h) => (height / 100) * h;
 const setWidth = (w) => (width / 100) * w;
@@ -215,7 +215,7 @@ export default OTPVerification;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   borderStyleBase: {
     width: 30,
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     height: 45,
     borderWidth: 0,
     borderBottomWidth: 1.5,
-    borderColor: '#949494',
+    borderColor: "#949494",
   },
 
   underlineStyleHighLighted: {
@@ -245,30 +245,30 @@ const styles = StyleSheet.create({
   },
   otpContainer: {
     marginHorizontal: 10,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    flexDirection: "row",
   },
   otpBox: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderRadius: 5,
-    borderColor: '#C8C8C8',
+    borderColor: "#C8C8C8",
     borderWidth: 1,
-    shadowColor: '#000',
-    elevation: 4,
+    shadowColor: "#000",
+    // elevation: 4,
   },
   otpText: {
     fontSize: 25,
     color: COLORS.textColor,
     padding: 0,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: 18,
     paddingVertical: 10,
   },
   codeText: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 30,
   },
 });
