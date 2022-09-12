@@ -77,21 +77,48 @@ const EditProfile = () => {
 
   const maxDate = moment().subtract(7, "years");
 
+  // const pickImage = async () => {
+  //   // No permissions request is necessary for launching the image library
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+
+  //   if (!result.cancelled) {
+  //     const uri = result.uri;
+  //     // Platform.OS === "ios" ? result.uri.replace("file://", "") : result.uri;
+  //     setLoading(true);
+  //     await updateMyAvatar({ file: uri });
+  //     setLoading(false);
+  //   }
+  // };
+
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
-    if (!result.cancelled) {
-      const uri =
-        Platform.OS === "ios" ? result.uri.replace("file://", "") : result.uri;
+    if (pickerResult.cancelled === true) {
+      return;
+    } else {
+      const uri = pickerResult?.uri;
       setLoading(true);
       await updateMyAvatar({ file: uri });
       setLoading(false);
+      // setSelectedImage({ localUri: pickerResult.uri });
     }
   };
 

@@ -6,26 +6,26 @@ import {
   View,
   TouchableOpacity,
   Keyboard,
-} from 'react-native';
-import React, { useState, useRef } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+} from "react-native";
+import React, { useState, useRef } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { COLORS, images, SIZES } from '../../utility';
-import { Input, AppButton, PhoneInputField } from '../../components';
-import { Context as UserContext } from '../../contexts/userContext';
-import Loader from '../../components/utils/Loader';
+import { COLORS, images, SIZES } from "../../utility";
+import { Input, AppButton, PhoneInputField } from "../../components";
+import { Context as UserContext } from "../../contexts/userContext";
+import Loader from "../../components/utils/Loader";
 
 const Register = () => {
   const navigation = useNavigation();
   const { signUp } = React.useContext(UserContext);
   const phoneInput = useRef(null);
   const [inputs, setInputs] = useState({
-    fullname: '',
-    phone: '',
-    pin: '',
-    kfirmPin: '',
-    email: '',
+    fullname: "",
+    phone: "",
+    pin: "",
+    kfirmPin: "",
+    email: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -34,15 +34,15 @@ const Register = () => {
     Keyboard.dismiss();
     let isValid = true;
     if (!inputs.fullname) {
-      handleErrors('Please input your  fullname', 'fullname');
+      handleErrors("Please input your  fullname", "fullname");
       isValid = false;
     }
 
     if (!inputs.phone) {
-      handleErrors('Please input phone number', 'phone');
+      handleErrors("Please input phone number", "phone");
       isValid = false;
     } else if (inputs.phone.length < 9) {
-      handleErrors('Enter valid phone number', 'phone');
+      handleErrors("Enter valid phone number", "phone");
       isValid = false;
     }
 
@@ -85,7 +85,10 @@ const Register = () => {
         </View>
       ) : (
         <SafeAreaView style={styles.container}>
-          <KeyboardAwareScrollView style={styles.viewContainer}>
+          <KeyboardAwareScrollView
+            style={styles.viewContainer}
+            contentContainerStyle={{ paddingTop: SIZES.screenHeight * 0.08 }}
+          >
             <View style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Image
                 resizeMode="contain"
@@ -93,17 +96,17 @@ const Register = () => {
                 style={styles.img}
               />
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text
                 style={[
                   styles.welcomeText,
-                  { color: COLORS.primary, fontFamily: 'Poppins_Bold' },
+                  { color: COLORS.primary, fontFamily: "Poppins_Bold" },
                 ]}
               >
                 Welcome!
               </Text>
               <Text
-                style={[styles.welcomeText, { fontFamily: 'Poppins_Medium' }]}
+                style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}
               >
                 Kindly fill this to sign up.
               </Text>
@@ -114,23 +117,23 @@ const Register = () => {
                 placeholder="Enter your name"
                 keyboardType="default"
                 error={errors.fullname}
-                onFocus={() => handleErrors(null, 'fullname')}
-                onChangeText={(text) => handleOnChange(text, 'fullname')}
+                onFocus={() => handleErrors(null, "fullname")}
+                onChangeText={(text) => handleOnChange(text, "fullname")}
               />
               <Input
                 // maxLength={35}
                 placeholder="Enter your email"
                 keyboardType="email-address"
                 error={errors.email}
-                onFocus={() => handleErrors(null, 'email')}
-                onChangeText={(text) => handleOnChange(text, 'email')}
+                onFocus={() => handleErrors(null, "email")}
+                onChangeText={(text) => handleOnChange(text, "email")}
               />
 
               <PhoneInputField
                 phoneInput={phoneInput}
                 phoneNumber={inputs.phone}
                 onChange={(text) => {
-                  handleOnChange(text, 'phone');
+                  handleOnChange(text, "phone");
                 }}
               />
 
@@ -149,15 +152,15 @@ const Register = () => {
                 onChangeText={(text) => handleOnChange(text, "kfirmpin")}
               /> */}
             </View>
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ alignItems: "center" }}>
               <Text>By clicking on Sign up, you agree to </Text>
               <Text
                 style={{
-                  textDecorationLine: 'underline',
-                  textDecorationStyle: 'solid',
-                  textDecorationColor: '#000',
+                  textDecorationLine: "underline",
+                  textDecorationStyle: "solid",
+                  textDecorationColor: "#000",
                   color: COLORS.primary,
-                  fontFamily: 'Poppins_Medium',
+                  fontFamily: "Poppins_Medium",
                   fontSize: 12,
                   marginTop: 5,
                 }}
@@ -192,21 +195,21 @@ const Register = () => {
 
             <View
               style={{
-                alignItems: 'center',
+                alignItems: "center",
                 paddingVertical: 10,
-                justifyContent: 'center',
-                flexDirection: 'row',
+                justifyContent: "center",
+                flexDirection: "row",
               }}
             >
               <Text>{`Not new here?`}</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                 <Text
                   style={{
-                    textDecorationLine: 'underline',
-                    textDecorationStyle: 'solid',
-                    textDecorationColor: '#000',
+                    textDecorationLine: "underline",
+                    textDecorationStyle: "solid",
+                    textDecorationColor: "#000",
                     color: COLORS.primary,
-                    fontFamily: 'Poppins_Medium',
+                    fontFamily: "Poppins_Medium",
                     fontSize: 15,
                     marginLeft: 10,
                   }}
@@ -227,7 +230,7 @@ export default Register;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   viewContainer: {
     paddingHorizontal: 15,
@@ -236,7 +239,7 @@ const styles = StyleSheet.create({
   img: {
     width: SIZES.screenWidth * 0.35,
     height: SIZES.screenWidth * 0.35,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   viewContainer: {
     paddingHorizontal: 15,
@@ -244,20 +247,20 @@ const styles = StyleSheet.create({
 
   imageContainer: {},
   phoneInputContainer: {
-    width: '100%',
+    width: "100%",
     height: 50,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     fontSize: 18,
     paddingHorizontal: 20,
     borderRadius: 12,
-    justifyContent: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 5,
     marginBottom: 10,
-    borderWidth: '1px',
-    borderColor: '#E6E6E6',
+    borderWidth: "1px",
+    borderColor: "#E6E6E6",
   },
   welcomeText: {
     marginRight: 6,
@@ -268,19 +271,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   resendBtn: {
-    color: '#EB4864',
+    color: "#EB4864",
     fontSize: 18,
     marginLeft: 20,
   },
   loginView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 15,
   },
   haveAnAccount: {
     fontSize: 15,
-    color: '#fff',
-    fontFamily: 'Poppins_Regular',
+    color: "#fff",
+    fontFamily: "Poppins_Regular",
   },
 });

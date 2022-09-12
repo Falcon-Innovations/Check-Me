@@ -12,44 +12,13 @@ import React, { useState } from "react";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
+import ContentLoader, { Instagram } from "react-content-loader";
 
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, images, SIZES } from "../../utility";
 import useFetch from "../../hooks/useFetch";
 import moment from "moment";
-
-const blogData = [
-  {
-    id: 1,
-    date: new Date(),
-    author: "Francis",
-    image: images.doc1,
-    title: "Breast Cancer and its effect to humanity",
-    details:
-      "The lorem ipsum is, in printing, a series of meaningless words used temporarily to calibrate a layout, the final text replacing the false text as soon as it is ready or the layout is completed. Generally, a false Latin text, Lorem ipsum or Lipsum, is used.",
-    likes: 25,
-  },
-  {
-    id: 2,
-    date: new Date(),
-    author: "Francis",
-    image: images.doc3,
-    title: "Breast Cancer and its effect to humanity",
-    details:
-      "The lorem ipsum is, in printing, a series of meaningless words used temporarily to calibrate a layout, the final text replacing the false text as soon as it is ready or the layout is completed. Generally, a false Latin text, Lorem ipsum or Lipsum, is used.",
-    likes: 20,
-  },
-  {
-    id: 3,
-    date: new Date(),
-    author: "Francis",
-    image: images.doc2,
-    title: "Breast Cancer and its effect to humanity",
-    details:
-      "The lorem ipsum is, in printing, a series of meaningless words used temporarily to calibrate a layout, the final text replacing the false text as soon as it is ready or the layout is completed. Generally, a false Latin text, Lorem ipsum or Lipsum, is used.",
-    likes: 0,
-  },
-];
+import SimpleLoader from "../../components/utils/SimpleLoader";
 
 const AllBlogs = () => {
   const navigation = useNavigation();
@@ -59,7 +28,7 @@ const AllBlogs = () => {
 
   const url = "https://check-me-backend.herokuapp.com/api/v1/articles";
 
-  const { data, error } = useFetch(url);
+  const { loading, data, error } = useFetch(url);
 
   const onLike = () => {
     setLike(!like);
@@ -69,11 +38,11 @@ const AllBlogs = () => {
   console.log(data?.data?.docs, "From all blogsroute");
   console.log("====================================");
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("BlogDetails", item)}
-        key={item.id}
+        key={index}
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -182,12 +151,14 @@ const AllBlogs = () => {
               iconColor="#D2D1D1"
             />
           </View>
-          {data?.data?.docs && (
+          {data?.data?.docs ? (
             <FlatList
               data={data?.data?.docs}
               renderItem={renderItem}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(index) => index}
             />
+          ) : (
+            <SimpleLoader />
           )}
           {/* <FlatList
             data={data?.data?.docs}

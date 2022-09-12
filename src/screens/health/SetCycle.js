@@ -41,10 +41,6 @@ const SetCycle = () => {
   let timeDiff = end - start;
   let numOfDays = timeDiff / (1000 * 3600 * 24);
 
-  console.log("====================================");
-  console.log(timeDiff);
-  console.log("====================================");
-
   const startDate = moment(selectedStartDate).format("ll");
   const endDate = moment(selectedEndDate).format("ll");
 
@@ -176,7 +172,9 @@ const SetCycle = () => {
                   }}
                 >
                   <Text style={styles.textStyle}>Cycle Duration</Text>
-                  <Text style={styles.textDate}>{`${numOfDays} Day(s)`}</Text>
+                  <Text style={styles.textDate}>{`${
+                    numOfDays < 1 ? 0 : numOfDays
+                  } ${numOfDays <= 1 ? "Day" : "Days"}`}</Text>
                 </View>
               </View>
             </View>

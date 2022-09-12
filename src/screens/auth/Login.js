@@ -74,7 +74,10 @@ const Login = () => {
         <SafeAreaView style={styles.container}>
           <KeyboardAwareScrollView
             style={styles.viewContainer}
-            contentContainerStyle={{ justifyContent: "center" }}
+            contentContainerStyle={{
+              justifyContent: "center",
+              paddingTop: SIZES.screenHeight * 0.1,
+            }}
           >
             <View style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Image

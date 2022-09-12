@@ -33,6 +33,7 @@ const doc6 = require("../../assets/images/doc6.jpg");
 
 const nurse = require("../../assets/images/nurse.png");
 const calendar = require("../../assets/images/Calendar.png");
+const people = require("../../assets/images/people.jpg");
 
 const verifyotp = require("../../assets/images/verifyotp.png");
 
@@ -61,4 +62,5 @@ export default {
   calendar,
   selfcheck,
   menstraulCycle,
+  people,
 };
