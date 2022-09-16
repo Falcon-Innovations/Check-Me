@@ -28,6 +28,9 @@ import MenstraulCycle from "./health/MenstraulCycle";
 import SelfExamination from "./health/SelfExamination";
 import SetCycle from "./health/SetCycle";
 
+import Notifications from "./notifications/Notifications";
+import RiskFactors from "./health/RiskFactors";
+
 export {
   Onboard,
   Dashboard,
@@ -47,4 +50,6 @@ export {
   SelfExamination,
   MenstraulCycle,
   SetCycle,
+  Notifications,
+  RiskFactors,
 };

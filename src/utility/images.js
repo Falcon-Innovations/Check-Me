@@ -19,6 +19,7 @@ const healthy = require("../../assets/images/healthy.png");
 const lifeStyle = require("../../assets/images/lifestyle.png");
 const selfcheck = require("../../assets/images/selfcheck.png");
 const menstraulCycle = require("../../assets/images/menstrualCycle.png");
+const fruits = require("../../assets/images/fruits.png");
 
 //specialists
 
@@ -34,6 +35,12 @@ const doc6 = require("../../assets/images/doc6.jpg");
 const nurse = require("../../assets/images/nurse.png");
 const calendar = require("../../assets/images/Calendar.png");
 const people = require("../../assets/images/people.jpg");
+const time = require("../../assets/images/time.png");
+const smoking = require("../../assets/images/smoking.png");
+const alcohol = require("../../assets/images/alcohol.png");
+const radiation = require("../../assets/images/Radiation.png");
+const gender = require("../../assets/images/gender.png");
+const dna = require("../../assets/images/dna.png");
 
 const verifyotp = require("../../assets/images/verifyotp.png");
 
@@ -63,4 +70,11 @@ export default {
   selfcheck,
   menstraulCycle,
   people,
+  fruits,
+  radiation,
+  smoking,
+  alcohol,
+  time,
+  gender,
+  dna,
 };

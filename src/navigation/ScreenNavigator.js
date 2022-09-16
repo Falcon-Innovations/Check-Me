@@ -20,6 +20,8 @@ import {
   SelfExamination,
   MenstraulCycle,
   SetCycle,
+  Notifications,
+  RiskFactors,
 } from "../screens";
 import useGetOnboardingStatus from "../utility/checkIfFirstLaunch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -87,6 +89,8 @@ const RootNavigator = () => {
         <Stack.Screen name="SelfExamination" component={SelfExamination} />
         <Stack.Screen name="MenstraulCycle" component={MenstraulCycle} />
         <Stack.Screen name="SetCycle" component={SetCycle} />
+        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="RiskFactors" component={RiskFactors} />
         <Stack.Screen name="Root" component={BottomTabNavigator} />
       </Stack.Navigator>
     </>
@@ -130,7 +134,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Dashboard}
+        component={Notifications}
         options={{
           tabBarLabel: "Notifications",
           tabBarIcon: ({ color }) => (

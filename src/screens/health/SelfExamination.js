@@ -25,7 +25,7 @@ const selfExamine = [
     img: images.people,
     steps: [
       {
-        i: "Face forward and look for puckering, dimpling, or changes in size, shape or symmetry.",
+        i: "Face forward and look for puckering(wrinkles), dimpling(indentation in breast area), or changes in size, shape or symmetry(regularity).",
       },
       {
         i: "Check to see if your nipples are turned in (inverted).",
@@ -63,7 +63,6 @@ const selfExamine = [
 ];
 
 const tips = [
-  "General tips",
   "Use the pads of your fingers.",
   "Follow a pattern",
   "Take your time.",
@@ -79,9 +78,11 @@ const SelfExamination = () => {
       <CustomStatusBar text={"Self Examination"} />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ScrollView
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingHorizontal: 10,
             paddingTop: SIZES.screenHeight * 0.02,
+            paddingBottom: SIZES.screenHeight * 0.03,
           }}
         >
           <View style={styles.container}>
@@ -142,9 +143,9 @@ const SelfExamination = () => {
             </Text>
           </View>
           <View style={{ marginHorizontal: 8 }}>
-            {selfExamine.map((item) => {
+            {selfExamine.map((item, index) => {
               return (
-                <View key={item.phase}>
+                <View key={index}>
                   <Text
                     style={{
                       fontFamily: "Poppins_Medium",
@@ -199,8 +200,9 @@ const SelfExamination = () => {
               <Text style={{ fontFamily: "Poppins_Medium", marginBottom: 10 }}>
                 General Tips
               </Text>
-              {tips.map((tip) => (
+              {tips.map((tip, index) => (
                 <Text
+                  key={index}
                   style={{ fontFamily: "Poppins_Regular", lineHeight: 24 }}
                 >{`\u29BF ${tip}`}</Text>
               ))}
@@ -220,9 +222,9 @@ const SelfExamination = () => {
                   onPress={() => navigation.navigate("Specialists")}
                 />
               </View>
-              <View style={{ alignSelf: "flex-end" }}>
+              <View style={{ marginLeft: 5 }}>
                 <AppButton
-                  text="Scehdule Mamogram "
+                  text="Book Mamogram "
                   color={COLORS.primary}
                   // onPress={() => navigation.navigate("SetCycle")}
                 />

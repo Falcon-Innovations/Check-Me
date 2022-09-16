@@ -18,6 +18,27 @@ import { COLORS, images, SIZES } from "../../utility";
 import { AppButton, AppStatusBar, DashboardCard } from "../../components";
 import { Context as AuthContext } from "../../contexts/userContext";
 
+const data = [
+  {
+    image: images.fruits,
+    title: "Grab a fruit today!",
+    description:
+      "Fruit and vegitables should be and important part of your daily meal",
+  },
+  {
+    image: images.fruits,
+    title: "Grab a fruit today!",
+    description:
+      "Fruit and vegitables should be and important part of your daily meal",
+  },
+  {
+    image: images.fruits,
+    title: "Grab a fruit today!",
+    description:
+      "Fruit and vegitables should be and important part of your daily meal",
+  },
+];
+
 const tips = [
   {
     id: 1,
@@ -36,7 +57,7 @@ const tips = [
   },
 ];
 
-const Dashboard = () => {
+const Dashboard = ({ data }) => {
   const { state, logout } = React.useContext(AuthContext);
   const navigation = useNavigation();
 
@@ -122,7 +143,7 @@ const Dashboard = () => {
                   <Button
                     mode="contained"
                     labelStyle={styles.testBtn}
-                    // onPress={() => navigation.navigate("Login")}
+                    onPress={() => navigation.navigate("SelfExamination")}
                     // onPress={handleLogout}
                     uppercase={false}
                     theme={{ colors: { primary: "#fff" } }}
@@ -138,7 +159,7 @@ const Dashboard = () => {
               <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 14 }}>
                 Healthy Life Style
               </Text>
-              <View
+              {/* <View
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -171,6 +192,58 @@ const Dashboard = () => {
                     </Text>
                   </View>
                 ))}
+              </View> */}
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingHorizontal: 12,
+                  width: "90%",
+                  paddingBottom: 25,
+                  paddingTop: 10,
+                  backgroundColor: "#FBE4DD",
+                  alignSelf: "center",
+                  borderRadius: 8,
+                  marginTop: 10,
+                  marginBottom: 15,
+                }}
+              >
+                <View
+                  style={{
+                    paddingHorizontal: 8,
+                    paddingVertical: 4,
+                    backgroundColor: "#F3F4FD",
+                    width: 42,
+                    height: 40,
+                    alignItems: "center",
+                    borderRadius: 4,
+                  }}
+                >
+                  <Image
+                    source={images.fruits}
+                    style={{ width: 35, height: 35, alignSelf: "center" }}
+                    resizeMode="contain"
+                  />
+                </View>
+                <View style={{ width: "90%", paddingHorizontal: 10 }}>
+                  <Text
+                    style={{
+                      fontFamily: "Poppins_SemiBold",
+                      fontSize: Platform.OS == "ios" ? 12 : 12,
+                    }}
+                  >
+                    Grab a fruit today!
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: "Poppins_Regular",
+                      fontSize: Platform.OS == "ios" ? 12 : 10,
+                    }}
+                  >
+                    Fruit and vegitables should be and important part of your
+                    daily meal
+                  </Text>
+                </View>
               </View>
             </View>
             <View>

@@ -12,6 +12,7 @@ import React from "react";
 import { Divider } from "react-native-elements";
 import Icon from "react-native-vector-icons/Feather";
 import Icons from "react-native-vector-icons/Ionicons";
+import ProfileIcon from "react-native-vector-icons/AntDesign";
 import Run from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -87,12 +88,25 @@ const PersonalDashboard = () => {
                 }}
               >
                 <View style={[styles.image, styles.shadowProp]}>
-                  <Image
-                    source={{
-                      uri: state?.user?.avatar,
-                    }}
-                    style={{ height: 65, width: 65, borderRadius: 25 }}
-                  />
+                  {state?.user?.avatar ? (
+                    <Image
+                      source={{
+                        uri: state?.user?.avatar,
+                      }}
+                      style={{ height: 65, width: 65, borderRadius: 25 }}
+                    />
+                  ) : (
+                    <ProfileIcon
+                      name="user"
+                      size={40}
+                      color={COLORS.primary}
+                      style={{
+                        position: "absolute",
+                        left: SIZES.screenWidth * 0.05,
+                        top: SIZES.screenHeight * 0.02,
+                      }}
+                    />
+                  )}
                 </View>
               </View>
             </View>

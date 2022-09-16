@@ -58,6 +58,7 @@
     "react-native-screens": "~3.11.1",
     "react-native-slider": "^0.11.0",
     "react-native-sms": "^1.11.0",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.4.3",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.0",

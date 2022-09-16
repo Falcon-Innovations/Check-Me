@@ -20,7 +20,7 @@ const items = [
   {
     id: 3,
     title: "Risk Factors and Tips",
-    screen: "Specialists",
+    screen: "RiskFactors",
     img: images.risk,
   },
   {
