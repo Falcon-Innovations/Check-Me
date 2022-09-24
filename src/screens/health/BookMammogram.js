@@ -9,8 +9,10 @@ import {
 import React from "react";
 import { AppButton, AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, images, SIZES } from "../../utility";
+import { useNavigation } from "@react-navigation/native";
 
 const BookMammogram = () => {
+  const navigation = useNavigation();
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
@@ -77,7 +79,7 @@ const BookMammogram = () => {
               text="Get Started"
               color={COLORS.primary}
               //   disabled={loading}
-              //   onPress={register}
+              onPress={() => navigation.navigate("Hospitals")}
             />
           </View>
         </ScrollView>

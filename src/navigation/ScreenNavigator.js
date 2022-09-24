@@ -36,6 +36,8 @@ import {
 import ResolveAuth from "../screens/auth/ResolveAuth";
 import { COLORS } from "../utility";
 import BookSpecialist from "../screens/specialists/BookSpecialist";
+import Hospitals from "../screens/hospitals/Hospitals";
+import DetailHospital from "../screens/hospitals/DetailHospital";
 const Stack = createNativeStackNavigator();
 
 const Navigation = ({ colorScheme }) => {
@@ -78,6 +80,8 @@ const RootNavigator = () => {
         <Stack.Screen name="Specialists" component={Specialists} />
         <Stack.Screen name="SpecialistDetails" component={SpecialistDetails} />
         <Stack.Screen name="BookSpecialist" component={BookSpecialist} />
+        <Stack.Screen name="Hospitals" component={Hospitals} />
+        <Stack.Screen name="detailHospitals" component={DetailHospital} />
         <Stack.Screen name="ProfileOverview" component={ProfileOverview} />
         <Stack.Screen name="PersonalDashboard" component={PersonalDashboard} />
         <Stack.Screen name="EditProfile" component={EditProfile} />

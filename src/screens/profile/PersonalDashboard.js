@@ -36,9 +36,9 @@ const PersonalDashboard = () => {
       icon: <Icons name="ios-flower" color="#fff" size={22} />,
     },
     {
-      title: "Find exercises",
-      screen: "SetCycle",
-      icon: <Run name="running" color="#fff" size={22} />,
+      title: "Find a Hospital",
+      screen: "Hospitals",
+      icon: <FontAwesome name="hospital-o" color="#fff" size={22} />,
     },
     {
       title: "Talk to a doctor",
