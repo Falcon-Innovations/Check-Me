@@ -17,6 +17,7 @@ import Icons from "react-native-vector-icons/SimpleLineIcons";
 import Ribbon from "react-native-vector-icons/MaterialCommunityIcons";
 import SendSMS from "react-native-sms";
 import { Divider } from "react-native-elements";
+import { FAB } from "react-native-paper";
 import { Context as AuthContext } from "../../contexts/userContext";
 
 import { AppButton, AppStatusBar, CustomStatusBar } from "../../components";
@@ -353,15 +354,21 @@ const SpecialistDetails = ({ route }) => {
             </View> */}
           </View>
 
-          <View style={{ marginTop: 10 }}>
+          {/* <View style={{ marginTop: 10 }}>
             <AppButton
               text="Contact Specialist"
               color={COLORS.primary}
               // disabled={loading}
               onPress={() => navigation.navigate("BookSpecialist", item)}
             />
-          </View>
+          </View> */}
         </ScrollView>
+        <FAB
+          icon="doctor"
+          style={styles.fab}
+          label="Contact Specialist"
+          onPress={() => navigation.navigate("BookSpecialist", item)}
+        />
       </SafeAreaView>
     </>
   );
@@ -410,5 +417,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: SIZES.screenHeight * 0.03,
     alignSelf: "flex-end",
+  },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 20,
+    backgroundColor: COLORS.primary,
   },
 });
