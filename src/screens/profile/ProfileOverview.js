@@ -21,10 +21,6 @@ import { Alert } from "react-native";
 
 const profile = [
   {
-    title: "Plan your health",
-    screen: "PersonalDashboard",
-  },
-  {
     title: "Personal Dashboard",
     screen: "PersonalDashboard",
   },
@@ -37,12 +33,12 @@ const profile = [
     screen: "EditProfile",
   },
   {
-    title: "Subscriptions",
-    screen: "PersonalDashboard",
-  },
-  {
     title: "Book a Mammogram ",
     screen: "BookMammogram",
+  },
+  {
+    title: "Subscriptions",
+    screen: "PersonalDashboard",
   },
 
   {

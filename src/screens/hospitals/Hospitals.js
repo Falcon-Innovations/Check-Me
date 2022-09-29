@@ -17,6 +17,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { COLORS, images, SIZES } from "../../utility";
 import { AppStatusBar, CustomStatusBar } from "../../components";
+import useFetch from "../../hooks/useFetch";
 
 const dummyData = [
   {
@@ -331,6 +332,15 @@ const Hospitals = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
+
+  const url = "https://check-me-backend.herokuapp.com/api/v1/hospitals/";
+
+  const { loading, data, error } = useFetch(url);
+
+  console.log("====================================");
+  console.log("From all Hospitals", data);
+  console.log("====================================");
+
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />

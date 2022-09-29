@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const useGetOnboardingStatus = () => {
   const [isFirstLaunch, setIsFirstLaunch] = useState(false);
@@ -7,9 +7,9 @@ const useGetOnboardingStatus = () => {
 
   const checkIfFirstLaunch = async () => {
     try {
-      const hasFirstLaunched = await AsyncStorage.getItem('isOnboarded');
+      const hasFirstLaunched = await AsyncStorage.getItem("isOnboarded");
       if (hasFirstLaunched === null) {
-        await AsyncStorage.setItem('isOnboarded', JSON.stringify(true));
+        await AsyncStorage.setItem("isOnboarded", JSON.stringify(true));
         setIsFirstLaunch(true);
         return true;
       }

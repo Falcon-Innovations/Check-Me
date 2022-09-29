@@ -20,7 +20,7 @@ const settings = [
   },
   {
     title: "Change Language",
-    screen: "PersonalDashboard",
+    screen: "#",
   },
 ];
 const Settings = () => {

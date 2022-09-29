@@ -19,6 +19,7 @@ const healthy = require("../../assets/images/healthy.png");
 const lifeStyle = require("../../assets/images/lifestyle.png");
 const selfcheck = require("../../assets/images/selfcheck.png");
 const menstraulCycle = require("../../assets/images/menstrualCycle.png");
+const hospitals = require("../../assets/images/hospitals.png");
 const fruits = require("../../assets/images/fruits.png");
 
 //specialists
@@ -41,6 +42,8 @@ const alcohol = require("../../assets/images/alcohol.png");
 const radiation = require("../../assets/images/Radiation.png");
 const gender = require("../../assets/images/gender.png");
 const dna = require("../../assets/images/dna.png");
+
+const user = require("../../assets/images/user.png");
 
 const verifyotp = require("../../assets/images/verifyotp.png");
 
@@ -77,4 +80,6 @@ export default {
   time,
   gender,
   dna,
+  user,
+  hospitals,
 };

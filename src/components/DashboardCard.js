@@ -13,16 +13,17 @@ const items = [
   },
   {
     id: 2,
-    title: "Plan Your Health",
-    screen: "MenstraulCycle",
-    img: images.lifeStyle,
-  },
-  {
-    id: 3,
     title: "Risk Factors and Tips",
     screen: "RiskFactors",
     img: images.risk,
   },
+  {
+    id: 3,
+    title: "Find a Hospital",
+    screen: "Hospitals",
+    img: images.hospitals,
+  },
+
   {
     id: 4,
     title: "Talk to a Doctor",

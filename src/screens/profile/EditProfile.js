@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/Ionicons";
 import CalendarPicker from "react-native-calendar-picker";
+import ProfileIcon from "react-native-vector-icons/AntDesign";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Icons from "react-native-vector-icons/Feather";
 import Modal from "react-native-modal";
@@ -24,7 +25,7 @@ import {
   CustomStatusBar,
   Input,
 } from "../../components";
-import { COLORS } from "../../utility";
+import { COLORS, images } from "../../utility";
 import TextAreaInput from "../../components/inputs/TextAreaInput";
 import Loader from "../../components/utils/Loader";
 
@@ -139,12 +140,12 @@ const EditProfile = () => {
           <View style={{ alignSelf: "center" }}>
             <ImageBackground
               imageStyle={{ borderRadius: 60 }}
-              source={{
-                uri: state?.user?.avatar,
-              }}
+              source={
+                state?.user?.avatar ? { uri: state?.user?.avatar } : images.user
+              }
               style={{
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 80,
               }}
               resizeMode="cover"
             >
@@ -153,7 +154,7 @@ const EditProfile = () => {
                 activeOpacity={0.6}
                 style={styles.iconContainer}
               >
-                <Icon name="ios-camera-outline" size={20} color="#fff" />
+                <Icon name="ios-camera-outline" size={15} color="#fff" />
               </TouchableOpacity>
             </ImageBackground>
           </View>

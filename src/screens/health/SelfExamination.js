@@ -226,7 +226,7 @@ const SelfExamination = () => {
                 <AppButton
                   text="Book Mamogram "
                   color={COLORS.primary}
-                  // onPress={() => navigation.navigate("SetCycle")}
+                  onPress={() => navigation.navigate("Hospitals")}
                 />
               </View>
             </View>

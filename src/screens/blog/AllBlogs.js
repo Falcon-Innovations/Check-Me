@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -28,15 +28,16 @@ const AllBlogs = () => {
 
   const url = "https://check-me-backend.herokuapp.com/api/v1/articles";
 
-  const { loading, data, error } = useFetch(url);
+  const { loading, data, error, fetched } = useFetch(url);
 
   const onLike = () => {
     setLike(!like);
   };
 
-  console.log("====================================");
-  console.log(data?.data?.docs, "From all blogsroute");
-  console.log("====================================");
+  useEffect(() => {
+    const fetchBlogs = navigation.addListener("focus", () => {});
+    return fetchBlogs;
+  }, [navigation]);
 
   const renderItem = ({ item, index }) => {
     return (
