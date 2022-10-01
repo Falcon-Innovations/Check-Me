@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 import { COLORS, images, SIZES } from "../../utility";
 import { AppButton, AppStatusBar, DashboardCard } from "../../components";
@@ -58,6 +59,7 @@ const tips = [
 ];
 
 const Dashboard = ({ data }) => {
+  const { t, i18n } = useTranslation();
   const { state, logout } = React.useContext(AuthContext);
   const navigation = useNavigation();
 
@@ -86,7 +88,7 @@ const Dashboard = ({ data }) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.container}>
             <View style={styles.header}>
-              <Text style={styles.greeting}>Welcome!!</Text>
+              <Text style={styles.greeting}>{t("welcome")}</Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("ProfileOverview")}
                 style={styles.nameContainer}
@@ -109,7 +111,7 @@ const Dashboard = ({ data }) => {
                 />
               </View>
               <View>
-                <View style={{ marginBottom: 10 }}>
+                <View style={{ marginBottom: 5, width: "90%" }}>
                   <Text
                     style={{
                       fontSize: 15,
@@ -118,7 +120,7 @@ const Dashboard = ({ data }) => {
                       marginBottom: 5,
                     }}
                   >
-                    Do your own test
+                    {t("test")}
                   </Text>
                   <Text
                     style={{
@@ -127,7 +129,7 @@ const Dashboard = ({ data }) => {
                       fontFamily: "Poppins_Regular",
                     }}
                   >
-                    How do you feel today?
+                    {t("feeling")}
                   </Text>
                   <Text
                     style={{
@@ -148,7 +150,7 @@ const Dashboard = ({ data }) => {
                     uppercase={false}
                     theme={{ colors: { primary: "#fff" } }}
                   >
-                    Test now
+                    {t("btnTest")}
                   </Button>
                 </View>
               </View>

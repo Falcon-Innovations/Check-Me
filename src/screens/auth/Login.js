@@ -12,7 +12,9 @@ import {
 import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useTranslation } from "react-i18next";
 
+import "../../../assets/i18n/i18n";
 import { COLORS, images, SIZES } from "../../utility";
 import {
   Input,
@@ -22,9 +24,23 @@ import {
 } from "../../components";
 import Loader from "../../components/utils/Loader";
 import { Context as UserContext } from "../../contexts/userContext";
+import { placeholder } from "i18n-js";
 
 const Login = () => {
   const navigation = useNavigation();
+
+  const { t, i18n } = useTranslation();
+  const [currentLanguage, setLanguage] = useState(i18n.language);
+
+  const [activeLang, setActiveLang] = useState(false);
+
+  const changeLanguage = (value) => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setLanguage(value))
+      .catch((err) => console.log(err));
+  };
+
   const { signIn, sendOTP } = React.useContext(UserContext);
   const [inputs, setInputs] = useState({
     phone: "",
@@ -76,9 +92,55 @@ const Login = () => {
             style={styles.viewContainer}
             contentContainerStyle={{
               justifyContent: "center",
-              paddingTop: SIZES.screenHeight * 0.1,
+              paddingTop: SIZES.screenHeight * 0.02,
             }}
           >
+            <View
+              style={{
+                alignSelf: "flex-end",
+                flexDirection: "row",
+                alignItems: "center",
+                paddingTop:
+                  Platform.OS == "ios"
+                    ? SIZES.screenHeight * 0.01
+                    : SIZES.screenHeight * 0.04,
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => changeLanguage("en")}
+                style={[
+                  currentLanguage === "en" ? styles.active : styles.unActive,
+                  { marginRight: 8 },
+                ]}
+              >
+                <Text
+                  style={
+                    currentLanguage === "en"
+                      ? { fontFamily: "Poppins_Medium", color: "#fff" }
+                      : { fontFamily: "Poppins_Medium", color: "#3c1361" }
+                  }
+                >
+                  EN
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => changeLanguage("fr")}
+                style={[
+                  currentLanguage === "fr" ? styles.active : styles.unActive,
+                  { alignItems: "center" },
+                ]}
+              >
+                <Text
+                  style={
+                    currentLanguage === "fr"
+                      ? { fontFamily: "Poppins_Medium", color: "#fff" }
+                      : { fontFamily: "Poppins_Medium", color: "#3c1361" }
+                  }
+                >
+                  FR
+                </Text>
+              </TouchableOpacity>
+            </View>
             <View style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Image
                 resizeMode="contain"
@@ -86,19 +148,26 @@ const Login = () => {
                 style={styles.img}
               />
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                width: "60%",
+              }}
+            >
               <Text
                 style={[
                   styles.welcomeText,
                   { color: COLORS.primary, fontFamily: "Poppins_Bold" },
                 ]}
               >
-                Welcome back!
+                {t("welcome1")}
               </Text>
               <Text
+                numberOfLines={1}
                 style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}
               >
-                Kindly fill this to sign in.
+                {t("welcome2")}
               </Text>
             </View>
             <View style={styles.formContainer}>
@@ -140,7 +209,7 @@ const Login = () => {
 
             <View style={{ marginTop: 20 }}>
               <AppButton
-                text="Login"
+                text={t("login")}
                 color={COLORS.primary}
                 // onPress={() => navigation.navigate('Dashboard')}
                 onPress={handleSignIn}
@@ -172,7 +241,7 @@ const Login = () => {
                 marginTop: SIZES.screenHeight * 0.02,
               }}
             >
-              <Text>{`Don't have an account yet?`}</Text>
+              <Text>{t("noAccount")}</Text>
               <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
                 <Text
                   style={{
@@ -185,7 +254,7 @@ const Login = () => {
                     marginLeft: 10,
                   }}
                 >
-                  Sign Up
+                  {t("signup")}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -238,5 +307,24 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#fff",
     fontFamily: "Poppins_Regular",
+  },
+  unActive: {
+    paddingHorizontal: 10,
+    paddingVertical: Platform.OS == "ios" ? 8 : 6,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  active: {
+    paddingHorizontal: 10,
+    paddingVertical: Platform.OS == "ios" ? 8 : 6,
+    borderRadius: 24,
+    borderWidth: 2,
+    backgroundColor: COLORS.primary,
+    borderColor: "#3c1361",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

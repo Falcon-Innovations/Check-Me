@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import {
@@ -38,6 +39,7 @@ import { COLORS } from "../utility";
 import BookSpecialist from "../screens/specialists/BookSpecialist";
 import Hospitals from "../screens/hospitals/Hospitals";
 import DetailHospital from "../screens/hospitals/DetailHospital";
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = ({ colorScheme }) => {
@@ -103,6 +105,7 @@ const RootNavigator = () => {
 
 const BottomTabNavigator = () => {
   const Tab = createMaterialBottomTabNavigator();
+  const { t } = useTranslation();
   /**
    * The best approach for using a tab navigator,
    * is to nest Stack navigators for each respective tab
@@ -120,7 +123,7 @@ const BottomTabNavigator = () => {
         name="Feed"
         component={Dashboard}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: t("home"),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
@@ -130,7 +133,7 @@ const BottomTabNavigator = () => {
         name="Learn"
         component={AllBlogs}
         options={{
-          tabBarLabel: "Feed",
+          tabBarLabel: t("blog"),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="book" color={color} size={26} />
           ),
@@ -140,7 +143,7 @@ const BottomTabNavigator = () => {
         name="Profile"
         component={Notifications}
         options={{
-          tabBarLabel: "Notifications",
+          tabBarLabel: t("notifications"),
           tabBarIcon: ({ color }) => (
             <Ionicons name="notifications" color={color} size={26} />
           ),
@@ -150,7 +153,7 @@ const BottomTabNavigator = () => {
         name="Yo"
         component={ProfileOverview}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: t("profile"),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),

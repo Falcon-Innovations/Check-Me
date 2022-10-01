@@ -1,0 +1,26 @@
+{
+  "translation": {
+    "resetPass": "Reset Password",
+    "changeLang": "Change Language",
+    "enLang": "Select English",
+    "frLang": "Select French",
+    "welcome": "Welcome!!",
+    "test": " Do your own test",
+    "feeling": " How do you feel today?",
+    "btnTest": "Test Now",
+    "features": "Get Started Today",
+    "selfExamine": "Self Examination",
+    "risk": "Risk Factors and Tips",
+    "hospitals": "Find a Hospital",
+    "specialist": "Talk to a Specialist",
+    "home": "Home",
+    "blog": "Feed",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "login": "Login",
+    "welcome1": "Welcome back!",
+    "welcome2": "Kindly Fill this to sign in.",
+    "noAccount": "Don't have an account yet?",
+    "signup": "Sign Up"
+  }
+}

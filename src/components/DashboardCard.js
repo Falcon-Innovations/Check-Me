@@ -1,44 +1,44 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { COLORS, images, SIZES } from "../utility";
 
-const items = [
-  {
-    id: 1,
-    title: "Self Examination",
-    screen: "SelfExamination",
-    img: images.healthy,
-  },
-  {
-    id: 2,
-    title: "Risk Factors and Tips",
-    screen: "RiskFactors",
-    img: images.risk,
-  },
-  {
-    id: 3,
-    title: "Find a Hospital",
-    screen: "Hospitals",
-    img: images.hospitals,
-  },
-
-  {
-    id: 4,
-    title: "Talk to a Doctor",
-    screen: "Specialists",
-    img: images.doc,
-  },
-];
-
 const DashboardCard = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
+  const items = [
+    {
+      id: 1,
+      title: t("selfExamine"),
+      screen: "SelfExamination",
+      img: images.healthy,
+    },
+    {
+      id: 2,
+      title: t("risk"),
+      screen: "RiskFactors",
+      img: images.risk,
+    },
+    {
+      id: 3,
+      title: t("hospitals"),
+      screen: "Hospitals",
+      img: images.hospitals,
+    },
 
+    {
+      id: 4,
+      title: "specialist",
+      screen: "Specialists",
+      img: images.doc,
+    },
+  ];
   return (
     <View style={{ marginTop: 10 }}>
       <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 14 }}>
-        Get Started Today
+        {t("features")}
       </Text>
       <View style={styles.container}>
         {items.map((item) => (
@@ -63,6 +63,7 @@ const DashboardCard = () => {
                 fontFamily: "Poppins_Medium",
                 top: SIZES.screenHeight * 0.14,
                 alignSelf: "center",
+                paddingHorizontal: 5,
               }}
             >
               {item.title}

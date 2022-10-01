@@ -1,8 +1,9 @@
 import { Provider as PaperProvider } from "react-native-paper";
 import { useFonts } from "expo-font";
+import { enGB, registerTranslation } from "react-native-paper-dates";
+import "./assets/i18n/i18n";
 import Navigation from "./src/navigation/ScreenNavigator";
 import { Provider as UserProvider } from "./src/contexts/userContext";
-import { enGB, registerTranslation } from "react-native-paper-dates";
 
 registerTranslation("en-GB", enGB);
 
