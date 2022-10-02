@@ -1,4 +1,5 @@
-import { useEffect, useReducer, useRef } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useReducer, useRef } from 'react';
 
 // interface State<T> {
 //   data?: T
@@ -27,11 +28,11 @@ function useFetch(url, options) {
   // Keep state logic separated
   const fetchReducer = (state, action) => {
     switch (action.type) {
-      case "loading":
+      case 'loading':
         return { ...initialState };
-      case "fetched":
+      case 'fetched':
         return { ...initialState, data: action.payload };
-      case "error":
+      case 'error':
         return { ...initialState, error: action.payload };
       default:
         return state;
@@ -47,16 +48,22 @@ function useFetch(url, options) {
     cancelRequest.current = false;
 
     const fetchData = async () => {
-      dispatch({ type: "loading" });
+      dispatch({ type: 'loading' });
+      const token = await AsyncStorage.getItem('token');
 
       // If a cache exists for this url, return it
       if (cache.current[url]) {
-        dispatch({ type: "fetched", payload: cache.current[url] });
+        dispatch({ type: 'fetched', payload: cache.current[url] });
         return;
       }
 
       try {
-        const response = await fetch(url, options);
+        const response = await fetch(url, {
+          ...options,
+          headers: new Headers({
+            Authorization: `Bearer ${token}`,
+          }),
+        });
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -65,11 +72,11 @@ function useFetch(url, options) {
         cache.current[url] = data;
         if (cancelRequest.current) return;
 
-        dispatch({ type: "fetched", payload: data });
+        dispatch({ type: 'fetched', payload: data });
       } catch (error) {
         if (cancelRequest.current) return;
 
-        dispatch({ type: "error", payload: error });
+        dispatch({ type: 'error', payload: error });
       }
     };
 
