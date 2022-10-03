@@ -1,3 +1,8 @@
-const url = 'https://check-me-backend.herokuapp.com/api/v1/specialists';
+import useFetch from '../hooks/useFetch';
 
-const { loading, data, error, fetched } = useFetch(url);
+const url = 'https://check-me-backend.herokuapp.com/api/v1/blogs';
+
+const useBlogs = () => {
+  const { loading, data, error } = useFetch(url);
+  return { loading, data, error };
+};

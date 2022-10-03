@@ -222,9 +222,8 @@ const Specialists = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query) => setSearchQuery(query);
-  const url = 'https://check-me-backend.herokuapp.com/api/v1/specialists';
 
-  const { loading, data, error, fetched } = useFetch(url);
+  const { loading, data, error } = useBlogs(url);
 
   console.log(data, 'From specialists query');
   return (

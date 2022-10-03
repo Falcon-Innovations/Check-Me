@@ -1,14 +1,14 @@
 import useFetch from '../hooks/useFetch';
 import { BASE_URL } from './client';
 
-const url = `${BASE_URL}api/v1/specialists`;
+const url = `${BASE_URL}api/v1/hospitals`;
 
-export const useSpecialists = () => {
+export const useHospitals = () => {
   const { loading, data, error } = useFetch(url);
   return { loading, data, error };
 };
 
-export const useSpecialist = (id) => {
+export const useHospital = (id) => {
   const { loading, data, error } = useFetch(`${url}/${id}`);
   return { loading, data, error };
 };
