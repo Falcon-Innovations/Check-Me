@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Keyboard,
+  Platform,
 } from "react-native";
 import React, { useState, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -16,8 +17,24 @@ import { Input, AppButton, PhoneInputField } from "../../components";
 import { Context as UserContext } from "../../contexts/userContext";
 import Loader from "../../components/utils/Loader";
 
+import { useTranslation } from "react-i18next";
+import "../../../assets/i18n/i18n";
+
 const Register = () => {
   const navigation = useNavigation();
+
+  const { t, i18n } = useTranslation();
+  const [currentLanguage, setLanguage] = useState(i18n.language);
+
+  const [activeLang, setActiveLang] = useState(false);
+
+  const changeLanguage = (value) => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setLanguage(value))
+      .catch((err) => console.log(err));
+  };
+
   const { signUp } = React.useContext(UserContext);
   const phoneInput = useRef(null);
   const [inputs, setInputs] = useState({
@@ -87,8 +104,54 @@ const Register = () => {
         <SafeAreaView style={styles.container}>
           <KeyboardAwareScrollView
             style={styles.viewContainer}
-            contentContainerStyle={{ paddingTop: SIZES.screenHeight * 0.08 }}
+            contentContainerStyle={{ paddingTop: SIZES.screenHeight * 0.02 }}
           >
+            <View
+              style={{
+                alignSelf: "flex-end",
+                flexDirection: "row",
+                alignItems: "center",
+                paddingTop:
+                  Platform.OS == "ios"
+                    ? SIZES.screenHeight * 0.01
+                    : SIZES.screenHeight * 0.04,
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => changeLanguage("en")}
+                style={[
+                  currentLanguage === "en" ? styles.active : styles.unActive,
+                  { marginRight: 8 },
+                ]}
+              >
+                <Text
+                  style={
+                    currentLanguage === "en"
+                      ? { fontFamily: "Poppins_Medium", color: "#fff" }
+                      : { fontFamily: "Poppins_Medium", color: "#3c1361" }
+                  }
+                >
+                  EN
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => changeLanguage("fr")}
+                style={[
+                  currentLanguage === "fr" ? styles.active : styles.unActive,
+                  { alignItems: "center" },
+                ]}
+              >
+                <Text
+                  style={
+                    currentLanguage === "fr"
+                      ? { fontFamily: "Poppins_Medium", color: "#fff" }
+                      : { fontFamily: "Poppins_Medium", color: "#3c1361" }
+                  }
+                >
+                  FR
+                </Text>
+              </TouchableOpacity>
+            </View>
             <View style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Image
                 resizeMode="contain"
@@ -103,18 +166,18 @@ const Register = () => {
                   { color: COLORS.primary, fontFamily: "Poppins_Bold" },
                 ]}
               >
-                Welcome!
+                {t("registerWelcome")}
               </Text>
               <Text
                 style={[styles.welcomeText, { fontFamily: "Poppins_Medium" }]}
               >
-                Kindly fill this to sign up.
+                {t("registerWelcome2")}
               </Text>
             </View>
             <View style={styles.formContainer}>
               <Input
                 // maxLength={35}
-                placeholder="Enter your name"
+                placeholder={t("placeholder1")}
                 keyboardType="default"
                 error={errors.fullname}
                 onFocus={() => handleErrors(null, "fullname")}
@@ -122,7 +185,7 @@ const Register = () => {
               />
               <Input
                 // maxLength={35}
-                placeholder="Enter your email"
+                placeholder={t("placeholder2")}
                 keyboardType="email-address"
                 error={errors.email}
                 onFocus={() => handleErrors(null, "email")}
@@ -131,6 +194,7 @@ const Register = () => {
 
               <PhoneInputField
                 phoneInput={phoneInput}
+                placeholder={t("placeholder3")}
                 phoneNumber={inputs.phone}
                 onChange={(text) => {
                   handleOnChange(text, "phone");
@@ -153,7 +217,7 @@ const Register = () => {
               /> */}
             </View>
             <View style={{ alignItems: "center" }}>
-              <Text>By clicking on Sign up, you agree to </Text>
+              <Text>{t("terms")}</Text>
               <Text
                 style={{
                   textDecorationLine: "underline",
@@ -165,13 +229,13 @@ const Register = () => {
                   marginTop: 5,
                 }}
               >
-                Terms & Privacy Policy
+                {t("condition")}
               </Text>
             </View>
 
             <View style={{ marginTop: 20 }}>
               <AppButton
-                text="Register"
+                text={t("register")}
                 color={COLORS.primary}
                 disabled={loading || !inputs.fullname || !inputs.phone}
                 onPress={validate}
@@ -201,7 +265,7 @@ const Register = () => {
                 flexDirection: "row",
               }}
             >
-              <Text>{`Not new here?`}</Text>
+              <Text> {t("haveAccount")}</Text>
               <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                 <Text
                   style={{
@@ -214,7 +278,7 @@ const Register = () => {
                     marginLeft: 10,
                   }}
                 >
-                  Sign In
+                  {t("signin")}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -285,5 +349,24 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#fff",
     fontFamily: "Poppins_Regular",
+  },
+  unActive: {
+    paddingHorizontal: 10,
+    paddingVertical: Platform.OS == "ios" ? 8 : 6,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  active: {
+    paddingHorizontal: 10,
+    paddingVertical: Platform.OS == "ios" ? 8 : 6,
+    borderRadius: 24,
+    borderWidth: 2,
+    backgroundColor: COLORS.primary,
+    borderColor: "#3c1361",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

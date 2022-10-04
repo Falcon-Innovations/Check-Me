@@ -188,6 +188,7 @@ const Login = () => {
 
               <PhoneInputField
                 phoneInput={phoneInput}
+                placeholder={t("placeholder3")}
                 phoneNumber={inputs.phone}
                 onChange={(text) => {
                   handleOnChange(text, "phone");

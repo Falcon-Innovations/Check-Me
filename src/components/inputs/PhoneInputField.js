@@ -1,7 +1,13 @@
 import { View, StyleSheet, Dimensions } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
 
-const PhoneInputField = ({ phoneNumber, phoneInput, onChange, ...rest }) => {
+const PhoneInputField = ({
+  phoneNumber,
+  phoneInput,
+  placeholder,
+  onChange,
+  ...rest
+}) => {
   return (
     <View style={styles.container}>
       <PhoneInput
@@ -9,7 +15,7 @@ const PhoneInputField = ({ phoneNumber, phoneInput, onChange, ...rest }) => {
         defaultValue={phoneNumber}
         defaultCode="CM"
         layout="first"
-        placeholder="Phone number"
+        placeholder={placeholder}
         autoFocus={false}
         // withShadow
         containerStyle={styles.phoneContainer}

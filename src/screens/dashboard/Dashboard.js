@@ -159,7 +159,7 @@ const Dashboard = ({ data }) => {
           <View style={{ paddingHorizontal: 10, paddingTop: 15 }}>
             <View>
               <Text style={{ fontFamily: "Poppins_SemiBold", fontSize: 14 }}>
-                Healthy Life Style
+                {t("heading")}
               </Text>
               {/* <View
                 style={{

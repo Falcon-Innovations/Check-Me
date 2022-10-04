@@ -7,10 +7,10 @@ const Notifications = () => {
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
-      <CustomStatusBar text={"Self Examination"} />
+      <CustomStatusBar text={"Notifications"} />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-        <ScrollView>
-          <Text>Helloo</Text>
+        <ScrollView style={{ marginHorizontal: 15 }}>
+          <Text>Notifications here</Text>
         </ScrollView>
       </SafeAreaView>
     </>

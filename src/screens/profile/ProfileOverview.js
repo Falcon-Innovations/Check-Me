@@ -13,41 +13,43 @@ import { Divider } from "react-native-elements";
 import Icon from "react-native-vector-icons/Ionicons";
 import ProfileIcon from "react-native-vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 import { Context as AuthContext } from "../../contexts/userContext";
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, images, SIZES } from "../../utility";
 import { Alert } from "react-native";
 
-const profile = [
-  {
-    title: "Personal Dashboard",
-    screen: "PersonalDashboard",
-  },
-  {
-    title: "Edit profile",
-    screen: "EditProfile",
-  },
-  {
-    title: "Appointments",
-    screen: "EditProfile",
-  },
-  {
-    title: "Book a Mammogram ",
-    screen: "BookMammogram",
-  },
-  {
-    title: "Subscriptions",
-    screen: "PersonalDashboard",
-  },
-
-  {
-    title: "Settings",
-    screen: "Settings",
-  },
-];
-
 const ProfileOverview = () => {
+  const { t } = useTranslation();
+
+  const profile = [
+    {
+      title: t("PersonalDashboard"),
+      screen: "PersonalDashboard",
+    },
+    {
+      title: t("editProfile"),
+      screen: "EditProfile",
+    },
+    {
+      title: "Appointments",
+      screen: "EditProfile",
+    },
+    {
+      title: t("mammogram"),
+      screen: "BookMammogram",
+    },
+    {
+      title: t("subscriptions"),
+      screen: "PersonalDashboard",
+    },
+
+    {
+      title: t("settings"),
+      screen: "Settings",
+    },
+  ];
   const { state, logout } = React.useContext(AuthContext);
 
   const navigation = useNavigation();
@@ -190,7 +192,7 @@ const ProfileOverview = () => {
                 }}
               >
                 <Text style={{ fontFamily: "Poppins_Regular", fontSize: 14 }}>
-                  Logout
+                  {t("logout")}
                 </Text>
                 <Icon
                   name="md-chevron-forward-sharp"

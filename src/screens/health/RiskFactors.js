@@ -11,59 +11,55 @@ import React from "react";
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, images, SIZES } from "../../utility";
 import RiskCard from "../../components/RiskCard";
-
-const data = [
-  {
-    id: 1,
-    titile: "Age",
-    explaination:
-      "Women between the ages of 45 and 68 are more prone to getting breast cancerWomen between the ages of 45 and 68 are more. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis suscipit arcu eu scelerisque. Morbi commodo ut urna quis suscipit. Suspendisse ac orci facilisis, lacinia lectus at, condimentum elit. Suspendisse vel odio leo. Donec imperdiet tortor magna, vel euismod orci tristique eget. Vestibulum leo augue, fermentum eget mauris id, laoreet luctus metus. vulputate ultricies risus. Phasellus vehicula ligula leo,",
-    color: "#FAEFD7",
-    image: images.time,
-  },
-  {
-    id: 2,
-    titile: "Smoking",
-    explaination:
-      "Women between the ages of 45 and 68 are more prone to getting breast cancerWomen between the ages of 45 and 68 are more. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis suscipit arcu eu scelerisque. Morbi commodo ut urna quis suscipit. Suspendisse ac orci facilisis, lacinia lectus at, condimentum elit. Suspendisse vel odio leo. Donec imperdiet tortor magna, vel euismod orci tristique eget. Vestibulum leo augue, fermentum eget mauris id, laoreet luctus metus. vulputate ultricies risus. Phasellus vehicula ligula leo,",
-    color: "#ECE7FE",
-    image: images.smoking,
-  },
-  {
-    id: 3,
-    titile: "Alcohol",
-    explaination:
-      "Women between the ages of 45 and 68 are more prone to getting breast cancerWomen between the ages of 45 and 68 are more. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis suscipit arcu eu scelerisque. Morbi commodo ut urna quis suscipit. Suspendisse ac orci facilisis, lacinia lectus at, condimentum elit. Suspendisse vel odio leo. Donec imperdiet tortor magna, vel euismod orci tristique eget. Vestibulum leo augue, fermentum eget mauris id, laoreet luctus metus. vulputate ultricies risus. Phasellus vehicula ligula leo,",
-    color: "#F8D8D9",
-    image: images.alcohol,
-  },
-  {
-    id: 4,
-    titile: "Radiation",
-    explaination:
-      "Women between the ages of 45 and 68 are more prone to getting breast cancerWomen between the ages of 45 and 68 are more. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis suscipit arcu eu scelerisque. Morbi commodo ut urna quis suscipit. Suspendisse ac orci facilisis, lacinia lectus at, condimentum elit. Suspendisse vel odio leo. Donec imperdiet tortor magna, vel euismod orci tristique eget. Vestibulum leo augue, fermentum eget mauris id, laoreet luctus metus. vulputate ultricies risus. Phasellus vehicula ligula leo,",
-    color: "#D2E6FE",
-    image: images.radiation,
-  },
-  {
-    id: 5,
-    titile: "Gender",
-    explaination:
-      "Women between the ages of 45 and 68 are more prone to getting breast cancerWomen between the ages of 45 and 68 are more. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis suscipit arcu eu scelerisque. Morbi commodo ut urna quis suscipit. Suspendisse ac orci facilisis, lacinia lectus at, condimentum elit. Suspendisse vel odio leo. Donec imperdiet tortor magna, vel euismod orci tristique eget. Vestibulum leo augue, fermentum eget mauris id, laoreet luctus metus. vulputate ultricies risus. Phasellus vehicula ligula leo,",
-    color: "#F7EAEA",
-    image: images.gender,
-  },
-  {
-    id: 6,
-    titile: "Genetics",
-    explaination:
-      "Women between the ages of 45 and 68 are more prone to getting breast cancerWomen between the ages of 45 and 68 are more. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lobortis suscipit arcu eu scelerisque. Morbi commodo ut urna quis suscipit. Suspendisse ac orci facilisis, lacinia lectus at, condimentum elit. Suspendisse vel odio leo. Donec imperdiet tortor magna, vel euismod orci tristique eget. Vestibulum leo augue, fermentum eget mauris id, laoreet luctus metus. vulputate ultricies risus. Phasellus vehicula ligula leo,",
-    color: "#E9EEF7",
-    image: images.dna,
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const RiskFactors = () => {
+  const { t } = useTranslation();
+  const data = [
+    {
+      id: 1,
+      titile: t("age"),
+      explaination: t("ageText"),
+      color: "#FAEFD7",
+      image: images.time,
+    },
+    {
+      id: 2,
+      titile: t("smoking"),
+      explaination: t("smokeText"),
+      color: "#ECE7FE",
+      image: images.smoking,
+    },
+    {
+      id: 3,
+      titile: t("alcohol"),
+      explaination: t("alcoholText"),
+      color: "#F8D8D9",
+      image: images.alcohol,
+    },
+    {
+      id: 4,
+      titile: t("radiation"),
+      explaination: t("radiationText"),
+      color: "#D2E6FE",
+      image: images.radiation,
+    },
+    {
+      id: 5,
+      titile: "Gender",
+      explaination:
+        "Just being a woman is the biggest risk factor for developing breast cancer. According to a report by VOA Cam, there has been a delay in breast cancer screening since the outbreak of corona. As a result the number of women diagnosed with breast cancer has increased to 2625 cases per 100,000 women per year.While men do develop breast cancer, less than 1% of all new breast cancer cases happen in men. The biggest reasons for the difference in breast cancer rates between men and women are: - Women's breast development takes 3 to 4 years and is usually complete by age 14. It's uncommon for men's breasts to fully form — most of the male breasts you see are fat, not formed glands. Once fully formed, breast cells are very immature and highly active until a woman's first full-term pregnancy. While they are immature, a women's breast cells are very responsive to estrogen and other hormones, including hormone disrupters in the environment. Men's breast cells are inactive and most men have extremely low levels of estrogen. So hormonal stimulation of highly responsive and vulnerable breast cells in women, particularly during the extra-sensitive period of breast development, is why breast cancer is much more common in women than in men.",
+      color: "#F7EAEA",
+      image: images.gender,
+    },
+    {
+      id: 6,
+      titile: t("genTitle"),
+      explaination: t("genetics"),
+      color: "#E9EEF7",
+      image: images.dna,
+    },
+  ];
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
@@ -77,8 +73,7 @@ const RiskFactors = () => {
           }}
         >
           <Text style={{ fontFamily: "Poppins_Regular", lineHeight: 22 }}>
-            Studies have shown that your risk for breast cancer is due to a
-            combination of factors.
+            {t("headingRisk")}
           </Text>
           <View style={{ marginVertical: 20 }}>
             {data.map((item) => (

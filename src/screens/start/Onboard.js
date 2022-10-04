@@ -1,29 +1,50 @@
-import { View, Text, StyleSheet, StatusBar, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import "../../../assets/i18n/i18n";
 import { COLORS, images, SIZES } from "../../utility";
 
-const data = [
-  {
-    title: "Hospitals",
-    text: "Get information on hospitals in your area that treat breast cancer",
-    image: images.hospital,
-  },
-  {
-    title: "Connect and receive expert guidance",
-    text: "Experts, care takers, consultants and doctors always there to help",
-    image: images.doctors,
-  },
-  {
-    title: "Reminders",
-    text: "Periodic reminders to make sure you are up to date with your self care",
-    image: images.calender,
-  },
-];
-
 const Onboard = (props) => {
+  const { t, i18n } = useTranslation();
+  const [currentLanguage, setLanguage] = useState(i18n.language);
+
+  const [activeLang, setActiveLang] = useState(false);
+
+  const changeLanguage = (value) => {
+    i18n
+      .changeLanguage(value)
+      .then(() => setLanguage(value))
+      .catch((err) => console.log(err));
+  };
+  const data = [
+    {
+      title: t("onboard1title"),
+      text: t("text1"),
+      image: images.hospital,
+    },
+    {
+      title: t("onboard2title"),
+      text: t("text2"),
+      image: images.doctors,
+    },
+    {
+      title: t("onboard3title"),
+      text: t("text3"),
+      image: images.calender,
+    },
+  ];
+
   const navigation = useNavigation();
   const renderItem = ({ item }) => {
     return (
@@ -37,12 +58,72 @@ const Onboard = (props) => {
     );
   };
 
+  const LanguageSwitcher = () => {
+    return (
+      <View
+        style={{
+          backgroundColor: COLORS.primary,
+          paddingTop:
+            Platform.OS === "ios"
+              ? SIZES.screenHeight * 0.04
+              : SIZES.screenHeight * 0.03,
+        }}
+      >
+        <View
+          style={{
+            paddingTop: 12,
+            marginTop: 8,
+            paddingRight: 25,
+            alignSelf: "flex-end",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => changeLanguage("en")}
+            style={[
+              currentLanguage === "en" ? styles.active : styles.unActive,
+              { marginRight: 8 },
+            ]}
+          >
+            <Text
+              style={
+                currentLanguage === "en"
+                  ? { fontFamily: "Poppins_Medium", color: "#fff" }
+                  : { fontFamily: "Poppins_Medium", color: "#3C1053" }
+              }
+            >
+              EN
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => changeLanguage("fr")}
+            style={[
+              currentLanguage === "fr" ? styles.active : styles.unActive,
+              { alignItems: "center" },
+            ]}
+          >
+            <Text
+              style={
+                currentLanguage === "fr"
+                  ? { fontFamily: "Poppins_Medium", color: "#fff" }
+                  : { fontFamily: "Poppins_Medium", color: "#3C1053" }
+              }
+            >
+              FR
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
   const keyExtractor = (item) => item.title;
 
   const renderNextButton = () => {
     return (
       <View style={styles.rightTextWrapper}>
-        <Text style={styles.rightText}>Next</Text>
+        <Text style={styles.rightText}>{t("next")}</Text>
       </View>
     );
   };
@@ -50,7 +131,7 @@ const Onboard = (props) => {
   const renderDoneButton = () => {
     return (
       <View style={styles.doneButtonWrapper}>
-        <Text style={styles.doneButtonText}>Sign Up</Text>
+        <Text style={styles.doneButtonText}>{t("start")}</Text>
       </View>
     );
   };
@@ -58,14 +139,14 @@ const Onboard = (props) => {
   const renderSkipButton = () => {
     return (
       <View style={styles.leftTextWrapper}>
-        <Text style={styles.leftText}>Skip</Text>
+        <Text style={styles.leftText}>{t("skip")}</Text>
       </View>
     );
   };
   const renderPrevButton = () => {
     return (
       <View style={styles.leftTextWrapper}>
-        <Text style={styles.leftText}>Back</Text>
+        <Text style={styles.leftText}>{t("back")}</Text>
       </View>
     );
   };
@@ -77,6 +158,7 @@ const Onboard = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar translucent backgroundColor="transparent" />
+      <LanguageSwitcher />
       <AppIntroSlider
         keyExtractor={keyExtractor}
         renderItem={renderItem}
@@ -99,7 +181,8 @@ const styles = StyleSheet.create({
   slide: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    paddingTop: SIZES.screenHeight * 0.18,
+    // justifyContent: "center",
     // backgroundColor: COLORS.bgColor,
   },
   image: {
@@ -132,8 +215,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF456D",
   },
   rightTextWrapper: {
-    width: 40,
-    height: 40,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
     marginRight: 20,
     marginBottom: 30,
     justifyContent: "center",
@@ -146,8 +229,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   leftTextWrapper: {
-    width: 40,
-    height: 40,
+    paddingHorizontal: 4,
+    // paddingVertical: 2,
     marginLeft: 20,
     marginBottom: 30,
     justifyContent: "center",
@@ -172,6 +255,25 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_Medium",
     textAlign: "center",
     color: "#fff",
+  },
+  unActive: {
+    paddingHorizontal: 10,
+    paddingVertical: Platform.OS == "ios" ? 8 : 7,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: "#3C1053",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  active: {
+    paddingHorizontal: 10,
+    paddingVertical: Platform.OS == "ios" ? 8 : 7,
+    borderRadius: 24,
+    borderWidth: 2,
+    backgroundColor: "#3C1053",
+    borderColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

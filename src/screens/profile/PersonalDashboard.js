@@ -17,6 +17,7 @@ import Run from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 import { Context as AuthContext } from "../../contexts/userContext";
 import { AppStatusBar, CustomStatusBar } from "../../components";
@@ -24,6 +25,8 @@ import { COLORS, images, SIZES } from "../../utility";
 import { Alert } from "react-native";
 
 const PersonalDashboard = () => {
+  const { t } = useTranslation();
+
   const data = [
     {
       title: "Track my period",
