@@ -18,7 +18,7 @@ getToken()
   .catch((err) => {
     console.error(err);
   })
-  .finally(() => console.log('Token loaded'));
+  .finally(() => console.log(token));
 
 const headers = {
   'Content-type': 'Application/json',

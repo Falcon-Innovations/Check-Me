@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS, images, SIZES } from '../../utility';
 import { AppStatusBar, CustomStatusBar } from '../../components';
 import useFetch from '../../hooks/useFetch';
+import { useSpecialists } from '../../api/specialist';
 
 const dummyData = [
   {
@@ -222,8 +223,7 @@ const Specialists = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query) => setSearchQuery(query);
-
-  const { loading, data, error } = useBlogs(url);
+  const { loading, data, error } = useSpecialists();
 
   console.log(data, 'From specialists query');
   return (
