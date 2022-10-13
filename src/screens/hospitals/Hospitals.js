@@ -14,11 +14,11 @@ import React, { useState } from "react";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { COLORS, images, SIZES } from "../../utility";
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import useFetch from "../../hooks/useFetch";
+import { useHospitals } from "../../api/hospitals";
 
 const dummyData = [
   {
@@ -335,16 +335,10 @@ const Hospitals = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
 
-  const url = "https://check-me-backend.herokuapp.com/api/v1/hospitals/";
-
-  const { loading, hospitals, error } = useFetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const { loading, data, error } = useHospitals();
 
   console.log("====================================");
-  console.log("From all Hospitals", hospitals);
+  console.log("From all Hospitals", data);
   console.log("====================================");
 
   return (

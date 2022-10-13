@@ -1,19 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useReducer, useRef } from 'react';
 
-// interface State<T> {
-//   data?: T
-//   error?: Error
-// }
-
-// type Cache<T> = { [url: string]: T }
-
-// discriminated union type
-// type Action<T> =
-//   | { type: 'loading' }
-//   | { type: 'fetched'; payload: T }
-//   | { type: 'error'; payload: Error }
-
 function useFetch(url, options) {
   const cache = useRef({});
 
@@ -41,44 +28,44 @@ function useFetch(url, options) {
 
   const [state, dispatch] = useReducer(fetchReducer, initialState);
 
+  const fetchData = async () => {
+    dispatch({ type: 'loading' });
+    const token = await AsyncStorage.getItem('token');
+
+    // If a cache exists for this url, return it
+    if (cache.current[url]) {
+      dispatch({ type: 'fetched', payload: cache.current[url] });
+      return;
+    }
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const data = await response.json();
+      cache.current[url] = data;
+      if (cancelRequest.current) return;
+
+      dispatch({ type: 'fetched', payload: data });
+    } catch (error) {
+      if (cancelRequest.current) return;
+
+      dispatch({ type: 'error', payload: error });
+    }
+  };
+
   useEffect(() => {
     // Do nothing if the url is not given
     if (!url) return;
 
     cancelRequest.current = false;
-
-    const fetchData = async () => {
-      dispatch({ type: 'loading' });
-      const token = await AsyncStorage.getItem('token');
-
-      // If a cache exists for this url, return it
-      if (cache.current[url]) {
-        dispatch({ type: 'fetched', payload: cache.current[url] });
-        return;
-      }
-
-      try {
-        const response = await fetch(url, {
-          ...options,
-          headers: new Headers({
-            Authorization: `Bearer ${token}`,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-
-        const data = await response.json();
-        cache.current[url] = data;
-        if (cancelRequest.current) return;
-
-        dispatch({ type: 'fetched', payload: data });
-      } catch (error) {
-        if (cancelRequest.current) return;
-
-        dispatch({ type: 'error', payload: error });
-      }
-    };
 
     fetchData();
 
@@ -90,7 +77,7 @@ function useFetch(url, options) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
-  return { ...state };
+  return { ...state, fetchData };
 }
 
 export default useFetch;

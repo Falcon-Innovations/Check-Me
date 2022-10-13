@@ -7,46 +7,39 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import { Searchbar } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/Ionicons";
-import ContentLoader, { Instagram } from "react-content-loader";
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Searchbar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import { AppStatusBar, CustomStatusBar } from "../../components";
-import { COLORS, images, SIZES } from "../../utility";
-import useFetch from "../../hooks/useFetch";
-import moment from "moment";
-import SimpleLoader from "../../components/utils/SimpleLoader";
+import { AppStatusBar, CustomStatusBar } from '../../components';
+import { COLORS, images, SIZES } from '../../utility';
+import moment from 'moment';
+import SimpleLoader from '../../components/utils/SimpleLoader';
+import { useBlogs, voteBlog } from '../../api/blog';
 
 const AllBlogs = () => {
   const navigation = useNavigation();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [like, setLike] = useState(false);
   const onChangeSearch = (query) => setSearchQuery(query);
 
-  const url = "https://check-me-backend.herokuapp.com/api/v1/articles";
+  const { loading, data, error } = useBlogs();
 
-  const { loading, data, error, fetched } = useFetch(url);
-
-  const onLike = () => {
+  const onLike = async (id) => {
+    await voteBlog(id);
     setLike(!like);
   };
-
-  useEffect(() => {
-    const fetchBlogs = navigation.addListener("focus", () => {});
-    return fetchBlogs;
-  }, [navigation]);
 
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("BlogDetails", item)}
-        key={index}
+        onPress={() => navigation.navigate('BlogDetails', item)}
+        key={item._id}
         style={{
-          flexDirection: "row",
-          alignItems: "center",
+          flexDirection: 'row',
+          alignItems: 'center',
           marginBottom: 25,
         }}
       >
@@ -64,21 +57,21 @@ const AllBlogs = () => {
         <View style={{ paddingLeft: 20, marginRight: 14 }}>
           <Text
             style={{
-              color: "gray",
-              fontFamily: "Poppins_Regular",
+              color: 'gray',
+              fontFamily: 'Poppins_Regular',
               fontSize: 12,
               marginBottom: 8,
               width: SIZES.screenWidth * 0.4,
             }}
           >
-            {moment(item.createdAt).format("ll")}
+            {moment(item.createdAt).format('ll')}
           </Text>
           <Text
             numberOfLines={3}
             style={{
               width: SIZES.screenWidth * 0.49,
               paddingRight: 5,
-              fontFamily: "Poppins_SemiBold",
+              fontFamily: 'Poppins_SemiBold',
               color: COLORS.textColor,
               fontSize: 15.5,
             }}
@@ -87,21 +80,24 @@ const AllBlogs = () => {
           </Text>
           <View
             style={{
-              flexDirection: "row",
-              alignItems: "center",
+              flexDirection: 'row',
+              alignItems: 'center',
               marginTop: 12,
             }}
           >
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
                 marginRight: 18,
               }}
             >
-              <TouchableOpacity onPress={onLike} style={{ marginRight: 2 }}>
+              <TouchableOpacity
+                onPress={() => onLike(item._id)}
+                style={{ marginRight: 2 }}
+              >
                 <Icon
-                  name={like ? "ios-heart" : "heart-outline"}
+                  name={like ? 'ios-heart' : 'heart-outline'}
                   size={24}
                   color={COLORS.primary}
                 />
@@ -109,13 +105,13 @@ const AllBlogs = () => {
               <Text
                 style={{
                   fontSize: 13,
-                  fontFamily: "Poppins_Regular",
+                  fontFamily: 'Poppins_Regular',
                   marginLeft: 5,
-                  color: "gray",
+                  color: 'gray',
                 }}
               >
                 {`${item.likes.length} ${
-                  item.likes.lenght > 1 ? "likes" : "like"
+                  item.likes.lenght > 1 ? 'likes' : 'like'
                 }`}
               </Text>
             </View>
@@ -126,11 +122,20 @@ const AllBlogs = () => {
     );
   };
 
+  if (error) {
+    return (
+      <View>
+        <Text>An error occured</Text>
+        <Text>Please refresh</Text>
+      </View>
+    );
+  }
+
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
-      <CustomStatusBar text={"News Feed"} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <CustomStatusBar text={'News Feed'} />
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <ScrollView
           contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 20 }}
         >
@@ -143,29 +148,23 @@ const AllBlogs = () => {
               style={{
                 elevation: 0,
                 borderWidth: 0.5,
-                borderColor: "#EB3E95",
+                borderColor: '#EB3E95',
               }}
               inputStyle={{
                 fontSize: 14,
-                fontFamily: "Poppins_Regular",
+                fontFamily: 'Poppins_Regular',
               }}
               iconColor="#D2D1D1"
             />
           </View>
-          {data?.data?.docs ? (
+          {loading && <SimpleLoader />}
+          {data?.data?.docs && (
             <FlatList
               data={data?.data?.docs}
               renderItem={renderItem}
-              keyExtractor={(index) => index}
+              keyExtractor={(item) => item._id}
             />
-          ) : (
-            <SimpleLoader />
           )}
-          {/* <FlatList
-            data={data?.data?.docs}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          /> */}
         </ScrollView>
       </SafeAreaView>
     </>

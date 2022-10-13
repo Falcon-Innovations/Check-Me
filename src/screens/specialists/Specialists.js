@@ -9,14 +9,18 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 import { COLORS, images, SIZES } from "../../utility";
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import useFetch from "../../hooks/useFetch";
+import { useSpecialists } from "../../api/specialist";
+import SimpleLoader from "../../components/utils/SimpleLoader";
+import Error from "../../components/utils/Error";
 
 const dummyData = [
   {
@@ -222,95 +226,143 @@ const Specialists = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
+  const { loading, data, error, fetchData } = useSpecialists();
 
-  const url = "https://check-me-backend.herokuapp.com/api/v1/hospitals";
+  // const { loading, data, error } = useFetch(url);
+  useEffect(() => {
+    const updateData = navigation.addListener("focus", () => {
+      fetchData();
+    });
+    return updateData;
+  }, [navigation]);
 
-  const { loading, data, error } = useFetch(url);
-
-  console.log(data, "From specialists query");
+  console.log(data?.data?.docs?.length, "From specialists query");
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <CustomStatusBar />
       <SafeAreaView style={styles.container}>
-        <View style={{ marginHorizontal: 10, paddingVertical: 10 }}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{ marginVertical: 20, marginHorizontal: 10 }}>
-              <Searchbar
-                placeholder="Search Specialists"
-                placeholderTextColor="#D2D1D1"
-                onChangeText={onChangeSearch}
-                value={searchQuery}
-                style={{
-                  elevation: 0,
-                  borderWidth: 0.5,
-                  borderColor: COLORS.borderCardColor,
-                }}
-                inputStyle={{
-                  fontSize: 14,
-                  fontFamily: "Poppins_Regular",
-                }}
-                iconColor="#D2D1D1"
-              />
-            </View>
+        <View style={{ flex: 1, marginHorizontal: 10, paddingVertical: 10 }}>
+          <View style={{ marginVertical: 20, marginHorizontal: 10 }}>
+            <Searchbar
+              placeholder="Search Specialists"
+              placeholderTextColor="#D2D1D1"
+              onChangeText={onChangeSearch}
+              value={searchQuery}
+              style={{
+                elevation: 0,
+                borderWidth: 0.5,
+                borderColor: COLORS.borderCardColor,
+              }}
+              inputStyle={{
+                fontSize: 14,
+                fontFamily: "Poppins_Regular",
+              }}
+              iconColor="#D2D1D1"
+            />
+          </View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl refreshing={loading} onRefresh={fetchData} />
+            }
+          >
             <View>
               <Text style={{ fontFamily: "Poppins_Medium", color: "#333333" }}>
                 Get connected with the best specialists
               </Text>
-              <View style={styles.card}>
-                {dummyData.map((item) => (
-                  <TouchableOpacity
-                    key={item.id}
-                    style={styles.cardContent}
-                    onPress={() =>
-                      navigation.navigate("SpecialistDetails", item)
-                    }
-                  >
-                    <View style={{ paddingHorizontal: 4 }}>
-                      <View>
-                        <Image
-                          source={item.image}
-                          style={styles.imge}
-                          resizeMode="cover"
-                        />
-                      </View>
-                      <View style={{ marginTop: 8 }}>
-                        <Text
-                          style={{
-                            fontFamily: "Poppins_SemiBold",
-                            fontSize: 14,
-                            color: COLORS.primary,
-                            marginBottom: 2,
-                          }}
-                        >
-                          {item.name}
-                        </Text>
-                        <Text
-                          style={{
-                            width: SIZES.screenWidth * 0.3,
-                            fontFamily: "Poppins_Regular",
-                            fontSize: 12,
-                            color: "#AEADAD",
-                          }}
-                          numberOfLines={1}
-                        >
-                          {item.speciality}
-                        </Text>
-                        <Text
-                          style={{
-                            width: SIZES.screenWidth * 0.3,
-                            fontFamily: "Poppins_Regular",
-                            fontSize: 13,
-                          }}
-                          numberOfLines={1}
-                        >
-                          {item.location}
-                        </Text>
-                      </View>
+              {loading || error ? (
+                <>
+                  {loading === true && (
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        flex: 1,
+                        alignItems: "center",
+                      }}
+                    >
+                      <SimpleLoader color={COLORS.primary} />
                     </View>
-                  </TouchableOpacity>
-                ))}
-              </View>
+                  )}
+                  {error && (
+                    <View
+                      style={{
+                        margin: 20,
+                        backgroundColor: COLORS.danger,
+                        borderRadius: 8,
+                        paddingLeft: 10,
+                      }}
+                    >
+                      <Error error={error} />
+                    </View>
+                  )}
+                </>
+              ) : (
+                <View style={styles.card}>
+                  {data?.data?.docs?.map((item) => (
+                    <TouchableOpacity
+                      key={item._id}
+                      style={styles.cardContent}
+                      onPress={() =>
+                        navigation.navigate("SpecialistDetails", item)
+                      }
+                    >
+                      <View style={{ paddingHorizontal: 4 }}>
+                        <View>
+                          <Image
+                            source={images.doc}
+                            style={styles.imge}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={{ marginTop: 8 }}>
+                          <Text
+                            numberOfLines={1}
+                            style={{
+                              fontFamily: "Poppins_SemiBold",
+                              fontSize: 14,
+                              color: COLORS.primary,
+                              marginBottom: 2,
+                            }}
+                          >
+                            {` ${item.firstName} ${item.lastName}`}
+                          </Text>
+                          <Text
+                            style={{
+                              width: SIZES.screenWidth * 0.3,
+                              fontFamily: "Poppins_Regular",
+                              fontSize: 12,
+                              color: "#AEADAD",
+                            }}
+                            numberOfLines={1}
+                          >
+                            {item.speciality}
+                          </Text>
+                          <Text
+                            style={{
+                              width: SIZES.screenWidth * 0.3,
+                              fontFamily: "Poppins_Regular",
+                              fontSize: 13,
+                            }}
+                            numberOfLines={1}
+                          >
+                            {item.town}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  ))}
+
+                  {/* ) : (
+                    <View>
+                      <Text>
+                        Please be patient, specialist are bieng signed up
+                      </Text>
+                    </View>
+                  )}
+                </> */}
+                </View>
+              )}
 
               {/* <FlatList
                 columnWrapperStyle={{ marginHorizontal: 5 }}
@@ -385,6 +437,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
+    paddingTop: SIZES.screenHeight * 0.02,
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
