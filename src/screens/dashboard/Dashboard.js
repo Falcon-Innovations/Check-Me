@@ -100,14 +100,14 @@ const Dashboard = ({ data }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.infoContainer}>
-              <View style={styles.imageContainer}>
+              <View style={{ alignSelf: "flex-start" }}>
                 <Image
                   style={{
                     height: SIZES.screenHeight * 0.25,
                     width: SIZES.screenWidth * 0.45,
                   }}
                   source={images.nurse}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
               </View>
               <View>
@@ -141,7 +141,12 @@ const Dashboard = ({ data }) => {
                     Take today's test
                   </Text>
                 </View>
-                <View style={{ alignSelf: "flex-start", marginTop: 10 }}>
+                <View
+                  style={{
+                    alignSelf: "flex-start",
+                    marginTop: SIZES.screenHeight * 0.003,
+                  }}
+                >
                   <Button
                     mode="contained"
                     labelStyle={styles.testBtn}
