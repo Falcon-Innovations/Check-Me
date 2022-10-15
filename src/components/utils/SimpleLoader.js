@@ -1,17 +1,11 @@
-import React from "react";
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
-import LottieView from "lottie-react-native";
-import { useState } from "react";
+import React from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import { COLORS } from '../../utility';
+
 export default function SimpleLoader() {
   return (
-    <View style={{ justifyContent: "center", alignSelf: "center" }}>
-      <ActivityIndicator size="large" />
+    <View style={{ justifyContent: 'center', alignSelf: 'center', flex: 1 }}>
+      <ActivityIndicator size="large" color={COLORS.primary} />
     </View>
   );
 }
-const styles = StyleSheet.create({
-  animation: {
-    width: 100,
-    height: 100,
-  },
-});
