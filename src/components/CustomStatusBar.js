@@ -22,7 +22,7 @@ const CustomStatusBar = ({ text }) => {
         <Text
           style={{
             fontFamily: "Poppins_Medium",
-            fontSize: 16,
+            fontSize: 12,
             color: COLORS.textColor,
           }}
         >

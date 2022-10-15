@@ -24,6 +24,7 @@ import {
   Notifications,
   RiskFactors,
   AllAppointments,
+  AppointmentDetails,
 } from "../screens";
 import useGetOnboardingStatus from "../utility/checkIfFirstLaunch";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -99,6 +100,10 @@ const RootNavigator = () => {
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="RiskFactors" component={RiskFactors} />
         <Stack.Screen name="AllAppointments" component={AllAppointments} />
+        <Stack.Screen
+          name="AppointmentDetails"
+          component={AppointmentDetails}
+        />
         <Stack.Screen name="Root" component={BottomTabNavigator} />
       </Stack.Navigator>
     </>

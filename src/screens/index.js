@@ -33,6 +33,7 @@ import RiskFactors from "./health/RiskFactors";
 
 //apointments
 import AllAppointments from "./appointments/AllAppointments";
+import AppointmentDetails from "./appointments/AppointmentDetails";
 
 export {
   Onboard,
@@ -56,4 +57,5 @@ export {
   Notifications,
   RiskFactors,
   AllAppointments,
+  AppointmentDetails,
 };

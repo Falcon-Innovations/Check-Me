@@ -34,7 +34,7 @@ const ProfileOverview = () => {
     },
     {
       title: "Appointments",
-      screen: "EditProfile",
+      screen: "AllAppointments",
     },
     {
       title: t("mammogram"),

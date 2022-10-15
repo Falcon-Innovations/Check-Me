@@ -2,7 +2,7 @@ import { Dimensions } from "react-native";
 
 const COLORS = {
   primary: "#F7007D",
-  secondary: "",
+  secondary: "#E9EEF7",
   textColor: "#2A2A2A",
   danger: "#FF0037",
   borderColor: "#DBD9D9",
