@@ -21,7 +21,7 @@ import { FAB } from "react-native-paper";
 import { Context as AuthContext } from "../../contexts/userContext";
 
 import { AppButton, AppStatusBar, CustomStatusBar } from "../../components";
-import { COLORS, SIZES } from "../../utility";
+import { COLORS, SIZES, images } from "../../utility";
 
 const SpecialistDetails = ({ route }) => {
   const item = route.params;
@@ -31,21 +31,23 @@ const SpecialistDetails = ({ route }) => {
   const [bodySMS, setBodySMS] = useState(
     `Hello, My name is ${state?.user?.name} I will love to consult`
   );
-  const [whatsAppMsg, setWhatsAppMsg] = useState("Please follow Check Me");
+  const [whatsAppMsg, setWhatsAppMsg] = useState(
+    `Hello, Dr ${item?.firstName} ${item?.lastName}. I got your details from Check Me mobile application. My name is ${state?.user?.name}. Please how do i book an appointment for my breast cancer counseling and screening`
+  );
 
-  const initiateSMS = async () => {
+  const initiateSMS = () => {
     // Check for perfect 10 digit length
-    // if (mobileNumber.length < 9) {
-    //   alert("Please insert correct contact number");
-    //   return;
-    // }
+    if (item?.telephone.length < 9) {
+      alert("Please insert correct contact number");
+      return;
+    }
 
     SendSMS.send(
       {
         // Message body
         body: bodySMS,
         // Recipients Number
-        recipients: [mobileNumber],
+        recipients: [item?.telephone],
         // An array of types
         // "completed" response when using android
         successTypes: ["sent", "queued"],
@@ -64,14 +66,14 @@ const SpecialistDetails = ({ route }) => {
 
   const initiateWhatsAppSMS = () => {
     // Check for perfect 10 digit length
-    if (mobileNumber.length < 9) {
-      alert("Please insert correct contact number");
+    if (item?.telephone.length < 9) {
+      alert("This number isn't on whatsapp for now.");
       return;
     }
     // Using 91 for India
     // You can change 91 with your country code
     let url =
-      "whatsapp://send?text=" + whatsAppMsg + "&phone=237" + mobileNumber;
+      "whatsapp://send?text=" + whatsAppMsg + "&phone=" + item?.telephone;
     Linking.openURL(url)
       .then((data) => {
         console.log("WhatsApp Opened");
@@ -84,9 +86,9 @@ const SpecialistDetails = ({ route }) => {
   const openDialScreen = () => {
     let number = "";
     if (Platform.OS === "ios") {
-      number = `telprompt:${item.phone}`;
+      number = `telprompt:${item?.telephone}`;
     } else {
-      number = `tel:${item.phone}`;
+      number = `tel:${item?.telephone}`;
     }
     Linking.openURL(number);
   };
@@ -112,17 +114,17 @@ const SpecialistDetails = ({ route }) => {
   const aboutData = [
     {
       id: 1,
-      info: item.education,
+      info: item?.qualification ? item?.qualification : "Prefer not to say",
       icon: <Icons name="graduation" size={18} color={"#323131"} />,
     },
     {
       id: 2,
-      info: item.work,
+      info: item?.hospital ? item?.hospital : "Prefer not to say",
       icon: <Icons name="briefcase" size={18} color={"#323131"} />,
     },
     {
       id: 3,
-      info: item.speciality,
+      info: item?.speciality ? item?.speciality : "Prefer not to say",
       icon: <Ribbon name="ribbon" size={18} color={"#323131"} />,
     },
   ];
@@ -138,12 +140,17 @@ const SpecialistDetails = ({ route }) => {
           contentContainerStyle={{ marginHorizontal: 14, paddingVertical: 15 }}
         >
           <View style={styles.header}>
-            <Image source={item.image} style={styles.image} />
+            <Image
+              source={item?.avatar ? { uri: item?.avatar } : images.nurse}
+              style={styles.image}
+            />
             <View>
               <View style={{ alignSelf: "flex-start" }}>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.speciality}>{item.speciality}</Text>
-                <Text style={styles.location}>{item.location}</Text>
+                <Text
+                  style={styles.name}
+                >{`${item?.firstName} ${item?.lastName}`}</Text>
+                <Text style={styles.speciality}>{item?.speciality}</Text>
+                <Text style={styles.location}>{item?.town}</Text>
               </View>
 
               <View style={styles.iconView}>
@@ -191,7 +198,7 @@ const SpecialistDetails = ({ route }) => {
                     paddingTop: 5,
                   }}
                 >
-                  {item.patients}
+                  {item?.patients ? item?.patients?.length : 0}
                 </Text>
               </View>
               <Divider color="#E6E6E6" orientation="vertical" width={2} />
@@ -212,7 +219,7 @@ const SpecialistDetails = ({ route }) => {
                     fontFamily: "Poppins_Medium",
                     paddingTop: 5,
                   }}
-                >{`${item.experience} Years`}</Text>
+                >{`${item?.experience ? item?.experience : 0} Years`}</Text>
               </View>
               <Divider color="#E6E6E6" orientation="vertical" width={2} />
               <View style={{ alignItems: "center" }}>
@@ -233,7 +240,7 @@ const SpecialistDetails = ({ route }) => {
                     paddingTop: 5,
                   }}
                 >
-                  {item.rating}
+                  {item?.rating ? item?.rating : 0}
                 </Text>
               </View>
             </View>
@@ -252,7 +259,7 @@ const SpecialistDetails = ({ route }) => {
                 fontSize: 14,
               }}
             >
-              {item.description}
+              {item?.bio}
             </Text>
           </View>
           <View style={{ paddingTop: 20, paddingBottom: 15 }}>
@@ -316,7 +323,7 @@ const SpecialistDetails = ({ route }) => {
                 alignSelf: "flex-start",
               }}
             >
-              {item.availability.map((available) => (
+              {/* {item.availability.map((available) => (
                 <View
                   key={available.id}
                   style={{
@@ -346,7 +353,7 @@ const SpecialistDetails = ({ route }) => {
                     {available.time}
                   </Text>
                 </View>
-              ))}
+              ))} */}
             </View>
 
             {/* <View>

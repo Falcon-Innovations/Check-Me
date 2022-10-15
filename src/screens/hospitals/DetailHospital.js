@@ -17,7 +17,10 @@ import { COLORS, SIZES } from "../../utility";
 
 const DetailHospital = ({ route }) => {
   const navigation = useNavigation();
-  const data = route.params;
+  const item = route.params;
+  console.log("====================================");
+  console.log("Itemss", item);
+  console.log("====================================");
 
   return (
     <>

@@ -19,16 +19,16 @@ import { Colors } from "react-native-paper";
 const MenstraulCycle = () => {
   const navigation = useNavigation();
   const cycle = [
-    // {
-    //   days: "5.5 Days",
-    //   icon: <Icons name="ios-water" color="#fff" size={20} />,
-    //   desc: "Average Period",
-    // },
-    // {
-    //   days: "28 Days",
-    //   icon: <Icons name="ios-sync" color="#fff" size={20} />,
-    //   desc: "Average Cycle",
-    // },
+    {
+      days: "5.5 Days",
+      icon: <Icons name="ios-water" color="#fff" size={20} />,
+      desc: "Average Period",
+    },
+    {
+      days: "28 Days",
+      icon: <Icons name="ios-sync" color="#fff" size={20} />,
+      desc: "Average Cycle",
+    },
   ];
   return (
     <>

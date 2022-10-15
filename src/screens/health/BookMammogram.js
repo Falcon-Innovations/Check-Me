@@ -19,7 +19,12 @@ const BookMammogram = () => {
       <CustomStatusBar />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <ScrollView
-          style={{ paddingVertical: 20, marginHorizontal: 15 }}
+          showsVerticalScrollIndicator={false}
+          style={{
+            paddingTop: 20,
+            marginHorizontal: 15,
+            paddingBottom: SIZES.screenHeight * 0.2,
+          }}
           contentContainerStyle={{
             justifyContent: "center",
           }}
@@ -74,7 +79,12 @@ const BookMammogram = () => {
             </Text>
           </View>
 
-          <View style={{ marginTop: SIZES.screenHeight * 0.1 }}>
+          <View
+            style={{
+              marginTop: SIZES.screenHeight * 0.1,
+              marginBottom: SIZES.screenHeight * 0.08,
+            }}
+          >
             <AppButton
               text="Get Started"
               color={COLORS.primary}

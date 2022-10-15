@@ -5,6 +5,7 @@ import DashboardCard from "./DashboardCard";
 import CustomStatusBar from "./CustomStatusBar";
 import PhoneInputField from "./inputs/PhoneInputField";
 import AppStatusBar from "./utils/AppStatusBar";
+import AppointmentsCard from "./AppointmentsCard";
 
 export {
   Input,
@@ -14,4 +15,5 @@ export {
   CustomStatusBar,
   PhoneInputField,
   AppStatusBar,
+  AppointmentsCard,
 };

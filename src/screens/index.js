@@ -31,6 +31,9 @@ import SetCycle from "./health/SetCycle";
 import Notifications from "./notifications/Notifications";
 import RiskFactors from "./health/RiskFactors";
 
+//apointments
+import AllAppointments from "./appointments/AllAppointments";
+
 export {
   Onboard,
   Dashboard,
@@ -52,4 +55,5 @@ export {
   SetCycle,
   Notifications,
   RiskFactors,
+  AllAppointments,
 };

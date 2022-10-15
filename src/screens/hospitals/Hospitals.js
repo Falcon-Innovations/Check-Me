@@ -19,6 +19,7 @@ import { COLORS, images, SIZES } from "../../utility";
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import useFetch from "../../hooks/useFetch";
 import { useHospitals } from "../../api/hospitals";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const dummyData = [
   {
@@ -338,7 +339,7 @@ const Hospitals = () => {
   const { loading, data, error } = useHospitals();
 
   console.log("====================================");
-  console.log("From all Hospitals", data);
+  console.log("From all Hospitals", data?.data?.docs);
   console.log("====================================");
 
   return (
@@ -372,10 +373,10 @@ const Hospitals = () => {
             <Text style={{ fontFamily: "Poppins_Medium", color: "#333333" }}>
               Find the nearest hospital for your screening and consultation
             </Text>
-            {dummyData.map((data) => (
+            {data?.data?.docs?.map((item) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate("detailHospitals", data)}
-                key={data.id}
+                onPress={() => navigation.navigate("detailHospitals", item)}
+                key={item?._id}
                 style={{
                   marginTop: SIZES.screenHeight * 0.025,
                   paddingHorizontal: 10,
@@ -399,7 +400,7 @@ const Hospitals = () => {
                     height: SIZES.screenHeight * 0.2,
                     alignSelf: "center",
                   }}
-                  source={data.image}
+                  source={item?.logo}
                   resizeMode="cover"
                 ></ImageBackground>
 
@@ -420,7 +421,7 @@ const Hospitals = () => {
                       }}
                       numberOfLines={1}
                     >
-                      {data.name}
+                      {item?.name}
                     </Text>
                     <Icon name="heart-outline" size={22} />
                   </View>
@@ -431,7 +432,7 @@ const Hospitals = () => {
                       alignItems: "center",
                     }}
                   >
-                    {data.services
+                    {item?.services
                       .map((service, index) => (
                         <>
                           <Text
@@ -445,7 +446,7 @@ const Hospitals = () => {
                             }}
                             numberOfLines={1}
                           >
-                            {service.name}
+                            {service}
                           </Text>
                         </>
                       ))
@@ -473,7 +474,7 @@ const Hospitals = () => {
                       }}
                       numberOfLines={1}
                     >
-                      Location of hospital
+                      {item?.town}
                     </Text>
                   </View>
                 </View>
