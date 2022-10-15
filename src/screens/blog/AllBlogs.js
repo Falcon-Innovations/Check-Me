@@ -32,6 +32,10 @@ const AllBlogs = () => {
     setLike(!like);
   };
 
+  if (loading) {
+    return <SimpleLoader />;
+  }
+
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
@@ -157,7 +161,6 @@ const AllBlogs = () => {
               iconColor="#D2D1D1"
             />
           </View>
-          {loading && <SimpleLoader />}
           {data?.data?.docs && (
             <FlatList
               data={data?.data?.docs}

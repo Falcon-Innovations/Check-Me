@@ -1,17 +1,19 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
-import { Searchbar } from "react-native-paper";
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { getMyAppointments } from '../../api/appointments';
 
-import { COLORS, SIZES } from "../../utility";
+import { COLORS, SIZES } from '../../utility';
 import {
   AppointmentsCard,
   AppStatusBar,
   CustomStatusBar,
-} from "../../components";
+} from '../../components';
 
 const AllAppointments = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query) => setSearchQuery(query);
+  const { loading, data, error } = getMyAppointments();
 
   return (
     <>
@@ -32,13 +34,13 @@ const AllAppointments = () => {
               }}
               inputStyle={{
                 fontSize: 14,
-                fontFamily: "Poppins_Regular",
+                fontFamily: 'Poppins_Regular',
               }}
               iconColor="#D2D1D1"
             />
           </View>
           <ScrollView>
-            <Text style={{ fontFamily: "Poppins_Medium" }}>
+            <Text style={{ fontFamily: 'Poppins_Medium' }}>
               Welcome to your list of appointments
             </Text>
             <View style={{ marginTop: 10 }}>
@@ -56,35 +58,35 @@ export default AllAppointments;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   card: {
     flex: 1,
     paddingTop: SIZES.screenHeight * 0.02,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
     paddingBottom: SIZES.screenHeight * 0.03,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   cardContent: {
     marginHorizontal: 7,
     paddingTop: 10,
     paddingBottom: 12,
-    backgroundColor: "#FAFAFA",
+    backgroundColor: '#FAFAFA',
     width: SIZES.screenWidth * 0.43,
     borderRadius: 8,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     marginBottom: 10,
     elevation: 2,
-    alignItems: "center",
+    alignItems: 'center',
   },
   imge: {
     width: SIZES.screenWidth * 0.38,
     height: SIZES.screenWidth * 0.38,
     borderRadius: 12,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
 });
