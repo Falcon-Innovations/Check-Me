@@ -108,7 +108,7 @@ const BookSpecialist = ({ route }) => {
             </Text>
           </View>
           <View style={{ marginTop: 25 }}>
-            <View style={{ marginBottom: 10 }}>
+            {/* <View style={{ marginBottom: 10 }}>
               <Input
                 // maxLength={35}
                 placeholder="Full Name"
@@ -130,7 +130,7 @@ const BookSpecialist = ({ route }) => {
                 // onFocus={() => handleErrors(null, "fullname")}
                 onChangeText={(text) => handleOnChange(text, "email")}
               />
-            </View>
+            </View> */}
 
             <View style={{ marginBottom: 10 }}>
               <Input
@@ -242,7 +242,7 @@ const BookSpecialist = ({ route }) => {
 
           <View style={{ marginTop: 20, marginBottom: 30 }}>
             <AppButton
-              text="Update Info"
+              text="Book Specialist"
               color={COLORS.primary}
               // disabled={loading}
               onPress={() =>

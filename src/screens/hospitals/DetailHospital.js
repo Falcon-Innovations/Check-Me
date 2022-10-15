@@ -27,7 +27,7 @@ const DetailHospital = ({ route }) => {
       <ScrollView>
         <ImageBackground
           resizeMode="cover"
-          source={data.image}
+          source={item?.logo}
           style={{ width: "100%", height: SIZES.screenHeight * 0.35 }}
         >
           <View
@@ -96,7 +96,7 @@ const DetailHospital = ({ route }) => {
               }}
               numberOfLines={1}
             >
-              {data.name}
+              {item?.name}
             </Text>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icons name="star" size={22} color="#fdcc0d" />
@@ -133,7 +133,7 @@ const DetailHospital = ({ route }) => {
               }}
               numberOfLines={1}
             >
-              {data.location}
+              {item?.town}
             </Text>
           </View>
           <View style={{ marginTop: 15, marginBottom: 20 }}>
@@ -152,7 +152,7 @@ const DetailHospital = ({ route }) => {
                 color: "#5A5858",
               }}
             >
-              {data.description}
+              {item?.bio}
             </Text>
           </View>
           <View style={{ marginTop: 20, marginBottom: 20 }}>
@@ -172,14 +172,14 @@ const DetailHospital = ({ route }) => {
               style={{
                 flex: 1,
                 flexDirection: "row",
-                // flexWrap: "wrap",
+                flexWrap: "wrap",
                 alignItems: "center",
                 paddingBottom: SIZES.screenHeight * 0.03,
                 justifyContent: "center",
                 alignSelf: "flex-start",
               }}
             >
-              {data.services
+              {item?.services
                 .map((service, index) => (
                   <View
                     key={index}
@@ -198,7 +198,43 @@ const DetailHospital = ({ route }) => {
                         color: COLORS.primary,
                       }}
                     >
-                      {service.name}
+                      {service}
+                    </Text>
+                  </View>
+                ))
+                .slice(0, 3)}
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+                paddingBottom: SIZES.screenHeight * 0.03,
+                justifyContent: "center",
+                alignSelf: "flex-start",
+              }}
+            >
+              {item?.specialistServices
+                .map((service, index) => (
+                  <View
+                    key={index}
+                    style={{
+                      paddingHorizontal: 8,
+                      paddingVertical: 8,
+                      backgroundColor: "#FFE2DC",
+                      marginHorizontal: 3,
+                      borderRadius: 6,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontFamily: "Poppins_Medium",
+                        color: COLORS.primary,
+                      }}
+                    >
+                      {service}
                     </Text>
                   </View>
                 ))
