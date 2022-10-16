@@ -31,17 +31,20 @@ const Onboard = (props) => {
     {
       title: t("onboard1title"),
       text: t("text1"),
-      image: images.hospital,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910054/hospital_vpjetb.png",
     },
     {
       title: t("onboard2title"),
       text: t("text2"),
-      image: images.doctors,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910060/doc_umpdad.png",
     },
     {
       title: t("onboard3title"),
       text: t("text3"),
-      image: images.calender,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910060/calender_wq42mz.png",
     },
   ];
 
@@ -49,7 +52,11 @@ const Onboard = (props) => {
   const renderItem = ({ item }) => {
     return (
       <LinearGradient colors={["#F7007D", "#CF6283"]} style={styles.slide}>
-        <Image source={item.image} style={styles.image} resizeMode="contain" />
+        <Image
+          source={{ uri: item.image }}
+          style={styles.image}
+          resizeMode="contain"
+        />
         <View style={{ marginTop: 20 }}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.text}>{item.text}</Text>
@@ -194,10 +201,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     color: "#fff",
     textAlign: "center",
-    fontFamily: "Poppins_Medium",
+    fontFamily: "Poppins_SemiBold",
     marginHorizontal: 60,
   },
   text: {

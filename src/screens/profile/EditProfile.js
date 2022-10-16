@@ -141,7 +141,11 @@ const EditProfile = () => {
             <ImageBackground
               imageStyle={{ borderRadius: 60 }}
               source={
-                state?.user?.avatar ? { uri: state?.user?.avatar } : images.user
+                state?.user?.avatar
+                  ? { uri: state?.user?.avatar }
+                  : {
+                      uri: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910045/user_xpovba.png",
+                    }
               }
               style={{
                 width: 80,

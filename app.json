@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "check-me",
+    "name": "Check-Me",
     "slug": "check-me",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.francisberi.checkme"
+      "package": "com.francisberi.checkme",
+      "versionCode": 1.0
     },
     "web": {
       "favicon": "./assets/favicon.png"

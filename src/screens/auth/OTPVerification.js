@@ -62,6 +62,9 @@ const OTPVerification = ({ route }) => {
 
   console.log(otp, "From verificaiton screen");
 
+  const verifyImage =
+    "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910045/verifyotp_wvldpw.png";
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView
@@ -72,7 +75,11 @@ const OTPVerification = ({ route }) => {
       >
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{ marginHorizontal: 15, paddingTop: 10 }}
+          style={{
+            marginHorizontal: 15,
+            paddingTop: SIZES.screenHeight * 0.02,
+            top: 10,
+          }}
         >
           <Icon name="arrow-left" size={30} />
         </TouchableOpacity>
@@ -95,7 +102,7 @@ const OTPVerification = ({ route }) => {
           >
             <Image
               resizeMode="contain"
-              source={images.verifyotp}
+              source={{ uri: verifyImage }}
               style={styles.img}
             />
           </View>

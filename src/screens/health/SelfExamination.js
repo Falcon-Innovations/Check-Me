@@ -22,7 +22,7 @@ const selfExamine = [
     title: "Begin with a visual examination of your breasts",
     description:
       "Sit or stand shirtless and braless in front of a mirror with your arms at your sides. To inspect your breasts visually, do the following:",
-    img: images.people,
+    img: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665914654/selfCheck_j6iikk.jpg",
     steps: [
       {
         i: "Face forward and look for puckering(wrinkles), dimpling(indentation in breast area), or changes in size, shape or symmetry(regularity).",
@@ -48,7 +48,7 @@ const selfExamine = [
     title: "Use your hands to examine your breasts",
     description:
       "Common ways to perform the manual part of the breast exam include:",
-    img: images.people,
+    img: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665915095/selfexamine2_yzoswv.jpg",
     steps: [
       {
         i: "Lying down: Choose a bed or other flat surface to lie down on your back. When lying down, breast tissue spreads out, making it thinner and easier to feel.",
@@ -88,7 +88,9 @@ const SelfExamination = () => {
           <View style={styles.container}>
             <View style={styles.videoContainer}>
               <Video
-                posterSource={images.people}
+                posterSource={{
+                  uri: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665915548/brest-examine_epafej.jpg",
+                }}
                 posterStyle={{
                   width: "100%",
                   height: 200,
@@ -99,7 +101,7 @@ const SelfExamination = () => {
                 ref={video}
                 style={styles.video}
                 source={{
-                  uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+                  uri: "https://res.cloudinary.com/dav5lnlxj/video/upload/v1665915387/Breast_Self_Examination_wwtyp2.mp4",
                 }}
                 useNativeControls
                 resizeMode="cover"
@@ -157,8 +159,8 @@ const SelfExamination = () => {
                     <Text style={{}}>{item.title}</Text>
                   </Text>
                   <ImageBackground
-                    imageStyle={{ borderRadius: 12 }}
-                    source={item.img}
+                    imageStyle={{ borderRadius: 12, resizeMode: "cover" }}
+                    source={{ uri: item.img }}
                     style={{
                       width: "100%",
                       height: SIZES.screenHeight * 0.22,

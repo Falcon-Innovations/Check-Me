@@ -13,26 +13,26 @@ const DashboardCard = () => {
       id: 1,
       title: t("selfExamine"),
       screen: "SelfExamination",
-      img: images.healthy,
+      img: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910055/healthy_dutzy0.png",
     },
     {
       id: 2,
       title: t("risk"),
       screen: "RiskFactors",
-      img: images.risk,
+      img: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910049/risk_jn06br.png",
     },
     {
       id: 3,
       title: t("hospitals"),
       screen: "Hospitals",
-      img: images.hospitals,
+      img: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910054/hospitals_q8jow9.png",
     },
 
     {
       id: 4,
       title: "specialist",
       screen: "Specialists",
-      img: images.doc,
+      img: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910060/doc_umpdad.png",
     },
   ];
   return (
@@ -48,7 +48,7 @@ const DashboardCard = () => {
             style={styles.card}
           >
             <Image
-              source={item.img}
+              source={{ uri: item.img }}
               style={{
                 width: SIZES.screenWidth * 0.22,
                 height: SIZES.screenWidth * 0.22,

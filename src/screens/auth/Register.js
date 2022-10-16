@@ -94,6 +94,9 @@ const Register = () => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
 
+  const authImage =
+    "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910061/authImage_mb3hex.png";
+
   return (
     <>
       {loading ? (
@@ -155,7 +158,7 @@ const Register = () => {
             <View style={{ paddingTop: 10, paddingBottom: 8 }}>
               <Image
                 resizeMode="contain"
-                source={images.authImage}
+                source={{ uri: authImage }}
                 style={styles.img}
               />
             </View>

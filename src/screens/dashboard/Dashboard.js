@@ -81,6 +81,11 @@ const Dashboard = ({ data }) => {
     );
   };
 
+  const fruits =
+    "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910055/fruits_ajpqm8.png";
+
+  const headerImage =
+    "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910049/nurse_ufaz8i.png";
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
@@ -106,7 +111,7 @@ const Dashboard = ({ data }) => {
                     height: SIZES.screenHeight * 0.25,
                     width: SIZES.screenWidth * 0.45,
                   }}
-                  source={images.nurse}
+                  source={{ uri: headerImage }}
                   resizeMode="contain"
                 />
               </View>
@@ -227,7 +232,7 @@ const Dashboard = ({ data }) => {
                   }}
                 >
                   <Image
-                    source={images.fruits}
+                    source={{ uri: fruits }}
                     style={{ width: 35, height: 35, alignSelf: "center" }}
                     resizeMode="contain"
                   />

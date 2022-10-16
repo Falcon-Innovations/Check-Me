@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { AppButton, AppStatusBar, CustomStatusBar } from "../../components";
-import { COLORS, images, SIZES } from "../../utility";
+import { COLORS, SIZES } from "../../utility";
 import { useNavigation } from "@react-navigation/native";
 
 const BookMammogram = () => {
@@ -55,7 +55,9 @@ const BookMammogram = () => {
             }}
           >
             <Image
-              source={images.calendar}
+              source={{
+                uri: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910061/Calendar_ipogu2.png",
+              }}
               resizeMode="contain"
               style={{
                 width: SIZES.screenWidth * 0.52,

@@ -6,28 +6,28 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
-} from 'react-native';
-import React, { useState } from 'react';
-import { Searchbar } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { COLORS, images, SIZES } from '../../utility';
-import { AppStatusBar, CustomStatusBar } from '../../components';
-import { useHospitals } from '../../api/hospitals';
-import SimpleLoader from '../../components/utils/SimpleLoader';
-import { CustomImageBackground } from '../../components/custom-image-background/custom-image-background';
-import { HospitalCard } from '../../components/hospital-card/hospital-card';
+} from "react-native";
+import React, { useState } from "react";
+import { Searchbar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Ionicons";
+import { COLORS, images, SIZES } from "../../utility";
+import { AppStatusBar, CustomStatusBar } from "../../components";
+import { useHospitals } from "../../api/hospitals";
+import SimpleLoader from "../../components/utils/SimpleLoader";
+import { CustomImageBackground } from "../../components/custom-image-background/custom-image-background";
+import { HospitalCard } from "../../components/hospital-card/hospital-card";
 
 const Hospitals = () => {
   const navigation = useNavigation();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
 
   const { loading, data, error } = useHospitals();
 
-  console.log('====================================');
-  console.log('From all Hospitals', data?.data?.docs);
-  console.log('====================================');
+  console.log("====================================");
+  console.log("From all Hospitals", data?.data?.docs);
+  console.log("====================================");
 
   if (loading) {
     return <SimpleLoader />;
@@ -55,48 +55,48 @@ const Hospitals = () => {
               }}
               inputStyle={{
                 fontSize: 14,
-                fontFamily: 'Poppins_Regular',
+                fontFamily: "Poppins_Regular",
               }}
               iconColor="#D2D1D1"
             />
           </View>
           <View>
-            <Text style={{ fontFamily: 'Poppins_Medium', color: '#333333' }}>
+            <Text style={{ fontFamily: "Poppins_Medium", color: "#333333" }}>
               Find the nearest hospital for your screening and consultation
             </Text>
             {data?.data?.docs?.map((item) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate('detailHospitals', item)}
+                onPress={() => navigation.navigate("detailHospitals", item)}
                 key={item?._id}
                 style={{
                   marginTop: SIZES.screenHeight * 0.025,
                   paddingHorizontal: 10,
                   paddingTop: 10,
                   paddingBottom: 14,
-                  width: '100%',
-                  alignSelf: 'center',
+                  width: "100%",
+                  alignSelf: "center",
                   borderRadius: 8,
-                  borderColor: '#d3d3d3',
-                  backgroundColor: '#FAFAFA',
+                  borderColor: "#d3d3d3",
+                  backgroundColor: "#FAFAFA",
                   marginBottom: 14,
-                  shadowColor: '#d3d3d3',
+                  shadowColor: "#d3d3d3",
                   shadowOffset: { width: 3, height: 3 },
                   shadowOpacity: 1.0,
                 }}
               >
-                <CustomImageBackground imgSrc={item?.logo} />
+                <CustomImageBackground key={item?._id} imgSrc={item?.logo} />
                 <View style={{ paddingHorizontal: 4, marginTop: 14 }}>
                   <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
                       marginBottom: 8,
                     }}
                   >
                     <Text
                       style={{
-                        fontFamily: 'Poppins_SemiBold',
+                        fontFamily: "Poppins_SemiBold",
                         fontSize: 16,
                         color: COLORS.primary,
                       }}
@@ -109,8 +109,8 @@ const Hospitals = () => {
 
                   <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      alignItems: "center",
                     }}
                   >
                     {item?.services
@@ -119,9 +119,9 @@ const Hospitals = () => {
                           <Text
                             key={index}
                             style={{
-                              fontFamily: 'Poppins_Regular',
+                              fontFamily: "Poppins_Regular",
                               fontSize: 14,
-                              color: '#AEADAD',
+                              color: "#AEADAD",
                               marginBottom: 4,
                               marginRight: 4,
                             }}
@@ -136,8 +136,8 @@ const Hospitals = () => {
 
                   <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      alignItems: "center",
                       paddingVertical: 4,
                     }}
                   >
@@ -148,9 +148,9 @@ const Hospitals = () => {
                     />
                     <Text
                       style={{
-                        fontFamily: 'Poppins_Regular',
+                        fontFamily: "Poppins_Regular",
                         fontSize: 13,
-                        color: '#222222',
+                        color: "#222222",
                         marginLeft: 6,
                       }}
                       numberOfLines={1}
@@ -173,34 +173,34 @@ export default Hospitals;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   card: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
     paddingBottom: SIZES.screenHeight * 0.03,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   cardContent: {
     marginHorizontal: 7,
     paddingTop: 10,
     paddingBottom: 12,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: "#FAFAFA",
     width: SIZES.screenWidth * 0.43,
     borderRadius: 8,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     marginBottom: 10,
     elevation: 2,
-    alignItems: 'center',
+    alignItems: "center",
   },
   imge: {
     width: SIZES.screenWidth * 0.38,
     height: SIZES.screenWidth * 0.38,
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
 });

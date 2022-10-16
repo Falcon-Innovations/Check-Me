@@ -21,28 +21,32 @@ const RiskFactors = () => {
       titile: t("age"),
       explaination: t("ageText"),
       color: "#FAEFD7",
-      image: images.time,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910046/time_lzikik.png",
     },
     {
       id: 2,
       titile: t("smoking"),
       explaination: t("smokeText"),
       color: "#ECE7FE",
-      image: images.smoking,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910047/smoking_q8jui1.png",
     },
     {
       id: 3,
       titile: t("alcohol"),
       explaination: t("alcoholText"),
       color: "#F8D8D9",
-      image: images.alcohol,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910064/alcohol_c39re8.png",
     },
     {
       id: 4,
       titile: t("radiation"),
       explaination: t("radiationText"),
       color: "#D2E6FE",
-      image: images.radiation,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910047/Radiation_gykeq6.png",
     },
     {
       id: 5,
@@ -50,14 +54,16 @@ const RiskFactors = () => {
       explaination:
         "Just being a woman is the biggest risk factor for developing breast cancer. According to a report by VOA Cam, there has been a delay in breast cancer screening since the outbreak of corona. As a result the number of women diagnosed with breast cancer has increased to 2625 cases per 100,000 women per year.While men do develop breast cancer, less than 1% of all new breast cancer cases happen in men. The biggest reasons for the difference in breast cancer rates between men and women are: - Women's breast development takes 3 to 4 years and is usually complete by age 14. It's uncommon for men's breasts to fully form — most of the male breasts you see are fat, not formed glands. Once fully formed, breast cells are very immature and highly active until a woman's first full-term pregnancy. While they are immature, a women's breast cells are very responsive to estrogen and other hormones, including hormone disrupters in the environment. Men's breast cells are inactive and most men have extremely low levels of estrogen. So hormonal stimulation of highly responsive and vulnerable breast cells in women, particularly during the extra-sensitive period of breast development, is why breast cancer is much more common in women than in men.",
       color: "#F7EAEA",
-      image: images.gender,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910054/gender_u8iacu.png",
     },
     {
       id: 6,
       titile: t("genTitle"),
       explaination: t("genetics"),
       color: "#E9EEF7",
-      image: images.dna,
+      image:
+        "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910059/dna_mqibmm.png",
     },
   ];
   return (
@@ -82,7 +88,7 @@ const RiskFactors = () => {
                 title={item.titile}
                 description={item.explaination}
                 color={item.color}
-                image={item.image}
+                image={{ uri: item.image }}
               />
             ))}
           </View>
