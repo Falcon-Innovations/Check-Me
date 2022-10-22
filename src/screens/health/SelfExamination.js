@@ -108,6 +108,8 @@ const SelfExamination = () => {
                 isLooping
                 onPlaybackStatusUpdate={(status) => setStatus(() => status)}
                 shouldPlay={true}
+                // ignoreSilentSwitch={"ignore"}
+                ignoreSilentSwitch="ignore"
               />
             </View>
 
