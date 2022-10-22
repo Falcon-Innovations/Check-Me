@@ -1,16 +1,26 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Searchbar } from "react-native-paper";
-import { getMyAppointments } from "../../api/appointments";
+import { useNavigation } from "@react-navigation/native";
 
+import { getMyAppointments } from "../../api/appointments";
 import { COLORS, SIZES } from "../../utility";
 import {
+  AppButton,
   AppointmentsCard,
   AppStatusBar,
   CustomStatusBar,
 } from "../../components";
 
 const AllAppointments = () => {
+  const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const { loading, data, error } = getMyAppointments();
@@ -39,13 +49,68 @@ const AllAppointments = () => {
               iconColor="#D2D1D1"
             />
           </View>
-          <ScrollView>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 10 }}
+          >
             <Text style={{ fontFamily: "Poppins_Medium" }}>
               Welcome to your list of appointments
             </Text>
-            <View style={{ marginTop: 10 }}>
-              <AppointmentsCard />
-            </View>
+            {data?.data?.docs?.length > 0 ? (
+              <View style={{ marginTop: 10 }}>
+                {data?.data?.docs?.map((item, index) => (
+                  <AppointmentsCard
+                    onPress={() =>
+                      navigation.navigate("AppointmentDetails", item)
+                    }
+                    key={index}
+                    title={item.title}
+                    desc={item.description}
+                    time={
+                      new Date(item.time).getHours() >= 0 &&
+                      new Date(item.time).getHours() < 12
+                        ? `${item.time} pm`
+                        : `${item.time} am`
+                    }
+                    status={item.status}
+                    doc={
+                      !item.recipient.name
+                        ? item.recipient.email
+                        : item.recipient.name
+                    }
+                    date={new Date(item.day)
+                      .toUTCString()
+                      .split(" ")
+                      .slice(0, 4)
+                      .join(" ")}
+                  />
+                ))}
+              </View>
+            ) : (
+              <View style={{ marginTop: SIZES.screenHeight * 0.05 }}>
+                <Text style={{ fontFamily: "Poppins_Regular" }}>
+                  Sorry!!!, you have no appointments yet. Please book one.
+                </Text>
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={{
+                      uri: "https://res.cloudinary.com/dav5lnlxj/image/upload/v1666400399/calendara_pm8npo.png",
+                    }}
+                    style={{
+                      height: 150,
+                      width: 150,
+                    }}
+                  />
+                </View>
+                <View style={{ marginTop: 20, marginBottom: 30 }}>
+                  <AppButton
+                    text="Book Appointment"
+                    color={COLORS.primary}
+                    onPress={() => navigation.navigate("Specialists")}
+                  />
+                </View>
+              </View>
+            )}
           </ScrollView>
         </View>
       </SafeAreaView>

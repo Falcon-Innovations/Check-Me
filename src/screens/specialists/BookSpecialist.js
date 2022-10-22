@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Dimensions,
   Platform,
@@ -18,6 +19,9 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Icons from "react-native-vector-icons/Feather";
 import Modal from "react-native-modal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   AppButton,
@@ -25,15 +29,25 @@ import {
   CustomStatusBar,
   Input,
 } from "../../components";
-import { COLORS } from "../../utility";
+import { COLORS, config } from "../../utility";
 import TextAreaInput from "../../components/inputs/TextAreaInput";
 import { sendEmail } from "./SendEmail";
+import usePost from "../../hooks/usePost";
 
 const BookSpecialist = ({ route }) => {
+  const navigation = useNavigation();
   const item = route.params;
 
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [load, setLoad] = useState(false);
+
+  const [loading, postAxiosData] = usePost(`appointments`, "POST");
 
   const showPicker = () => {
     setIsPickerShow(true);
@@ -50,33 +64,12 @@ const BookSpecialist = ({ route }) => {
     }
   };
 
-  const [datePickerVisible, setDatePickerVisible] = useState(false);
-
   // const { state, updateProfile } = React.useContext(AuthContext);
-  const [loading, setLoading] = React.useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(new Date());
-  const [isModalVisible, setModalVisible] = useState(false);
+  // const [loading, setLoading] = React.useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
-  const [inputs, setInputs] = useState({
-    fullname: "",
-    phone: "",
-    email: "",
-    date: "",
-    time: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleOnChange = (text, input) => {
-    console.log(text);
-    setInputs((prevState) => ({ ...prevState, [input]: text }));
-  };
-
   const onDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -84,7 +77,49 @@ const BookSpecialist = ({ route }) => {
   var startDate = selectedDate ? selectedDate.toString() : "No date selected";
   startDate = new Date(startDate).toUTCString();
   startDate = startDate.split(" ").slice(0, 4).join(" ");
-  // const maxDate = new Date(2010, 11, 31);
+
+  //Book Specialist
+  const handleBookSpecialist = async () => {
+    setLoad(true);
+    const token = await AsyncStorage.getItem("token");
+
+    let data = {
+      title: title,
+      description: message,
+      time: new Date(date).toLocaleTimeString(),
+      day: startDate,
+      recipient: item._id,
+    };
+    const configurationData = {
+      method: "POST",
+      url: `${config.app.api_url}/appointments`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: data,
+    };
+    await axios(configurationData)
+      .then((response) => {
+        if (response.data.status === "success") {
+          setTitle("");
+          setMessage("");
+          setLoad(false);
+          Alert.alert("success", "Appoitment Booked Successfully.", [
+            {
+              title: "Ok",
+              onPress: () => {
+                navigation.goBack();
+              },
+            },
+          ]);
+        }
+      })
+      .catch((error) => {
+        setLoad(false);
+        console.error("Book Error", error);
+      });
+  };
 
   return (
     <>
@@ -138,17 +173,17 @@ const BookSpecialist = ({ route }) => {
                 placeholder="Subject of your message"
                 Subject
                 keyboardType="default"
-                // defaultValue={state?.user?.name}
+                defaultValue={title}
                 // error={errors.fullname}
                 // onFocus={() => handleErrors(null, "fullname")}
-                onChangeText={(text) => handleOnChange(text, "subject")}
+                onChangeText={(text) => setTitle(text)}
               />
             </View>
             <View style={{ marginBottom: 25 }}>
               <TextAreaInput
                 placeholder="Message"
-                // defaultValue={state?.user?.bio}
-                onChangeText={(text) => handleOnChange(text, "message")}
+                defaultValue={message}
+                onChangeText={(text) => setMessage(text)}
               />
             </View>
 
@@ -242,19 +277,11 @@ const BookSpecialist = ({ route }) => {
 
           <View style={{ marginTop: 20, marginBottom: 30 }}>
             <AppButton
-              text="Book Specialist"
+              text={load ? "Loading.." : "Save"}
               color={COLORS.primary}
-              // disabled={loading}
-              onPress={() =>
-                sendEmail(
-                  `${item.email}`,
-                  "We need your feedback",
-                  "UserName, we need 2 minutes of your time to fill this quick survey [link]",
-                  { cc: "user@domain.com; user2@domain.com; userx@domain1.com" }
-                ).then(() => {
-                  console.log("Your message was successfully sent!");
-                })
-              }
+              loading={load}
+              disabled={load || !(title && message && date && startDate)}
+              onPress={() => handleBookSpecialist()}
             />
           </View>
         </KeyboardAwareScrollView>

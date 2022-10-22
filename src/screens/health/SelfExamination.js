@@ -107,6 +107,7 @@ const SelfExamination = () => {
                 resizeMode="cover"
                 isLooping
                 onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+                shouldPlay={true}
               />
             </View>
 

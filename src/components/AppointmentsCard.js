@@ -7,13 +7,18 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { COLORS } from "../utility";
 import { useNavigation } from "@react-navigation/native";
 
-const AppointmentsCard = () => {
+const AppointmentsCard = ({
+  title,
+  time,
+  desc,
+  doc,
+  date,
+  status,
+  onPress,
+}) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigation.navigate("AppointmentDetails")}
-    >
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.cardContent}>
         <View style={styles.title}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -26,7 +31,7 @@ const AppointmentsCard = () => {
                 color: "#2A2A2A",
               }}
             >
-              AppointmentsCard
+              {title}
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
@@ -37,15 +42,13 @@ const AppointmentsCard = () => {
               style={{ marginRight: 4 }}
             />
             <Text style={{ fontSize: 11, fontFamily: "Poppins_Medium" }}>
-              10:00am
+              {time}
             </Text>
           </View>
         </View>
         <View style={{ marginTop: 8, paddingLeft: 30 }}>
           <Text numberOfLines={2} style={styles.body}>
-            The lorem ipsum is, in printing, a series of meaningless words used
-            temporarily to calibrate a layout, the final text replacing the
-            false text as soon
+            {desc}
           </Text>
           <View
             style={{
@@ -64,14 +67,16 @@ const AppointmentsCard = () => {
               >
                 <Icons name="user-nurse" size={15} color="#8577FC" />
                 <Text
+                  numberOfLines={1}
                   style={{
                     marginLeft: 10,
                     fontSize: 12,
                     fontFamily: "Poppins_Medium",
                     color: "#8577FC",
+                    width: "50%",
                   }}
                 >
-                  Dr Yuyun Francis
+                  {doc}
                 </Text>
               </View>
               <View
@@ -90,7 +95,8 @@ const AppointmentsCard = () => {
                     color: "#8577FC",
                   }}
                 >
-                  {new Date().toUTCString().split(" ").slice(0, 4).join(" ")}
+                  {/* {new Date().toUTCString().split(" ").slice(0, 4).join(" ")} */}
+                  {date}
                 </Text>
               </View>
             </View>
@@ -103,7 +109,7 @@ const AppointmentsCard = () => {
               }}
             >
               <TouchableOpacity style={[styles.btn, { marginRight: 4 }]}>
-                <Text style={styles.text}>completed</Text>
+                <Text style={styles.text}>{status}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btn}>
                 <Text style={styles.text}>Cancelled</Text>
@@ -124,6 +130,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     backgroundColor: COLORS.secondary,
+    marginBottom: 15,
   },
   title: {
     flexDirection: "row",
