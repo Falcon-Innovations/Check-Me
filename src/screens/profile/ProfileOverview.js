@@ -40,10 +40,10 @@ const ProfileOverview = () => {
       title: t("mammogram"),
       screen: "BookMammogram",
     },
-    {
-      title: t("subscriptions"),
-      screen: "PersonalDashboard",
-    },
+    // {
+    //   title: t("subscriptions"),
+    //   screen: "PersonalDashboard",
+    // },
 
     {
       title: t("settings"),

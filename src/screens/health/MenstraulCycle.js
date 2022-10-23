@@ -6,6 +6,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
@@ -13,16 +14,22 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Edit from "react-native-vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import Icons from "react-native-vector-icons/Ionicons";
+import Modal from "react-native-modal";
 
 import { Context as UserContext } from "../../contexts/userContext";
-import { AppButton, AppStatusBar } from "../../components";
+import { AppButton, AppStatusBar, Input } from "../../components";
 import { COLORS, config, images, SIZES } from "../../utility";
 import useDataFetching from "../../hooks/useFetchData";
 import SimpleLoader from "../../components/utils/SimpleLoader";
 import Error from "../../components/utils/Error";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const MenstraulCycle = () => {
   const navigation = useNavigation();
+  const [load, setLoad] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
+
   const [loading, error, user, fetchData] = useDataFetching(
     `${config.app.api_url}/users/me`
   );
@@ -50,16 +57,22 @@ const MenstraulCycle = () => {
 
   const infoUserPeriod = user?.data?.doc?.menstrualCycleInfo?.daysBledCount;
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const [num, setNum] = useState("");
+  const [numP, setNumP] = useState("");
+
   //Update cycle
-  const setMentrualCycle = async () => {
+  const updateMentrualCycle = async () => {
     setLoad(true);
 
     const token = await AsyncStorage.getItem("token");
 
     let data = {
-      dayCount: numOfDays,
-      daysBledCount: parseInt(period),
-      description: message,
+      dayCount: parseInt(num),
+      daysBledCount: parseInt(numP),
     };
     const configurationData = {
       method: "PATCH",
@@ -75,12 +88,12 @@ const MenstraulCycle = () => {
         if (response.data.status === "success") {
           setLoad(false);
           Alert.alert("success", "Cycle set Successfully", [
-            {
-              title: "Ok",
-              onPress: () => {
-                navigation.goBack();
-              },
-            },
+            // {
+            //   title: "Ok",
+            //   onPress: () => {
+            //     navigation.goBack();
+            //   },
+            // },
           ]);
         }
       })
@@ -368,16 +381,19 @@ const MenstraulCycle = () => {
                       <View
                         style={{ flexDirection: "row", alignItems: "center" }}
                       >
-                        <View style={{ marginRight: 14 }}>
+                        <TouchableOpacity
+                          onPress={toggleModal}
+                          style={{ marginRight: 14 }}
+                        >
                           <Edit name="edit" size={24} color="#0000ff" />
-                        </View>
-                        <View>
+                        </TouchableOpacity>
+                        {/* <View>
                           <Icon
                             name="delete-outline"
                             size={24}
                             color={COLORS.primary}
                           />
-                        </View>
+                        </View> */}
                       </View>
                     </View>
                   </View>
@@ -386,6 +402,67 @@ const MenstraulCycle = () => {
             </>
           )}
         </ScrollView>
+        <Modal isVisible={isModalVisible} animationType="slide">
+          <View style={{ backgroundColor: "#fff", borderRadius: 8 }}>
+            <View
+              style={{
+                paddingHorizontal: 20,
+                paddingVertical: 12,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 10,
+                  paddingTop: 8,
+                  paddingBottom: 10,
+                }}
+              >
+                <Text style={{ fontFamily: "Poppins_Medium", fontSize: 14 }}>
+                  Update Menstraul Cycle
+                </Text>
+                <TouchableOpacity onPress={toggleModal}>
+                  <Icons name="close" size={20} />
+                </TouchableOpacity>
+              </View>
+              <View style={{ marginTop: 12, marginBottom: 10 }}>
+                <Input
+                  maxLength={2}
+                  placeholder="Number of days e.g 5"
+                  keyboardType="numeric"
+                  defaultValue={infoUserCycle?.toString()}
+                  onChangeText={(text) => setNum(text)}
+                />
+              </View>
+              <View style={{ marginTop: 12 }}>
+                <Input
+                  maxLength={2}
+                  placeholder="Number of days e.g 5"
+                  keyboardType="numeric"
+                  defaultValue={infoUserPeriod?.toString()}
+                  onChangeText={(text) => setNumP(text)}
+                />
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: SIZES.screenHeight * 0.01,
+                alignSelf: "center",
+                paddingBottom: 10,
+              }}
+            >
+              <AppButton
+                color={COLORS.primary}
+                text={load ? "Loading.." : "Update Cycle"}
+                loading={load}
+                disabled={load || !(num && numP)}
+                onPress={() => updateMentrualCycle()}
+              />
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </>
   );

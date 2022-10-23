@@ -56,10 +56,10 @@ const Settings = () => {
   };
 
   const settings = [
-    {
-      title: t("resetPass"),
-      screen: naviagateToPassword,
-    },
+    // {
+    //   title: t("resetPass"),
+    //   screen: naviagateToPassword,
+    // },
     {
       title: t("changeLang"),
       screen: toggleModal,
