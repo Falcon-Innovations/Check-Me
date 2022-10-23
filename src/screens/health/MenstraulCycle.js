@@ -88,12 +88,12 @@ const MenstraulCycle = () => {
         if (response.data.status === "success") {
           setLoad(false);
           Alert.alert("success", "Cycle set Successfully", [
-            // {
-            //   title: "Ok",
-            //   onPress: () => {
-            //     navigation.goBack();
-            //   },
-            // },
+            {
+              title: "Ok",
+              onPress: () => {
+                navigation.goBack();
+              },
+            },
           ]);
         }
       })

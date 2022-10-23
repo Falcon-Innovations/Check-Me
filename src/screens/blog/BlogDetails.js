@@ -3,6 +3,7 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  Share,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -26,6 +27,31 @@ const BlogDetails = ({ route }) => {
 
   const onLike = () => {
     setLike(!like);
+  };
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `Check Me | Breast Cancer Companion \n Read About  : ${
+          item.title
+        } \nDescription: ${item.content.substring(
+          0,
+          100
+        )}\nRead More by downloading the Check Me App on Google PLay Store
+          \n ${item?.photo}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -103,18 +129,18 @@ const BlogDetails = ({ route }) => {
                   marginRight: 15,
                 }}
               >
-                <TouchableOpacity onPress={onLike} style={{ marginRight: 2 }}>
+                {/* <TouchableOpacity onPress={onLike} style={{ marginRight: 2 }}>
                   <Icon
                     name={like ? "ios-heart" : "heart-outline"}
                     size={24}
                     color={COLORS.primary}
                   />
-                </TouchableOpacity>
-                <Text>{`${item.likes.length} ${
+                </TouchableOpacity> */}
+                {/* <Text>{`${item.likes.length} ${
                   item.likes.length > 1 ? "likes" : "like"
-                }`}</Text>
+                }`}</Text> */}
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={onShare}>
                 <Icon name="ios-share-outline" size={24} color="#333333" />
               </TouchableOpacity>
             </View>

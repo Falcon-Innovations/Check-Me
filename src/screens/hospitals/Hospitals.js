@@ -6,6 +6,7 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Searchbar } from "react-native-paper";
@@ -48,6 +49,9 @@ const Hospitals = () => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ marginHorizontal: 20 }}
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={fetchData} />
+          }
         >
           <View style={{ marginVertical: 20 }}>
             <Searchbar
