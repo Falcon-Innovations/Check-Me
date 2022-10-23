@@ -40,9 +40,9 @@ const Specialists = () => {
     return updateData;
   }, [navigation]);
 
-  if (loading) {
-    return <SimpleLoader />;
-  }
+  // if (loading) {
+  //   return <SimpleLoader />;
+  // }
 
   return (
     <>
