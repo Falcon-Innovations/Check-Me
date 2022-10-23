@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {
   Onboard,
   Dashboard,
@@ -25,29 +25,29 @@ import {
   RiskFactors,
   AllAppointments,
   AppointmentDetails,
-} from "../screens";
-import useGetOnboardingStatus from "../utility/checkIfFirstLaunch";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { navigationRef } from "./customNavigator";
+} from '../screens';
+import useGetOnboardingStatus from '../utility/checkIfFirstLaunch';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { navigationRef } from './customNavigator';
 import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
-} from "@react-navigation/native";
-import ResolveAuth from "../screens/auth/ResolveAuth";
-import { COLORS } from "../utility";
-import BookSpecialist from "../screens/specialists/BookSpecialist";
-import Hospitals from "../screens/hospitals/Hospitals";
-import DetailHospital from "../screens/hospitals/DetailHospital";
+} from '@react-navigation/native';
+import ResolveAuth from '../screens/auth/ResolveAuth';
+import { COLORS } from '../utility';
+import BookSpecialist from '../screens/specialists/BookSpecialist';
+import Hospitals from '../screens/hospitals/Hospitals';
+import DetailHospital from '../screens/hospitals/DetailHospital';
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = ({ colorScheme }) => {
   return (
     <NavigationContainer
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
       ref={navigationRef}
     >
       <RootNavigator />
@@ -63,7 +63,7 @@ const RootNavigator = () => {
   }
 
   const handleOnboardingDone = () => {
-    navigationRef?.navigate("Signup");
+    navigationRef?.navigate('Signup');
   };
 
   return (
@@ -130,7 +130,7 @@ const BottomTabNavigator = () => {
         name="Feed"
         component={Dashboard}
         options={{
-          tabBarLabel: t("home"),
+          tabBarLabel: t('home'),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
@@ -140,13 +140,13 @@ const BottomTabNavigator = () => {
         name="Learn"
         component={AllBlogs}
         options={{
-          tabBarLabel: t("blog"),
+          tabBarLabel: t('blog'),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="book" color={color} size={26} />
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Profile"
         component={Notifications}
         options={{
@@ -155,12 +155,12 @@ const BottomTabNavigator = () => {
             <Ionicons name="notifications" color={color} size={26} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Yo"
         component={ProfileOverview}
         options={{
-          tabBarLabel: t("profile"),
+          tabBarLabel: t('profile'),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
