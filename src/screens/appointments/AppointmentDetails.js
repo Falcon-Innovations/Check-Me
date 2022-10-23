@@ -55,12 +55,10 @@ const AppointmentDetails = ({ route }) => {
                     fontFamily: "Poppins_Medium",
                     fontSize: 10,
                     color: COLORS.primary,
-                    width: "80%",
+                    // width: "80%",
                   }}
                 >
-                  {!item.recipient.name
-                    ? item.recipient.email
-                    : item.recipient.name}
+                  {`Dr ${item.recipient.firstName} ${item.recipient.lastName} `}
                 </Text>
               </View>
             </View>
@@ -181,6 +179,7 @@ const styles = StyleSheet.create({
   appointment: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 8,
     paddingTop: SIZES.screenHeight * 0.04,
   },

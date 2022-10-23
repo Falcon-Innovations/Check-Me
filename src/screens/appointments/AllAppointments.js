@@ -25,6 +25,10 @@ const AllAppointments = () => {
   const onChangeSearch = (query) => setSearchQuery(query);
   const { loading, data, error } = getMyAppointments();
 
+  console.log("====================================");
+  console.log(data);
+  console.log("====================================");
+
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
@@ -73,11 +77,7 @@ const AllAppointments = () => {
                         : `${item.time} am`
                     }
                     status={item.status}
-                    doc={
-                      !item.recipient.name
-                        ? item.recipient.email
-                        : item.recipient.name
-                    }
+                    doc={`Dr ${item.recipient.firstName} ${item.recipient.lastName} `}
                     date={new Date(item.day)
                       .toUTCString()
                       .split(" ")
