@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Divider } from "react-native-elements";
 import Icon from "react-native-vector-icons/Feather";
 import Icons from "react-native-vector-icons/Ionicons";
@@ -21,11 +21,25 @@ import { useTranslation } from "react-i18next";
 
 import { Context as AuthContext } from "../../contexts/userContext";
 import { AppStatusBar, CustomStatusBar } from "../../components";
-import { COLORS, images, SIZES } from "../../utility";
+import { COLORS, config, images, SIZES } from "../../utility";
 import { Alert } from "react-native";
+import useDataFetching from "../../hooks/useFetchData";
+import SimpleLoader from "../../components/utils/SimpleLoader";
+import Error from "../../components/utils/Error";
 
 const PersonalDashboard = () => {
   const { t } = useTranslation();
+
+  const [loading, error, user, fetchData] = useDataFetching(
+    `${config.app.api_url}/users/me`
+  );
+
+  useEffect(() => {
+    const updateData = navigation.addListener("focus", () => {
+      fetchData();
+    });
+    return updateData;
+  }, [navigation]);
 
   const data = [
     {
@@ -52,12 +66,12 @@ const PersonalDashboard = () => {
 
   const cycle = [
     {
-      days: "5 Days",
+      days: `${user?.data?.doc?.menstrualCycleInfo?.daysBledCount.toFixed(1)}`,
       icon: <Icons name="ios-water" color="#fff" size={20} />,
       desc: "Average Period",
     },
     {
-      days: "28 Days",
+      days: `${user?.data?.doc?.menstrualCycleInfo?.dayCount.toFixed(1)}`,
       icon: <Icons name="ios-sync" color="#fff" size={20} />,
       desc: "Average Cycle",
     },
@@ -233,70 +247,102 @@ const PersonalDashboard = () => {
                 My cycle
               </Text>
             </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                flexWrap: "wrap",
-                alignItems: "center",
-                alignSelf: "center",
-                paddingTop: 12,
-                paddingBottom: SIZES.screenHeight * 0.03,
-                justifyContent: "center",
-                alignSelf: "flex-start",
-              }}
-            >
-              {cycle.map((cy) => (
-                <View
-                  key={cy.days}
-                  style={{
-                    paddingHorizontal: 8,
-                    paddingVertical: 8,
-                    backgroundColor: "#FFECE9",
-                    marginHorizontal: SIZES.screenWidth * 0.03,
-                    borderRadius: 6,
-                    width: "43%",
-
-                    marginBottom: 20,
-                  }}
-                >
+            {loading || error ? (
+              <>
+                {loading === true && (
                   <View
                     style={{
-                      height: 40,
-                      width: 40,
-                      borderRadius: 40,
-
-                      backgroundColor: COLORS.primary,
-                      alignItems: "center",
                       justifyContent: "center",
-                      alignSelf: "flex-end",
+                      flex: 1,
+                      alignItems: "center",
                     }}
                   >
-                    {cy.icon}
+                    <SimpleLoader />
                   </View>
-                  <View style={{ paddingLeft: 6, paddingBottom: 4 }}>
-                    <Text
-                      style={{
-                        fontFamily: "Poppins_Medium",
-                        fontSize: 16,
-                        color: COLORS.textColor,
-                      }}
-                    >
-                      {cy.days}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: "Poppins_Regular",
-                        fontSize: 11,
-                        color: COLORS.textColor,
-                      }}
-                    >
-                      {cy.desc}
-                    </Text>
+                )}
+                {error && (
+                  <View
+                    style={{
+                      margin: 20,
+                      backgroundColor: COLORS.danger,
+                      borderRadius: 8,
+                      paddingLeft: 10,
+                    }}
+                  >
+                    <Error error={error} />
                   </View>
-                </View>
-              ))}
-            </View>
+                )}
+              </>
+            ) : (
+              <>
+                {!user?.data?.doc?.menstrualCycleInfo ? (
+                  <View>
+                    <Text>You have not set your cycle</Text>
+                  </View>
+                ) : (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginTop: SIZES.screenHeight * 0.05,
+                    }}
+                  >
+                    {cycle.map((cy) => (
+                      <View
+                        key={cy.days}
+                        style={{
+                          paddingHorizontal: 8,
+                          paddingVertical: 8,
+                          backgroundColor: "#FFECE9",
+                          marginHorizontal: SIZES.screenWidth * 0.03,
+                          borderRadius: 6,
+                          width: "43%",
+
+                          marginBottom: 20,
+                        }}
+                      >
+                        <View
+                          style={{
+                            height: 40,
+                            width: 40,
+                            borderRadius: 40,
+
+                            backgroundColor: COLORS.primary,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            alignSelf: "flex-end",
+                          }}
+                        >
+                          {cy.icon}
+                        </View>
+                        <View style={{ paddingLeft: 6, paddingBottom: 4 }}>
+                          <Text
+                            style={{
+                              fontFamily: "Poppins_Medium",
+                              fontSize: 16,
+                              color: COLORS.textColor,
+                            }}
+                          >
+                            {cy.days > 0
+                              ? `${cy.days} Days`
+                              : `${cy.days} Days`}
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: "Poppins_Regular",
+                              fontSize: 11,
+                              color: COLORS.textColor,
+                            }}
+                          >
+                            {cy.desc}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+                )}
+              </>
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>

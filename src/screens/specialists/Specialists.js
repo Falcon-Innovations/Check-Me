@@ -15,20 +15,24 @@ import React, { useEffect, useState } from "react";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import { COLORS, images, SIZES } from "../../utility";
+import { COLORS, config, images, SIZES } from "../../utility";
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import useFetch from "../../hooks/useFetch";
 import { useSpecialists } from "../../api/specialist";
 import SimpleLoader from "../../components/utils/SimpleLoader";
 import Error from "../../components/utils/Error";
+import useDataFetching from "../../hooks/useFetchData";
 
 const Specialists = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
-  const { loading, data, error, fetchData } = useSpecialists();
+  // const { loading, data, error, fetchData } = useSpecialists();
 
   // const { loading, data, error } = useFetch(url);
+  const [loading, error, data, fetchData] = useDataFetching(
+    `${config.app.api_url}/specialists`
+  );
   useEffect(() => {
     const updateData = navigation.addListener("focus", () => {
       fetchData();
@@ -36,7 +40,10 @@ const Specialists = () => {
     return updateData;
   }, [navigation]);
 
-  console.log(data?.data?.docs?.length, "From specialists query");
+  if (loading) {
+    return <SimpleLoader />;
+  }
+
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
@@ -98,70 +105,76 @@ const Specialists = () => {
                   )}
                 </>
               ) : (
-                <View style={styles.card}>
-                  {data?.data?.docs?.map((item) => (
-                    <TouchableOpacity
-                      key={item._id}
-                      style={styles.cardContent}
-                      onPress={() =>
-                        navigation.navigate("SpecialistDetails", item)
-                      }
-                    >
-                      <View style={{ paddingHorizontal: 4 }}>
-                        <View>
-                          <Image
-                            source={images.doc}
-                            style={styles.imge}
-                            resizeMode="cover"
-                          />
-                        </View>
-                        <View style={{ marginTop: 8 }}>
-                          <Text
-                            numberOfLines={1}
-                            style={{
-                              fontFamily: "Poppins_SemiBold",
-                              fontSize: 14,
-                              color: COLORS.primary,
-                              marginBottom: 2,
-                            }}
-                          >
-                            {` ${item.firstName} ${item.lastName}`}
-                          </Text>
-                          <Text
-                            style={{
-                              width: SIZES.screenWidth * 0.3,
-                              fontFamily: "Poppins_Regular",
-                              fontSize: 12,
-                              color: "#AEADAD",
-                            }}
-                            numberOfLines={1}
-                          >
-                            {item.speciality}
-                          </Text>
-                          <Text
-                            style={{
-                              width: SIZES.screenWidth * 0.3,
-                              fontFamily: "Poppins_Regular",
-                              fontSize: 13,
-                            }}
-                            numberOfLines={1}
-                          >
-                            {item.town}
-                          </Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  ))}
+                <>
+                  {data?.data?.docs?.length > 0 ? (
+                    <View style={styles.card}>
+                      {data?.data?.docs?.map((item) => (
+                        <TouchableOpacity
+                          key={item._id}
+                          style={styles.cardContent}
+                          onPress={() =>
+                            navigation.navigate("SpecialistDetails", item)
+                          }
+                        >
+                          <View style={{ paddingHorizontal: 4 }}>
+                            <View>
+                              <Image
+                                source={{ uri: item.avatar }}
+                                style={styles.imge}
+                                resizeMode="cover"
+                              />
+                            </View>
+                            <View style={{ marginTop: 8 }}>
+                              <Text
+                                numberOfLines={1}
+                                style={{
+                                  fontFamily: "Poppins_SemiBold",
+                                  fontSize: 14,
+                                  color: COLORS.primary,
+                                  marginBottom: 2,
+                                }}
+                              >
+                                {` ${item.firstName} ${item.lastName}`}
+                              </Text>
+                              <Text
+                                style={{
+                                  width: SIZES.screenWidth * 0.3,
+                                  fontFamily: "Poppins_Regular",
+                                  fontSize: 12,
+                                  color: "#AEADAD",
+                                }}
+                                numberOfLines={1}
+                              >
+                                {item.speciality}
+                              </Text>
+                              <Text
+                                style={{
+                                  width: SIZES.screenWidth * 0.3,
+                                  fontFamily: "Poppins_Regular",
+                                  fontSize: 13,
+                                }}
+                                numberOfLines={1}
+                              >
+                                {item.town}
+                              </Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      ))}
 
-                  {/* ) : (
+                      {/* ) : (
+                 
+                  )}
+                </> */}
+                    </View>
+                  ) : (
                     <View>
                       <Text>
                         Please be patient, specialist are bieng signed up
                       </Text>
                     </View>
                   )}
-                </> */}
-                </View>
+                </>
               )}
 
               {/* <FlatList

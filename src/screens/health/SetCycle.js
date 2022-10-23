@@ -5,25 +5,34 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import CalendarPicker from "react-native-calendar-picker";
 import Icon from "react-native-vector-icons/Ionicons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
+
+import TextAreaInput from "../../components/inputs/TextAreaInput";
 import {
   AppButton,
   AppStatusBar,
   CustomStatusBar,
   Input,
 } from "../../components";
-import { COLORS, SIZES } from "../../utility";
-import moment from "moment";
+import { COLORS, config, SIZES } from "../../utility";
 
 const SetCycle = () => {
+  const navigation = useNavigation();
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [visible, setVisible] = useState(false);
   const [period, setPeriod] = useState("");
+  const [message, setMessage] = useState("");
+  const [load, setLoad] = useState(false);
 
   const onDateChange = (date, type) => {
     //function to handle the date change
@@ -43,6 +52,46 @@ const SetCycle = () => {
 
   const startDate = moment(selectedStartDate).format("ll");
   const endDate = moment(selectedEndDate).format("ll");
+
+  //set cycle
+  const setMentrualCycle = async () => {
+    setLoad(true);
+
+    const token = await AsyncStorage.getItem("token");
+
+    let data = {
+      dayCount: numOfDays,
+      daysBledCount: parseInt(period),
+      description: message,
+    };
+    const configurationData = {
+      method: "PATCH",
+      url: `${config.app.api_url}/users/updateMenstrualCycle`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: data,
+    };
+    await axios(configurationData)
+      .then((response) => {
+        if (response.data.status === "success") {
+          setLoad(false);
+          Alert.alert("success", "Cycle set Successfully", [
+            {
+              title: "Ok",
+              onPress: () => {
+                navigation.goBack();
+              },
+            },
+          ]);
+        }
+      })
+      .catch((error) => {
+        setLoad(false);
+        console.error("Book Error", error);
+      });
+  };
 
   return (
     <>
@@ -185,19 +234,32 @@ const SetCycle = () => {
               <Text style={{ fontFamily: "Poppins_Regular", fontSize: 12 }}>
                 Enter the estimated number of days your period last
               </Text>
-              <View style={{ marginTop: 12 }}>
+              <View style={{ marginTop: 12, marginBottom: 10 }}>
                 <Input
+                  maxLength={1}
                   placeholder="Number of days e.g 5"
                   keyboardType="numeric"
                   defaultValue={period}
                   onChangeText={(text) => setPeriod(text)}
                 />
               </View>
-              <View style={{ marginTop: SIZES.screenHeight * 0.05 }}>
+              <View style={{ marginBottom: 15 }}>
+                <Text style={{ fontFamily: "Poppins_Medium", fontSize: 16 }}>
+                  Notes
+                </Text>
+                <TextAreaInput
+                  placeholder="Message"
+                  defaultValue={message}
+                  onChangeText={(text) => setMessage(text)}
+                />
+              </View>
+              <View style={{ marginTop: SIZES.screenHeight * 0.02 }}>
                 <AppButton
-                  text="Save Cycle"
                   color={COLORS.primary}
-                  //   onPress={() => navigation.navigate("SetCycle")}
+                  text={load ? "Loading.." : "Save Cycle"}
+                  loading={load}
+                  disabled={load || !(numOfDays && period)}
+                  onPress={() => setMentrualCycle()}
                 />
               </View>
             </View>

@@ -7,27 +7,34 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { COLORS, images, SIZES } from "../../utility";
+import { COLORS, config, images, SIZES } from "../../utility";
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import { useHospitals } from "../../api/hospitals";
 import SimpleLoader from "../../components/utils/SimpleLoader";
 import { CustomImageBackground } from "../../components/custom-image-background/custom-image-background";
 import { HospitalCard } from "../../components/hospital-card/hospital-card";
+import useDataFetching from "../../hooks/useFetchData";
 
 const Hospitals = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
 
-  const { loading, data, error } = useHospitals();
+  // const { loading, data, error } = useHospitals();
 
-  console.log("====================================");
-  console.log("From all Hospitals", data?.data?.docs);
-  console.log("====================================");
+  const [loading, error, data, fetchData] = useDataFetching(
+    `${config.app.api_url}/hospitals`
+  );
+  useEffect(() => {
+    const updateData = navigation.addListener("focus", () => {
+      fetchData();
+    });
+    return updateData;
+  }, [navigation]);
 
   if (loading) {
     return <SimpleLoader />;
@@ -64,103 +71,153 @@ const Hospitals = () => {
             <Text style={{ fontFamily: "Poppins_Medium", color: "#333333" }}>
               Find the nearest hospital for your screening and consultation
             </Text>
-            {data?.data?.docs?.map((item) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("detailHospitals", item)}
-                key={item?._id}
-                style={{
-                  marginTop: SIZES.screenHeight * 0.025,
-                  paddingHorizontal: 10,
-                  paddingTop: 10,
-                  paddingBottom: 14,
-                  width: "100%",
-                  alignSelf: "center",
-                  borderRadius: 8,
-                  borderColor: "#d3d3d3",
-                  backgroundColor: "#FAFAFA",
-                  marginBottom: 14,
-                  shadowColor: "#d3d3d3",
-                  shadowOffset: { width: 3, height: 3 },
-                  shadowOpacity: 1.0,
-                }}
-              >
-                <CustomImageBackground key={item?._id} imgSrc={item?.logo} />
-                <View style={{ paddingHorizontal: 4, marginTop: 14 }}>
+            {loading || error ? (
+              <>
+                {loading === true && (
                   <View
                     style={{
-                      flexDirection: "row",
+                      justifyContent: "center",
+                      flex: 1,
                       alignItems: "center",
-                      justifyContent: "space-between",
-                      marginBottom: 8,
                     }}
                   >
-                    <Text
-                      style={{
-                        fontFamily: "Poppins_SemiBold",
-                        fontSize: 16,
-                        color: COLORS.primary,
-                      }}
-                      numberOfLines={1}
-                    >
-                      {item?.name}
-                    </Text>
-                    <Icon name="heart-outline" size={22} />
+                    <SimpleLoader color={COLORS.primary} />
                   </View>
-
+                )}
+                {error && (
                   <View
                     style={{
-                      flexDirection: "row",
-                      alignItems: "center",
+                      margin: 20,
+                      backgroundColor: COLORS.danger,
+                      borderRadius: 8,
+                      paddingLeft: 10,
                     }}
                   >
-                    {item?.services
-                      .map((service, index) => (
-                        <>
-                          <Text
-                            key={index}
+                    <Error error={error} />
+                  </View>
+                )}
+              </>
+            ) : (
+              <>
+                {data?.data?.docs?.length > 0 ? (
+                  <View style={styles.card}>
+                    {data?.data?.docs?.map((item, index) => (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("detailHospitals", item)
+                        }
+                        key={index}
+                        style={{
+                          marginTop: SIZES.screenHeight * 0.025,
+                          paddingHorizontal: 10,
+                          paddingTop: 10,
+                          paddingBottom: 14,
+                          width: "100%",
+                          alignSelf: "center",
+                          borderRadius: 8,
+                          borderColor: "#d3d3d3",
+                          backgroundColor: "#FAFAFA",
+                          marginBottom: 14,
+                          shadowColor: "#d3d3d3",
+                          shadowOffset: { width: 3, height: 3 },
+                          shadowOpacity: 1.0,
+                        }}
+                      >
+                        <CustomImageBackground
+                          key={item?._id}
+                          imgSrc={item?.logo}
+                        />
+                        <View style={{ paddingHorizontal: 4, marginTop: 14 }}>
+                          <View
                             style={{
-                              fontFamily: "Poppins_Regular",
-                              fontSize: 14,
-                              color: "#AEADAD",
-                              marginBottom: 4,
-                              marginRight: 4,
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              marginBottom: 8,
                             }}
-                            numberOfLines={1}
                           >
-                            {service}
-                          </Text>
-                        </>
-                      ))
-                      .slice(0, 2)}
-                  </View>
+                            <Text
+                              style={{
+                                fontFamily: "Poppins_SemiBold",
+                                fontSize: 16,
+                                color: COLORS.primary,
+                              }}
+                              numberOfLines={1}
+                            >
+                              {item?.name}
+                            </Text>
+                            <Icon name="heart-outline" size={22} />
+                          </View>
 
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      paddingVertical: 4,
-                    }}
-                  >
-                    <Icon
-                      name="ios-location-outline"
-                      size={18}
-                      color="#222222"
-                    />
-                    <Text
-                      style={{
-                        fontFamily: "Poppins_Regular",
-                        fontSize: 13,
-                        color: "#222222",
-                        marginLeft: 6,
-                      }}
-                      numberOfLines={1}
-                    >
-                      {item?.town}
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                            }}
+                          >
+                            {item?.services
+                              .map((service, index) => (
+                                <>
+                                  <Text
+                                    key={index}
+                                    style={{
+                                      fontFamily: "Poppins_Regular",
+                                      fontSize: 14,
+                                      color: "#AEADAD",
+                                      marginBottom: 4,
+                                      marginRight: 4,
+                                    }}
+                                    numberOfLines={1}
+                                  >
+                                    {service}
+                                  </Text>
+                                </>
+                              ))
+                              .slice(0, 2)}
+                          </View>
+
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              paddingVertical: 4,
+                            }}
+                          >
+                            <Icon
+                              name="ios-location-outline"
+                              size={18}
+                              color="#222222"
+                            />
+                            <Text
+                              style={{
+                                fontFamily: "Poppins_Regular",
+                                fontSize: 13,
+                                color: "#222222",
+                                marginLeft: 6,
+                              }}
+                              numberOfLines={1}
+                            >
+                              {item?.town}
+                            </Text>
+                          </View>
+                        </View>
+                      </TouchableOpacity>
+                    ))}
+
+                    {/* ) : (
+                 
+                  )}
+                </> */}
+                  </View>
+                ) : (
+                  <View>
+                    <Text>
+                      Please be patient, specialist are bieng signed up
                     </Text>
                   </View>
-                </View>
-              </TouchableOpacity>
-            ))}
+                )}
+              </>
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>
