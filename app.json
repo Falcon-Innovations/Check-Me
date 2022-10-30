@@ -24,7 +24,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.francisberi.checkme",
-      "versionCode": 1.0
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"

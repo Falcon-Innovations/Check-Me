@@ -8,10 +8,12 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
+import RenderHtml from "react-native-render-html";
 
 import { AppStatusBar, CustomStatusBar } from "../../components";
 import { COLORS, SIZES } from "../../utility";
@@ -19,6 +21,7 @@ import moment from "moment";
 
 const BlogDetails = ({ route }) => {
   const [like, setLike] = useState(false);
+  const { width } = useWindowDimensions();
 
   const item = route.params;
   console.log("====================================");
@@ -52,6 +55,10 @@ const BlogDetails = ({ route }) => {
     } catch (error) {
       alert(error.message);
     }
+  };
+
+  const source = {
+    html: `${item?.content}`,
   };
 
   return (
@@ -161,7 +168,7 @@ const BlogDetails = ({ route }) => {
               paddingTop: SIZES.screenHeight * 0.03,
             }}
           >
-            <Text
+            {/* <Text
               style={{
                 lineHeight: 23,
                 color: "#5A5858",
@@ -171,8 +178,9 @@ const BlogDetails = ({ route }) => {
               }}
             >
               {item.content}
-            </Text>
+            </Text> */}
           </View>
+          <RenderHtml contentWidth={width} source={source} />
           <View style={{ marginTop: 30 }} />
         </ScrollView>
       </SafeAreaView>

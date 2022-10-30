@@ -23,7 +23,7 @@ const useGetOnboardingStatus = () => {
 
   React.useEffect(() => {
     checkIfFirstLaunch();
-    return undefined;
+    // return undefined;
   }, []);
 
   return {

@@ -186,7 +186,7 @@ const OTPVerification = ({ route }) => {
             />
           </View>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             paddingHorizontal: 15,
             paddingVertical: 12,
@@ -198,7 +198,7 @@ const OTPVerification = ({ route }) => {
           <Text style={{ fontFamily: "Poppins_Medium", color: COLORS.primary }}>
             Resend code
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View style={{ marginTop: 20, marginHorizontal: 15 }}>
           <AppButton

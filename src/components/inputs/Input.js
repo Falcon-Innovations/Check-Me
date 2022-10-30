@@ -9,6 +9,7 @@ const Input = ({
   iconName,
   error,
   pin,
+  inputRef,
   onFocus = () => {},
   ...props
 }) => {

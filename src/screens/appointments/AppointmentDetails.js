@@ -14,10 +14,6 @@ import { COLORS, SIZES } from "../../utility";
 
 const AppointmentDetails = ({ route }) => {
   const item = route.params;
-
-  console.log("====================================");
-  console.log("items", item);
-  console.log("====================================");
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />

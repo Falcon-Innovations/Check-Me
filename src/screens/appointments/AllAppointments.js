@@ -26,7 +26,6 @@ const AllAppointments = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
-  // const { loading, data, error } = getMyAppointments();
 
   const [loading, error, data, fetchData] = useDataFetching(
     `${config.app.api_url}/appointments/my-appointments`
