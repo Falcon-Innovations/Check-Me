@@ -9,8 +9,9 @@ import {
   Alert,
   Platform,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
@@ -58,34 +59,24 @@ const tips = [
   },
 ];
 
-const Dashboard = ({ data }) => {
+const Dashboard = ({ navigation }) => {
   const { t, i18n } = useTranslation();
   const { state, logout } = React.useContext(AuthContext);
-  const navigation = useNavigation();
-
-  const handleLogout = () => {
-    Alert.alert(
-      "Are you sure you want to logout?",
-      "This action will sign you out of this device",
-      [
-        {
-          text: "Confirm",
-          onPress: () => logout(),
-        },
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-      ]
-    );
-  };
+  // const navigation = useNavigation();
 
   const fruits =
     "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910055/fruits_ajpqm8.png";
 
   const headerImage =
     "https://res.cloudinary.com/dav5lnlxj/image/upload/v1665910049/nurse_ufaz8i.png";
+
+  useEffect(() => {
+    // This listens to click on the back button for the homescreen and automatically closes the app
+    navigation.addListener("beforeRemove", (e) => {
+      BackHandler.exitApp();
+    });
+  }, [navigation]);
+
   return (
     <>
       <AppStatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
